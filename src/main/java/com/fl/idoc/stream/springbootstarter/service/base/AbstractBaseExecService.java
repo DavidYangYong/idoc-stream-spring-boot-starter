@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author david
- * @create 2019-10-19 09:14
+ * @date 2019-10-19 09:14
  **/
 @Slf4j
 public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> {

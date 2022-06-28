@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author david
- * @create 2021-01-08 10:10
+ * @date 2021-01-08 10:10
  **/
 @Component
 @ConfigurationProperties(prefix = "fl.cloud.idoc.stream")
