@@ -1,0 +1,15 @@
+{
+	"properties": [
+		{
+			"name": "fl.cloud.idoc.stream.enabled",
+			"type": "java.lang.Boolean",
+			"description": "Whether to enable idoc stream.",
+			"defaultValue": false
+		},
+		{
+			"name": "fl.cloud.idoc.stream.handlePackage",
+			"type": "java.lang.String",
+			"description": "idoc stream handlePackage"
+		}
+	]
+}
