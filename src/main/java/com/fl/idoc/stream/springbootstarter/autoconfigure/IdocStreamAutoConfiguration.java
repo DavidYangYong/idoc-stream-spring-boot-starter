@@ -31,6 +31,7 @@ public class IdocStreamAutoConfiguration {
 
 
 	public IdocStreamAutoConfiguration() {
+
 		init();
 	}
 
@@ -42,11 +43,13 @@ public class IdocStreamAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean(IdocListenerSupport.class)
 	IdocListenerSupport idocListenerSupport() {
+
 		return new IdocListenerSupport(ruleProperties);
 	}
 	@Bean
 	@ConditionalOnMissingBean(IdocListener.class)
 	IdocListener idocListener() {
+
 		return new IdocListener();
 	}
 

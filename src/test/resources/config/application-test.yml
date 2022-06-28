@@ -1,0 +1,12 @@
+logging:
+  level:
+    root: debug
+fl:
+  cloud:
+    idoc:
+      stream:
+        enabled: true
+        handlePackage: com.center.service
+        idocRules:
+          -1
+          -2

@@ -4,10 +4,10 @@ import com.fl.idoc.stream.springbootstarter.listener.RuleProperties;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class HandlerProcessor implements BeanFactoryPostProcessor {
 
-	@Autowired
+	@Resource
 	private RuleProperties ruleProperties;
 
 	@Override
