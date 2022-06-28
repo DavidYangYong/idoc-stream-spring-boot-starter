@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author david
- * @create 2019-10-19 08:35
+ * @date 2019-10-19 08:35
  **/
 public interface IBaseExecService<T> {
 
