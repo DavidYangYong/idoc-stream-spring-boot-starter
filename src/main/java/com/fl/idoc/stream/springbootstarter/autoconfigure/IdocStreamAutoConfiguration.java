@@ -1,9 +1,7 @@
 package com.fl.idoc.stream.springbootstarter.autoconfigure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fl.idoc.stream.springbootstarter.factory.IdocExecFactory;
 import com.fl.idoc.stream.springbootstarter.listener.RuleProperties;
-import com.fl.idoc.stream.springbootstarter.strategy.HandlerProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -24,20 +22,15 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 public class IdocStreamAutoConfiguration {
 
-	@Autowired
-	private IdocExecFactory idocExecFactory;
-
-
 	public void init() {
 		log.debug("IdocStreamAutoConfiguration start");
 	}
 
 	@Autowired
-	private HandlerProcessor handlerProcessor;
+	private RuleProperties ruleProperties;
 
 	public IdocStreamAutoConfiguration() {
 
 		init();
-		idocExecFactory.setHandlerContext(handlerProcessor.createHandlerContext());
 	}
 }

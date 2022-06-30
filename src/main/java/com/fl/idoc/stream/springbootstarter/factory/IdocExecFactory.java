@@ -3,6 +3,7 @@ package com.fl.idoc.stream.springbootstarter.factory;
 
 import com.fl.idoc.stream.springbootstarter.service.base.IBaseExecService;
 import com.fl.idoc.stream.springbootstarter.strategy.HandlerContext;
+import com.fl.idoc.stream.springbootstarter.strategy.HandlerProcessor;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,6 +12,10 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class IdocExecFactory {
+
+	public IdocExecFactory(HandlerProcessor handlerProcessor) {
+		this.handlerContext = handlerProcessor.createHandlerContext();
+	}
 
 	private HandlerContext handlerContext;
 
@@ -23,6 +28,9 @@ public class IdocExecFactory {
 	}
 
 	public IBaseExecService createBaseExec(String mestyp) {
+		if (handlerContext == null) {
+			return null;
+		}
 		return handlerContext.getInstance(mestyp);
 	}
 }

@@ -2,31 +2,32 @@ package com.fl.idoc.stream.springbootstarter;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import com.fl.idoc.stream.springbootstarter.autoconfigure.IdocStreamAutoConfiguration;
+import com.fl.idoc.stream.springbootstarter.factory.IdocExecFactory;
 import com.fl.idoc.stream.springbootstarter.listener.IdocListener;
 import com.fl.idoc.stream.springbootstarter.listener.IdocListenerSupport;
-import com.fl.idoc.stream.springbootstarter.strategy.HandlerProcessor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {IdocStreamAutoConfiguration.class})
+@SpringBootTest(classes = {IdocStreamSpringBootStarterApplication.class})
 @ActiveProfiles("test")
 public class ServiceConfigApplicationTests {
 
-	@MockBean
+	@Autowired
 	private IdocStreamAutoConfiguration idocStreamAutoConfiguration;
-	@MockBean
-	private IdocListener idocListener;
-	@MockBean
+
+	@Autowired
+	private IdocExecFactory idocExecFactory;
+
+	@Autowired
 	private IdocListenerSupport idocListenerSupport;
 
-	@MockBean
-	private HandlerProcessor handlerProcessor;
-
+	@Autowired
+	private IdocListener idocListener;
 
 	@Test
 	public void contextLoads() {
@@ -38,8 +39,8 @@ public class ServiceConfigApplicationTests {
 	}
 
 	@Test
-	public void idocListener() {
-		assertNotNull(idocListener);
+	public void idocExecFactory() {
+		assertNotNull(idocExecFactory);
 	}
 
 	@Test
@@ -48,7 +49,7 @@ public class ServiceConfigApplicationTests {
 	}
 
 	@Test
-	public void handlerProcessor() {
-		assertNotNull(handlerProcessor);
+	public void idocListener() {
+		assertNotNull(idocListener);
 	}
 }
