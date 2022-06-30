@@ -21,7 +21,6 @@ import org.springframework.util.Assert;
 @Slf4j
 public class IdocListenerSupport {
 
-	@Autowired
 	private IdocExecFactory idocExecFactory;
 
 	@Autowired(required = false)
@@ -29,8 +28,9 @@ public class IdocListenerSupport {
 
 	private RuleProperties ruleProperties;
 
-	public IdocListenerSupport(RuleProperties ruleProperties) {
+	public IdocListenerSupport(IdocExecFactory idocExecFactory, RuleProperties ruleProperties) {
 		this.ruleProperties = ruleProperties;
+		this.idocExecFactory = idocExecFactory;
 		Assert.notNull(ruleProperties, "ruleProperties must be not null");
 	}
 

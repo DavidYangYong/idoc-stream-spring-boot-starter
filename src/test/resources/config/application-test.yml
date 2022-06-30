@@ -8,5 +8,5 @@ fl:
         enabled: true
         handlePackage: com.center.service
         idocRules:
-          -1
-          -2
+          - IDOC:MATMAS:MATMAS05
+          - IDOC:COND_A:COND_A04
