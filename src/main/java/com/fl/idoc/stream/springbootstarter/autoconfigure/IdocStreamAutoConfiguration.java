@@ -1,13 +1,18 @@
 package com.fl.idoc.stream.springbootstarter.autoconfigure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fl.idoc.stream.springbootstarter.factory.IdocExecFactory;
+import com.fl.idoc.stream.springbootstarter.listener.IdocListenerSupport;
 import com.fl.idoc.stream.springbootstarter.listener.RuleProperties;
+import com.fl.idoc.stream.springbootstarter.strategy.HandlerProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -32,5 +37,20 @@ public class IdocStreamAutoConfiguration {
 	public IdocStreamAutoConfiguration() {
 
 		init();
+	}
+
+	@Autowired
+	private HandlerProcessor handlerProcessor;
+
+	@Bean
+	@ConditionalOnMissingBean
+	public IdocExecFactory idocExecFactory() {
+		return new IdocExecFactory(handlerProcessor);
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public IdocListenerSupport idocListenerSupport() {
+		return new IdocListenerSupport(idocExecFactory(), ruleProperties);
 	}
 }
