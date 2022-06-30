@@ -12,25 +12,25 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
-import org.springframework.stereotype.Component;
 
 /**
  * 消费者
  *
  * @author david
  */
-@Component
 @EnableBinding(Sink.class)
 @Slf4j
 public class IdocListener {
 
-	@Autowired
+	public IdocListener(IdocListenerSupport idocListenerSupport, ObjectMapper objectMapper) {
+		this.idocListenerSupport = idocListenerSupport;
+		this.objectMapper = objectMapper;
+	}
+
 	private IdocListenerSupport idocListenerSupport;
-	@Autowired
 	private ObjectMapper objectMapper;
 
 	@StreamListener(Sink.INPUT)

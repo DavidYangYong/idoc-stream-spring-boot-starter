@@ -7,26 +7,26 @@ import com.fl.idoc.stream.springbootstarter.listener.IdocListener;
 import com.fl.idoc.stream.springbootstarter.listener.IdocListenerSupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {IdocStreamSpringBootStarterApplication.class})
+@SpringBootTest(classes = {IdocStreamAutoConfiguration.class})
 @ActiveProfiles("test")
 public class ServiceConfigApplicationTests {
 
-	@Autowired
+	@MockBean
 	private IdocStreamAutoConfiguration idocStreamAutoConfiguration;
 
-	@Autowired
+	@MockBean
 	private IdocExecFactory idocExecFactory;
 
-	@Autowired
+	@MockBean
 	private IdocListenerSupport idocListenerSupport;
 
-	@Autowired
+	@MockBean
 	private IdocListener idocListener;
 
 

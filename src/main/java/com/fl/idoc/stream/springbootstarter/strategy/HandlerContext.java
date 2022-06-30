@@ -2,7 +2,6 @@ package com.fl.idoc.stream.springbootstarter.strategy;
 
 import com.fl.idoc.stream.springbootstarter.service.base.IBaseExecService;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author david
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  **/
 public class HandlerContext {
 
-	@Autowired
 	private Map<String, IBaseExecService> handlerMap;
 
 	public HandlerContext(Map<String, IBaseExecService> handlerMap) {

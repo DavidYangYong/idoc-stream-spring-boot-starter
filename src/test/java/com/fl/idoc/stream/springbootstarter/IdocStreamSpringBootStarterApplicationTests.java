@@ -1,12 +1,28 @@
 package com.fl.idoc.stream.springbootstarter;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import com.fl.idoc.stream.springbootstarter.autoconfigure.IdocStreamAutoConfiguration;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@SpringBootTest
-class IdocStreamSpringBootStarterApplicationTests {
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = {IdocStreamSpringBootStarterApplication.class})
+@ActiveProfiles("test")
+public class IdocStreamSpringBootStarterApplicationTests {
+
+	@Autowired
+	private IdocStreamAutoConfiguration idocStreamAutoConfiguration;
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
+	}
+
+	@Test
+	public void idocStreamAutoConfiguration() {
+		assertNotNull(idocStreamAutoConfiguration);
 	}
 }
