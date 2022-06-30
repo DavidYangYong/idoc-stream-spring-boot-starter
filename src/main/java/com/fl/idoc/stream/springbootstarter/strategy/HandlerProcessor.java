@@ -22,7 +22,6 @@ public class HandlerProcessor {
 
 	@Resource
 	private RuleProperties ruleProperties;
-
 	public HandlerContext createHandlerContext() {
 
 		Map map = new HashMap<>(16);
