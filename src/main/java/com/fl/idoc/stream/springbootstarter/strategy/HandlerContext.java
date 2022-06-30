@@ -1,8 +1,8 @@
 package com.fl.idoc.stream.springbootstarter.strategy;
 
 import com.fl.idoc.stream.springbootstarter.service.base.IBaseExecService;
-import com.fl.idoc.stream.springbootstarter.utils.SpringUtil;
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author david
@@ -10,18 +10,19 @@ import java.util.Map;
  **/
 public class HandlerContext {
 
-	private Map<String, Class> handlerMap;
+	@Autowired
+	private Map<String, IBaseExecService> handlerMap;
 
-	public HandlerContext(Map<String, Class> handlerMap) {
+	public HandlerContext(Map<String, IBaseExecService> handlerMap) {
 		this.handlerMap = handlerMap;
 	}
 
 	public IBaseExecService getInstance(String mestyp) {
 
-		Class clazz = handlerMap.get(mestyp);
-		if (clazz == null) {
+		IBaseExecService baseExecService = handlerMap.get(mestyp);
+		if (baseExecService == null) {
 			throw new IllegalArgumentException("not found handler for type:" + mestyp);
 		}
-		return (IBaseExecService) SpringUtil.getBean(clazz);
+		return baseExecService;
 	}
 }
