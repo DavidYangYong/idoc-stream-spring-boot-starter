@@ -10,12 +10,14 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 /**
  * @author david
  * @date 2019-10-19 08:20
  **/
+@Component
 @Slf4j
 public class IdocListenerSupport {
 
