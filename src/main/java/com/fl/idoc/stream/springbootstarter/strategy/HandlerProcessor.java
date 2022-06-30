@@ -25,7 +25,7 @@ public class HandlerProcessor {
 
 	public HandlerContext createHandlerContext() {
 
-		Map<String, Class> map = new HashMap<>(16);
+		Map map = new HashMap<>(16);
 
 		ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(
 				false); // 不使用默认的TypeFilter

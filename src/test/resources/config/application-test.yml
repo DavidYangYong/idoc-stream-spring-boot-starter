@@ -6,7 +6,7 @@ fl:
     idoc:
       stream:
         enabled: true
-        handlePackage: com.center.service
+        handlePackage: com.fl.idoc.stream.springbootstarter.service
         idocRules:
           - IDOC:MATMAS:MATMAS05
           - IDOC:COND_A:COND_A04

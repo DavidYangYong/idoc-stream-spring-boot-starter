@@ -29,6 +29,7 @@ public class ServiceConfigApplicationTests {
 	@Autowired
 	private IdocListener idocListener;
 
+
 	@Test
 	public void contextLoads() {
 	}
