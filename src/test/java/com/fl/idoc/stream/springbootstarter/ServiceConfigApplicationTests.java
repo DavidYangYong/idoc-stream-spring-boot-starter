@@ -4,7 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import com.fl.idoc.stream.springbootstarter.autoconfigure.IdocStreamAutoConfiguration;
 import com.fl.idoc.stream.springbootstarter.listener.IdocListener;
 import com.fl.idoc.stream.springbootstarter.listener.IdocListenerSupport;
-import org.junit.jupiter.api.Test;
+import com.fl.idoc.stream.springbootstarter.strategy.HandlerProcessor;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -23,23 +24,31 @@ public class ServiceConfigApplicationTests {
 	@MockBean
 	private IdocListenerSupport idocListenerSupport;
 
+	@MockBean
+	private HandlerProcessor handlerProcessor;
+
 
 	@Test
 	public void contextLoads() {
 	}
 
 	@Test
-	public void getInfo1() {
+	public void idocStreamAutoConfiguration() {
 		assertNotNull(idocStreamAutoConfiguration);
 	}
 
 	@Test
-	public void getInfo2() {
+	public void idocListener() {
 		assertNotNull(idocListener);
 	}
 
 	@Test
-	public void getInfo3() {
+	public void idocListenerSupport() {
 		assertNotNull(idocListenerSupport);
+	}
+
+	@Test
+	public void handlerProcessor() {
+		assertNotNull(handlerProcessor);
 	}
 }

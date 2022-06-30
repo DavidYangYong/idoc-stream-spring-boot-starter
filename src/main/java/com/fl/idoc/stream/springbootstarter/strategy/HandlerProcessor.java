@@ -7,10 +7,7 @@ import java.util.Set;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.stereotype.Component;
@@ -21,21 +18,19 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 @Slf4j
-public class HandlerProcessor implements BeanFactoryPostProcessor {
+public class HandlerProcessor {
 
 	@Resource
 	private RuleProperties ruleProperties;
 
-	@Override
-	public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory)
-			throws BeansException {
+	public HandlerContext createHandlerContext() {
 
 		Map<String, Class> map = new HashMap<>(16);
 
 		ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(
 				false); // 不使用默认的TypeFilter
 		provider.addIncludeFilter(new AnnotationTypeFilter(HandlerType.class));
-		String handlePackage=ruleProperties.getHandlePackage();
+		String handlePackage = ruleProperties.getHandlePackage();
 		if (StringUtils.isNotEmpty(handlePackage)) {
 			Set<BeanDefinition> beanDefinitionSet = provider.findCandidateComponents(handlePackage);
 
@@ -48,9 +43,8 @@ public class HandlerProcessor implements BeanFactoryPostProcessor {
 					log.error("HandlerProcessor ClassNotFoundException", e);
 				}
 			}
-
-			HandlerContext handlerContext = new HandlerContext(map);
-			configurableListableBeanFactory.registerSingleton(HandlerContext.class.getName(), handlerContext);
 		}
+		HandlerContext handlerContext = new HandlerContext(map);
+		return handlerContext;
 	}
 }
