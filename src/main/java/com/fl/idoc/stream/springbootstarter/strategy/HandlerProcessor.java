@@ -7,21 +7,30 @@ import java.util.Set;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
-import org.springframework.stereotype.Component;
 
 /**
  * @author david
  * @date 2019-10-31 09:53
  **/
-@Component
 @Slf4j
-public class HandlerProcessor {
+public class HandlerProcessor implements ApplicationContextAware {
+
+	private ApplicationContext applicationContext;
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
+	}
 
 	@Resource
 	private RuleProperties ruleProperties;
+
 	public HandlerContext createHandlerContext() {
 
 		Map map = new HashMap<>(16);
@@ -43,7 +52,7 @@ public class HandlerProcessor {
 				}
 			}
 		}
-		HandlerContext handlerContext = new HandlerContext(map);
+		HandlerContext handlerContext = new HandlerContext(applicationContext, map);
 		return handlerContext;
 	}
 }
