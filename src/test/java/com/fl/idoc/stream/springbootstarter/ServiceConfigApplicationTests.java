@@ -7,6 +7,7 @@ import com.fl.idoc.stream.springbootstarter.listener.IdocListener;
 import com.fl.idoc.stream.springbootstarter.listener.IdocListenerSupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
@@ -26,7 +27,7 @@ public class ServiceConfigApplicationTests {
 	@MockBean
 	private IdocListenerSupport idocListenerSupport;
 
-	@MockBean
+	@Autowired
 	private IdocListener idocListener;
 
 

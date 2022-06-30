@@ -6,6 +6,7 @@ import com.fl.idoc.stream.springbootstarter.listener.IdocListener;
 import com.fl.idoc.stream.springbootstarter.listener.IdocListenerSupport;
 import com.fl.idoc.stream.springbootstarter.listener.RuleProperties;
 import com.fl.idoc.stream.springbootstarter.strategy.HandlerProcessor;
+import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -22,7 +23,9 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author david
  */
-@Configuration
+@Configuration(
+		proxyBeanMethods = false
+)
 @ConditionalOnClass({Sink.class, ObjectMapper.class})
 @EnableConfigurationProperties({RuleProperties.class})
 @ConditionalOnProperty(prefix = "fl.cloud.idoc.stream", name = "enabled", havingValue = "true")
@@ -34,7 +37,7 @@ public class IdocStreamAutoConfiguration {
 		log.debug("IdocStreamAutoConfiguration start");
 	}
 
-	@Autowired
+	@Resource
 	private RuleProperties ruleProperties;
 
 	public IdocStreamAutoConfiguration() {
@@ -42,19 +45,22 @@ public class IdocStreamAutoConfiguration {
 		init();
 	}
 
-	@Autowired
-	private HandlerProcessor handlerProcessor;
+	@Bean
+	@ConditionalOnMissingBean
+	public HandlerProcessor handlerProcessor() {
+		return new HandlerProcessor();
+	}
 
 	@Bean
 	@ConditionalOnMissingBean
-	public IdocExecFactory idocExecFactory() {
+	public IdocExecFactory idocExecFactory(HandlerProcessor handlerProcessor) {
 		return new IdocExecFactory(handlerProcessor);
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
-	public IdocListenerSupport idocListenerSupport() {
-		return new IdocListenerSupport(idocExecFactory(), ruleProperties);
+	public IdocListenerSupport idocListenerSupport(IdocExecFactory idocExecFactory) {
+		return new IdocListenerSupport(idocExecFactory, ruleProperties);
 	}
 
 	@Autowired
@@ -62,9 +68,9 @@ public class IdocStreamAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public IdocListener idocListener() {
+	public IdocListener idocListener(IdocListenerSupport idocListenerSupport) {
 		IdocListener idocListener = new IdocListener();
-		idocListener.setIdocListenerSupport(idocListenerSupport());
+		idocListener.setIdocListenerSupport(idocListenerSupport);
 		idocListener.setObjectMapper(objectMapper);
 		return idocListener;
 	}
