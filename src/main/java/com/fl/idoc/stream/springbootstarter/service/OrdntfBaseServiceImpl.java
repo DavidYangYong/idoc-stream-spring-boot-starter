@@ -1,8 +1,8 @@
 package com.fl.idoc.stream.springbootstarter.service;
 
+import com.fl.idoc.stream.springbootstarter.annotation.HandlerType;
 import com.fl.idoc.stream.springbootstarter.service.base.AbstractBaseExecService;
 import com.fl.idoc.stream.springbootstarter.service.base.IBaseExecService;
-import com.fl.idoc.stream.springbootstarter.strategy.HandlerType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

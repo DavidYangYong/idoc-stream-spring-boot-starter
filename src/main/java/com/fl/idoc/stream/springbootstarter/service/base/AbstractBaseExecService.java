@@ -2,6 +2,7 @@ package com.fl.idoc.stream.springbootstarter.service.base;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fl.idoc.stream.springbootstarter.annotation.HandlerType;
 import java.io.Serializable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,5 +73,14 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 			log.error("构建后的对象（json格式) error ", e);
 		}
 		return json;
+	}
+
+	@Override
+	public String getMesType() {
+		HandlerType[] handlerTypes = this.getClass().getAnnotationsByType(HandlerType.class);
+		if (handlerTypes.length > 0) {
+			return handlerTypes[0].value();
+		}
+		return "";
 	}
 }

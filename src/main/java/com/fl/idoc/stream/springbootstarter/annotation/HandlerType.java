@@ -1,4 +1,4 @@
-package com.fl.idoc.stream.springbootstarter.strategy;
+package com.fl.idoc.stream.springbootstarter.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
