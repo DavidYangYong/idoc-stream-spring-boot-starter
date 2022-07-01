@@ -1,4 +1,4 @@
-package com.fl.idoc.stream.springbootstarter.service;
+package com.fl.idoc.stream.springbootstarter;
 
 import com.fl.idoc.stream.springbootstarter.annotation.HandlerType;
 import com.fl.idoc.stream.springbootstarter.service.base.AbstractBaseExecService;
