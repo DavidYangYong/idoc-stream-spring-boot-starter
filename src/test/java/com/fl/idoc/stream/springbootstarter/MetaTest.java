@@ -1,7 +1,6 @@
 package com.fl.idoc.stream.springbootstarter;
 
 import com.fl.idoc.stream.springbootstarter.annotation.HandlerType;
-import com.fl.idoc.stream.springbootstarter.service.OrdntfBaseServiceImpl;
 import com.fl.idoc.stream.springbootstarter.service.base.IBaseExecService;
 import java.util.HashMap;
 import java.util.Map;
