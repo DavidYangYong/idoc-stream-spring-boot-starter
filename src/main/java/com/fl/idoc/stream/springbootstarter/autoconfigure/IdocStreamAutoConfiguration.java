@@ -1,11 +1,12 @@
 package com.fl.idoc.stream.springbootstarter.autoconfigure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fl.idoc.stream.springbootstarter.annotation.IdocStreamScan;
 import com.fl.idoc.stream.springbootstarter.factory.IdocExecFactory;
 import com.fl.idoc.stream.springbootstarter.listener.IdocListener;
 import com.fl.idoc.stream.springbootstarter.listener.IdocListenerSupport;
 import com.fl.idoc.stream.springbootstarter.listener.RuleProperties;
-import com.fl.idoc.stream.springbootstarter.strategy.HandlerProcessor;
+import com.fl.idoc.stream.springbootstarter.strategy.HandlerContext;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnProperty(prefix = "fl.cloud.idoc.stream", name = "enabled", havingValue = "true")
 @Slf4j
 @EnableBinding(Sink.class)
+@IdocStreamScan(basePackages = "com.fl.idoc.stream.springbootstarter.service")
 public class IdocStreamAutoConfiguration {
 
 	public void init() {
@@ -47,14 +49,14 @@ public class IdocStreamAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public HandlerProcessor handlerProcessor() {
-		return new HandlerProcessor();
+	public HandlerContext handlerContext() {
+		return new HandlerContext();
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
-	public IdocExecFactory idocExecFactory(HandlerProcessor handlerProcessor) {
-		return new IdocExecFactory(handlerProcessor);
+	public IdocExecFactory idocExecFactory(HandlerContext handlerContext) {
+		return new IdocExecFactory(handlerContext);
 	}
 
 	@Bean

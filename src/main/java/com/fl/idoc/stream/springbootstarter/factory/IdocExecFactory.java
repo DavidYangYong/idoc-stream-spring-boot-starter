@@ -3,7 +3,6 @@ package com.fl.idoc.stream.springbootstarter.factory;
 
 import com.fl.idoc.stream.springbootstarter.service.base.IBaseExecService;
 import com.fl.idoc.stream.springbootstarter.strategy.HandlerContext;
-import com.fl.idoc.stream.springbootstarter.strategy.HandlerProcessor;
 
 /**
  * @author david
@@ -11,8 +10,8 @@ import com.fl.idoc.stream.springbootstarter.strategy.HandlerProcessor;
  **/
 public class IdocExecFactory {
 
-	public IdocExecFactory(HandlerProcessor handlerProcessor) {
-		this.handlerContext = handlerProcessor.createHandlerContext();
+	public IdocExecFactory(HandlerContext handlerContext) {
+		this.handlerContext = handlerContext;
 	}
 
 	private HandlerContext handlerContext;

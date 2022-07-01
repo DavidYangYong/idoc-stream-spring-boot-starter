@@ -32,4 +32,6 @@ public interface IBaseExecService<T> {
 	public boolean supportSendMessage();
 
 	public String sendMessage(T t);
+
+	public String getMesType();
 }
