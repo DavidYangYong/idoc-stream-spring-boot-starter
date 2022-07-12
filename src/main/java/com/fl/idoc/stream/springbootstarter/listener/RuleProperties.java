@@ -11,17 +11,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class RuleProperties {
 
 	private List<String> idocRules;
-
-	private  String handlePackage;
-
-	public String getHandlePackage() {
-		return handlePackage;
-	}
-
-	public void setHandlePackage(String handlePackage) {
-		this.handlePackage = handlePackage;
-	}
-
 	public List<String> getIdocRules() {
 		return idocRules;
 	}
