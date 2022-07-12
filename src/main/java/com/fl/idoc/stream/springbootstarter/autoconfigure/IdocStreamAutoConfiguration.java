@@ -7,7 +7,6 @@ import com.fl.idoc.stream.springbootstarter.listener.IdocListenerSupport;
 import com.fl.idoc.stream.springbootstarter.listener.RuleProperties;
 import com.fl.idoc.stream.springbootstarter.service.base.IBaseTaskService;
 import com.fl.idoc.stream.springbootstarter.strategy.HandlerContext;
-import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -38,9 +37,6 @@ public class IdocStreamAutoConfiguration {
 		log.debug("IdocStreamAutoConfiguration start");
 	}
 
-	@Resource
-	private RuleProperties ruleProperties;
-
 	public IdocStreamAutoConfiguration() {
 
 		init();
@@ -63,19 +59,15 @@ public class IdocStreamAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public IdocListenerSupport idocListenerSupport(IdocExecFactory idocExecFactory) {
+	public IdocListenerSupport idocListenerSupport(IdocExecFactory idocExecFactory, RuleProperties ruleProperties) {
 		IdocListenerSupport idocListenerSupport = new IdocListenerSupport(idocExecFactory, ruleProperties);
 		idocListenerSupport.setBaseTaskService(baseTaskService);
 		return idocListenerSupport;
 	}
 
-	@Autowired
-	private ObjectMapper objectMapper;
-
-
 	@Bean
 	@ConditionalOnMissingBean
-	public IdocListener idocListener(IdocListenerSupport idocListenerSupport) {
+	public IdocListener idocListener(IdocListenerSupport idocListenerSupport, ObjectMapper objectMapper) {
 		IdocListener idocListener = new IdocListener();
 		idocListener.setIdocListenerSupport(idocListenerSupport);
 		idocListener.setObjectMapper(objectMapper);
