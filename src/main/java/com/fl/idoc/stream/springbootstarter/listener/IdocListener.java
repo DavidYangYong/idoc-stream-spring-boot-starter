@@ -57,6 +57,7 @@ public class IdocListener {
 				log.info("MESTYP---> {}", mestyp.get(0));
 				String type = queryProcessMsgType(jsonNode);
 				if (StringUtils.isNotEmpty(type)) {
+					log.info("queryProcessMsgType---> {}", type);
 					idocListenerSupport.process(content, type);
 				} else {
 					log.error("MESTYP is Empty in json content");
@@ -84,7 +85,7 @@ public class IdocListener {
 			idocTypeTemp = idocTypes.get(0).toString();
 			type = String.format("IDOC:%s:%s", msgTypeTemp, idocTypeTemp);
 		}
-		List cimTypes = getValueByFind(jsonNode, "$..CIMTYP");
+		List cimTypes = getValueByFind(jsonNode, "CIMTYP");
 		if (CollectionUtils.isNotEmpty(cimTypes)) {
 			String temp = cimTypes.get(0).toString();
 			if (StringUtils.isNotEmpty(temp)) {
