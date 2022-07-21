@@ -65,14 +65,13 @@ public class IdocListener {
 			} else {
 				log.error("MESTYP is not found in json content");
 			}
-		} catch (IllegalArgumentException illegalArgumentException) {
-			log.error("IdocListener process fail:", illegalArgumentException);
 		} catch (Exception e) {
 			log.error("idoc exec fail:", e);
+			throw new RuntimeException(e);
 		}
 	}
 
-	private String queryProcessMsgType(JsonNode jsonNode) throws Exception {
+	private String queryProcessMsgType(JsonNode jsonNode) {
 		String type = "";
 		List mesTyps = getValueByFind(jsonNode, "MESTYP");
 		String msgTypeTemp = "";
@@ -98,7 +97,7 @@ public class IdocListener {
 	/**
 	 * 使用find的方法从实体中取出所有匹配的值
 	 **/
-	public List<String> getValueByFind(JsonNode node, String path) throws Exception {
+	public List<String> getValueByFind(JsonNode node, String path) {
 		List<String> values = new ArrayList<String>();
 		node.findValuesAsText(path, values);
 		return values;
