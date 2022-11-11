@@ -15,6 +15,9 @@ public interface IBaseExecService<T> {
 	 */
 	public T execTemplate(String idocContent);
 
+
+	public String idocContentConvert(String idocContent);
+
 	/**
 	 * 对实体类进行操作
 	 *

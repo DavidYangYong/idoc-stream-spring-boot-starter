@@ -50,6 +50,11 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 		return "";
 	}
 
+	@Override
+	public String idocContentConvert(String idocContent) {
+		return idocContent;
+	}
+
 	@Autowired
 	private ObjectMapper objectMapper;
 
