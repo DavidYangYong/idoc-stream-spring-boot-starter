@@ -15,6 +15,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,7 +31,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties({RuleProperties.class})
 @ConditionalOnProperty(prefix = "fl.cloud.idoc.stream", name = "enabled", havingValue = "true")
 @Slf4j
-@EnableBinding(Sink.class)
+@EnableBinding({Sink.class, Source.class})
 public class IdocStreamAutoConfiguration {
 
 	public void init() {
