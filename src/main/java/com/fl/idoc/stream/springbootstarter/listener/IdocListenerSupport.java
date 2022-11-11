@@ -53,18 +53,24 @@ public class IdocListenerSupport {
 		return b;
 	}
 
-	public void process(String idocContent, String mestyp) {
+	public String process(String idocContent, String mestyp) {
 		log.info("idoc Listener process start------- ");
 		boolean b = valiationExecMesType(mestyp);
+		String sendMessage = "";
 		if (b) {
 			IBaseExecService baseExecService = idocExecFactory.createBaseExec(mestyp);
 			try {
 				if (baseExecService != null) {
+					if (ruleProperties.getIdocContentNotConvert()) {
+						String tempIdocContent = baseExecService.idocContentConvert(idocContent);
+						return tempIdocContent;
+					}
 					Object t = baseExecService.execTemplate(idocContent);
-					baseExecService.cacheObject(baseExecService.exec(t));
+					Object temp = baseExecService.exec(t);
+					baseExecService.cacheObject(temp);
 					boolean isSend = baseExecService.supportSendMessage();
 					if (isSend) {
-						String sendMessage = baseExecService.sendMessage(t);
+						sendMessage = baseExecService.sendMessage(temp);
 						if (StringUtils.isNotEmpty(sendMessage) && baseTaskService != null) {
 							baseTaskService.sendMessage(sendMessage);
 						} else {
@@ -82,5 +88,6 @@ public class IdocListenerSupport {
 			log.warn("mestyp {} is not find in idoc rules ", mestyp);
 		}
 		log.info("idoc Listener process end------- ");
+		return sendMessage;
 	}
 }

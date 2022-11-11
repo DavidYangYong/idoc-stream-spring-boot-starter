@@ -15,6 +15,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.messaging.handler.annotation.SendTo;
 
 /**
  * 消费者
@@ -47,8 +49,10 @@ public class IdocListener {
 	private ObjectMapper objectMapper;
 
 	@StreamListener(Sink.INPUT)
-	public void process(String content) {
+	@SendTo(Source.OUTPUT)
+	public String process(String content) {
 		log.info("Receiver-queue:si.idoc.queue--> : {}", content);
+		String sendMessage = "";
 		try {
 			JsonNode jsonNode = objectMapper.readTree(content);
 
@@ -58,7 +62,7 @@ public class IdocListener {
 				String type = queryProcessMsgType(jsonNode);
 				if (StringUtils.isNotEmpty(type)) {
 					log.info("queryProcessMsgType---> {}", type);
-					idocListenerSupport.process(content, type);
+					sendMessage = idocListenerSupport.process(content, type);
 				} else {
 					log.error("MESTYP is Empty in json content");
 				}
@@ -69,6 +73,7 @@ public class IdocListener {
 			log.error("idoc exec fail:", e);
 			throw new RuntimeException(e);
 		}
+		return sendMessage;
 	}
 
 	private String queryProcessMsgType(JsonNode jsonNode) {

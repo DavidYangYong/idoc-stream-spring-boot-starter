@@ -10,7 +10,18 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "fl.cloud.idoc.stream")
 public class RuleProperties {
 
+	private Boolean idocContentNotConvert;
+
+	public Boolean getIdocContentNotConvert() {
+		return idocContentNotConvert;
+	}
+
+	public void setIdocContentNotConvert(Boolean idocContentNotConvert) {
+		this.idocContentNotConvert = idocContentNotConvert;
+	}
+
 	private List<String> idocRules;
+
 	public List<String> getIdocRules() {
 		return idocRules;
 	}
