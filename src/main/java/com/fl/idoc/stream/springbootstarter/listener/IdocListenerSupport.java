@@ -56,7 +56,7 @@ public class IdocListenerSupport {
 	public String process(String idocContent, String mestyp) {
 		log.info("idoc Listener process start------- ");
 		boolean b = valiationExecMesType(mestyp);
-		String sendMessage = "";
+		String sendMessage = null;
 		if (b) {
 			IBaseExecService baseExecService = idocExecFactory.createBaseExec(mestyp);
 			try {
