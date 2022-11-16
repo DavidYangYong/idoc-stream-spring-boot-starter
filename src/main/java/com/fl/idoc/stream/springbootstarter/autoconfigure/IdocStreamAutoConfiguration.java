@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(
 		proxyBeanMethods = false
 )
-@ConditionalOnClass({Sink.class, ObjectMapper.class})
+@ConditionalOnClass({Sink.class, Source.class, ObjectMapper.class})
 @EnableConfigurationProperties({RuleProperties.class})
 @ConditionalOnProperty(prefix = "fl.cloud.idoc.stream", name = "enabled", havingValue = "true")
 @Slf4j

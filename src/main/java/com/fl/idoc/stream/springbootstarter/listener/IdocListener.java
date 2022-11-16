@@ -73,6 +73,7 @@ public class IdocListener {
 			log.error("idoc exec fail:", e);
 			throw new RuntimeException(e);
 		}
+		log.info("idoc Listener send message------- ");
 		return sendMessage;
 	}
 
