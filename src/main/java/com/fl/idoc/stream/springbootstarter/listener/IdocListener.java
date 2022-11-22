@@ -73,7 +73,12 @@ public class IdocListener {
 			log.error("idoc exec fail:", e);
 			throw new RuntimeException(e);
 		}
-		log.info("idoc Listener send message------- ");
+		if (StringUtils.isNotEmpty(sendMessage)) {
+			log.info("idoc Listener send message length------- {}", sendMessage.length());
+		} else {
+			log.info("idoc Listener send message length------- is zero");
+		}
+
 		return sendMessage;
 	}
 
