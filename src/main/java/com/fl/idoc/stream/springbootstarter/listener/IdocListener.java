@@ -52,7 +52,7 @@ public class IdocListener {
 	@SendTo(Source.OUTPUT)
 	public String process(String content) {
 		log.info("Receiver-queue:si.idoc.queue--> : {}", content);
-		String sendMessage = "";
+		String sendMessage = null;
 		try {
 			JsonNode jsonNode = objectMapper.readTree(content);
 
