@@ -13,10 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.cloud.stream.messaging.Sink;
-import org.springframework.cloud.stream.messaging.Source;
-import org.springframework.messaging.handler.annotation.SendTo;
 
 /**
  * 消费者
@@ -48,8 +44,6 @@ public class IdocListener {
 
 	private ObjectMapper objectMapper;
 
-	@StreamListener(Sink.INPUT)
-	@SendTo(Source.OUTPUT)
 	public String process(String content) {
 		log.info("Receiver-queue:si.idoc.queue--> : {}", content);
 		String sendMessage = null;
