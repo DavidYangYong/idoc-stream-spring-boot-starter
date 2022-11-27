@@ -13,9 +13,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.messaging.Sink;
-import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,11 +24,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(
 		proxyBeanMethods = false
 )
-@ConditionalOnClass({Sink.class, Source.class, ObjectMapper.class})
+@ConditionalOnClass({ObjectMapper.class})
 @EnableConfigurationProperties({RuleProperties.class})
 @ConditionalOnProperty(prefix = "fl.cloud.idoc.stream", name = "enabled", havingValue = "true")
 @Slf4j
-@EnableBinding({Sink.class, Source.class})
 public class IdocStreamAutoConfiguration {
 
 	public void init() {
