@@ -1,6 +1,7 @@
 package com.fl.idoc.stream.springbootstarter;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import com.fl.idoc.stream.springbootstarter.autoconfigure.IdocSinkAutoConfiguration;
 import com.fl.idoc.stream.springbootstarter.autoconfigure.IdocStreamAutoConfiguration;
 import com.fl.idoc.stream.springbootstarter.factory.IdocExecFactory;
 import com.fl.idoc.stream.springbootstarter.listener.IdocListener;
@@ -14,12 +15,14 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {IdocStreamAutoConfiguration.class})
+@SpringBootTest(classes = {IdocStreamAutoConfiguration.class, IdocSinkAutoConfiguration.class})
 @ActiveProfiles("test")
 public class ServiceConfigApplicationTests {
 
 	@MockBean
 	private IdocStreamAutoConfiguration idocStreamAutoConfiguration;
+	@MockBean
+	private IdocSinkAutoConfiguration idocSinkAutoConfiguration;
 
 	@MockBean
 	private IdocExecFactory idocExecFactory;
@@ -39,6 +42,13 @@ public class ServiceConfigApplicationTests {
 	public void idocStreamAutoConfiguration() {
 		assertNotNull(idocStreamAutoConfiguration);
 	}
+
+
+	@Test
+	public void idocSinkAutoConfiguration() {
+		assertNotNull(idocSinkAutoConfiguration);
+	}
+
 
 	@Test
 	public void idocExecFactory() {
