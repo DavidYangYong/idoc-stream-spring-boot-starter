@@ -33,19 +33,16 @@ public class IdocSinkAutoConfiguration {
 
 	@Bean
 	public Function<Message<String>, Message<String>> idocSink() {
-		return new Function<Message<String>, Message<String>>() {
-			@Override
-			public Message<String> apply(Message<String> msg) {
-				String payload = msg.getPayload();
-				log.info("idocSink Received: {}", payload);
-				String payloadTemp = null;
-				payloadTemp = idocListener.process(payload);
-				if (StringUtils.isNotEmpty(payloadTemp)) {
-					return MessageBuilder.withPayload(payloadTemp)
-							.build();
-				} else {
-					return null;
-				}
+		return msg -> {
+			String payload = msg.getPayload();
+			log.info("idocSink Received: {}", payload);
+			String payloadTemp = null;
+			payloadTemp = idocListener.process(payload);
+			if (StringUtils.isNotEmpty(payloadTemp)) {
+				return MessageBuilder.withPayload(payloadTemp)
+						.build();
+			} else {
+				return null;
 			}
 		};
 	}
