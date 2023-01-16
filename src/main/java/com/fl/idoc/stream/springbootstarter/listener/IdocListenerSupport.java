@@ -18,11 +18,11 @@ import org.springframework.util.Assert;
 @Slf4j
 public class IdocListenerSupport {
 
-	private IdocExecFactory idocExecFactory;
+	private final IdocExecFactory idocExecFactory;
 
 	private IBaseTaskService baseTaskService;
 
-	private RuleProperties ruleProperties;
+	private final RuleProperties ruleProperties;
 
 	public IBaseTaskService getBaseTaskService() {
 		return baseTaskService;
@@ -40,9 +40,9 @@ public class IdocListenerSupport {
 
 	private boolean valiationExecMesType(String mestyp) {
 		boolean b = false;
-		List idocRules = ruleProperties.getIdocRules();
+		List<String> idocRules = ruleProperties.getIdocRules();
 		if (CollectionUtils.isNotEmpty(idocRules)) {
-			Collection selectList = CollectionUtils.select(idocRules, new Predicate<String>() {
+			Collection<String> selectList = CollectionUtils.select(idocRules, new Predicate<String>() {
 				@Override
 				public boolean evaluate(String s) {
 					return StringUtils.equals(mestyp, s);
@@ -62,8 +62,7 @@ public class IdocListenerSupport {
 			try {
 				if (baseExecService != null) {
 					if (ruleProperties.getIdocContentNotConvert()) {
-						String tempIdocContent = baseExecService.idocContentConvert(idocContent);
-						return tempIdocContent;
+						return baseExecService.idocContentConvert(idocContent);
 					}
 					Object t = baseExecService.execTemplate(idocContent);
 					Object temp = baseExecService.exec(t);

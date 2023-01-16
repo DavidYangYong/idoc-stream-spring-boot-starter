@@ -50,7 +50,7 @@ public class IdocListener {
 		try {
 			JsonNode jsonNode = objectMapper.readTree(content);
 
-			List mestyp = getValueByFind(jsonNode, "MESTYP");
+			List<String> mestyp = getValueByFind(jsonNode, "MESTYP");
 			if (CollectionUtils.isNotEmpty(mestyp)) {
 				log.info("MESTYP---> {}", mestyp.get(0));
 				String type = queryProcessMsgType(jsonNode);
@@ -78,20 +78,20 @@ public class IdocListener {
 
 	private String queryProcessMsgType(JsonNode jsonNode) {
 		String type = "";
-		List mesTyps = getValueByFind(jsonNode, "MESTYP");
+		List<String> mesTyps = getValueByFind(jsonNode, "MESTYP");
 		String msgTypeTemp = "";
 		if (CollectionUtils.isNotEmpty(mesTyps)) {
-			msgTypeTemp = mesTyps.get(0).toString();
+			msgTypeTemp = mesTyps.get(0);
 		}
 		String idocTypeTemp = "";
-		List idocTypes = getValueByFind(jsonNode, "IDOCTYP");
+		List<String> idocTypes = getValueByFind(jsonNode, "IDOCTYP");
 		if (CollectionUtils.isNotEmpty(idocTypes)) {
-			idocTypeTemp = idocTypes.get(0).toString();
+			idocTypeTemp = idocTypes.get(0);
 			type = String.format("IDOC:%s:%s", msgTypeTemp, idocTypeTemp);
 		}
-		List cimTypes = getValueByFind(jsonNode, "CIMTYP");
+		List<String> cimTypes = getValueByFind(jsonNode, "CIMTYP");
 		if (CollectionUtils.isNotEmpty(cimTypes)) {
-			String temp = cimTypes.get(0).toString();
+			String temp = cimTypes.get(0);
 			if (StringUtils.isNotEmpty(temp)) {
 				type = String.format("IDOC:%s:%s:%s", msgTypeTemp, idocTypeTemp, temp);
 			}
