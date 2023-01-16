@@ -1,10 +1,5 @@
 package com.fl.idoc.stream.springbootstarter.listener;
 
-/**
- * @author david
- * @date 2019-10-15 16:45
- **/
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
@@ -26,16 +21,8 @@ public class IdocListener {
 	@Autowired
 	private IdocListenerSupport idocListenerSupport;
 
-	public IdocListenerSupport getIdocListenerSupport() {
-		return idocListenerSupport;
-	}
-
 	public void setIdocListenerSupport(IdocListenerSupport idocListenerSupport) {
 		this.idocListenerSupport = idocListenerSupport;
-	}
-
-	public ObjectMapper getObjectMapper() {
-		return objectMapper;
 	}
 
 	public void setObjectMapper(ObjectMapper objectMapper) {
@@ -50,9 +37,9 @@ public class IdocListener {
 		try {
 			JsonNode jsonNode = objectMapper.readTree(content);
 
-			List<String> mestyp = getValueByFind(jsonNode, "MESTYP");
-			if (CollectionUtils.isNotEmpty(mestyp)) {
-				log.info("MESTYP---> {}", mestyp.get(0));
+			List<String> mesTypes = getValueByFind(jsonNode, "MESTYP");
+			if (CollectionUtils.isNotEmpty(mesTypes)) {
+				log.info("MESTYP---> {}", mesTypes.get(0));
 				String type = queryProcessMsgType(jsonNode);
 				if (StringUtils.isNotEmpty(type)) {
 					log.info("queryProcessMsgType---> {}", type);
@@ -78,10 +65,10 @@ public class IdocListener {
 
 	private String queryProcessMsgType(JsonNode jsonNode) {
 		String type = "";
-		List<String> mesTyps = getValueByFind(jsonNode, "MESTYP");
+		List<String> mesTypes = getValueByFind(jsonNode, "MESTYP");
 		String msgTypeTemp = "";
-		if (CollectionUtils.isNotEmpty(mesTyps)) {
-			msgTypeTemp = mesTyps.get(0);
+		if (CollectionUtils.isNotEmpty(mesTypes)) {
+			msgTypeTemp = mesTypes.get(0);
 		}
 		String idocTypeTemp = "";
 		List<String> idocTypes = getValueByFind(jsonNode, "IDOCTYP");
@@ -103,7 +90,7 @@ public class IdocListener {
 	 * 使用find的方法从实体中取出所有匹配的值
 	 **/
 	public List<String> getValueByFind(JsonNode node, String path) {
-		List<String> values = new ArrayList<String>();
+		List<String> values = new ArrayList<>();
 		node.findValuesAsText(path, values);
 		return values;
 	}

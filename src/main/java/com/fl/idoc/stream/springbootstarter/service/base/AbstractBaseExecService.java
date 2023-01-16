@@ -22,8 +22,7 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 
 	@Override
 	public T execTemplate(String idocContent) {
-		T object = jsonConvert(idocContent);
-		return object;
+		return jsonConvert(idocContent);
 	}
 
 	/**
