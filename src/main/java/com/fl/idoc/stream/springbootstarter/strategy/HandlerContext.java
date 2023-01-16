@@ -21,15 +21,12 @@ public class HandlerContext {
 		Optional<IBaseExecService> optionalIBaseExecService = handlerMap.entrySet().stream()
 				.filter(new Predicate<Entry<String, IBaseExecService>>() {
 					@Override
-					public boolean test(Entry<String, IBaseExecService> stringIBaseExecServiceEntry) {
-						if (StringUtils.equals(stringIBaseExecServiceEntry.getValue().getMesType(), mestyp)) {
-							return true;
-						}
-						return false;
+					public boolean test(Entry<String, IBaseExecService> baseExecServiceEntry) {
+						return StringUtils.equals(baseExecServiceEntry.getValue().getMesType(), mestyp);
 					}
 				}).map(Map.Entry::getValue).findFirst();
 
-		if (optionalIBaseExecService == null) {
+		if (!optionalIBaseExecService.isPresent()) {
 			throw new IllegalArgumentException("not found handler for type:" + mestyp);
 		}
 		return optionalIBaseExecService.get();
