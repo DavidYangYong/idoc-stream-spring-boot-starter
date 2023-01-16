@@ -7,7 +7,7 @@ package com.fl.idoc.stream.springbootstarter.service.base;
  **/
 public abstract class AbstractBaseExecSendToService<T> extends AbstractBaseExecService<T> {
 
-	public AbstractBaseExecSendToService(T clazz) {
+	public AbstractBaseExecSendToService(Class<T> clazz) {
 		super(clazz);
 	}
 

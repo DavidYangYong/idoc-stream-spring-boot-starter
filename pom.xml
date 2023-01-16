@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.fl</groupId>
     <artifactId>idoc-stream-spring-boot-starter</artifactId>
-    <version>3.0.10</version>
+    <version>3.0.11</version>
     <name>idoc-stream-spring-boot-starter</name>
     <description>idoc-stream-spring-boot-starter</description>
     <properties>
