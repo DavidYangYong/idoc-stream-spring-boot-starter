@@ -7,7 +7,8 @@ import java.util.Collection;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.Predicate;
+import org.apache.commons.collections4.functors.DefaultEquator;
+import org.apache.commons.collections4.functors.EqualPredicate;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 
@@ -43,12 +44,7 @@ public class IdocListenerSupport {
 		boolean b = false;
 		List<String> idocRules = ruleProperties.getIdocRules();
 		if (CollectionUtils.isNotEmpty(idocRules)) {
-			Collection<String> selectList = CollectionUtils.select(idocRules, new Predicate<String>() {
-				@Override
-				public boolean evaluate(String s) {
-					return StringUtils.equals(mesTyp, s);
-				}
-			});
+			Collection<String> selectList = CollectionUtils.select(idocRules, new EqualPredicate<>(mesTyp, DefaultEquator.defaultEquator()));
 			b = CollectionUtils.isNotEmpty(selectList);
 		}
 		return b;
