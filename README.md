@@ -1,0 +1,1 @@
+# idoc-stream-spring-boot-starter
