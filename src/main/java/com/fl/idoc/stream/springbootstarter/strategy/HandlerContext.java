@@ -16,6 +16,9 @@ public class HandlerContext {
 	private Map<String, IBaseExecService> handlerMap;
 
 	public IBaseExecService getInstance(String mesTyp) {
+		if (handlerMap == null) {
+			return null;
+		}
 		Optional<IBaseExecService> baseExecServiceOptional = handlerMap.values().stream()
 				.filter(iBaseExecService -> StringUtils.equals(iBaseExecService.getMesType(), mesTyp)).findFirst();
 
