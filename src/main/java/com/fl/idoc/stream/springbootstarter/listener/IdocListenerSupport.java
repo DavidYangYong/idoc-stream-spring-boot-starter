@@ -36,16 +36,17 @@ public class IdocListenerSupport {
 		this.ruleProperties = ruleProperties;
 		this.idocExecFactory = idocExecFactory;
 		Assert.notNull(ruleProperties, "ruleProperties must be not null");
+		Assert.notNull(idocExecFactory, "idocExecFactory must be not null");
 	}
 
-	private boolean valiationExecMesType(String mestyp) {
+	private boolean validationExecMesType(String mesTyp) {
 		boolean b = false;
 		List<String> idocRules = ruleProperties.getIdocRules();
 		if (CollectionUtils.isNotEmpty(idocRules)) {
 			Collection<String> selectList = CollectionUtils.select(idocRules, new Predicate<String>() {
 				@Override
 				public boolean evaluate(String s) {
-					return StringUtils.equals(mestyp, s);
+					return StringUtils.equals(mesTyp, s);
 				}
 			});
 			b = CollectionUtils.isNotEmpty(selectList);
@@ -53,12 +54,12 @@ public class IdocListenerSupport {
 		return b;
 	}
 
-	public String process(String idocContent, String mestyp) {
+	public String process(String idocContent, String mesTyp) {
 		log.info("idoc Listener process start------- ");
-		boolean b = valiationExecMesType(mestyp);
+		boolean b = validationExecMesType(mesTyp);
 		String sendMessage = null;
 		if (b) {
-			IBaseExecService baseExecService = idocExecFactory.createBaseExec(mestyp);
+			IBaseExecService baseExecService = idocExecFactory.createBaseExec(mesTyp);
 			try {
 				if (baseExecService != null) {
 					if (ruleProperties.getIdocContentNotConvert()) {
@@ -77,14 +78,14 @@ public class IdocListenerSupport {
 						}
 					}
 				} else {
-					log.error("mestyp is not find process class ");
+					log.error("mesTyp is not find process class ");
 				}
 			} catch (RuntimeException e) {
 				log.error("IdocListenerSupport process fail:", e);
 				throw new RuntimeException("IdocListenerSupport process fail:", e);
 			}
 		} else {
-			log.warn("mestyp {} is not find in idoc rules ", mestyp);
+			log.warn("mesTyp {} is not find in idoc rules ", mesTyp);
 		}
 		log.info("idoc Listener process end------- ");
 		return sendMessage;

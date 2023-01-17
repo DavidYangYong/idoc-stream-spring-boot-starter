@@ -9,32 +9,54 @@ import java.io.Serializable;
 public interface IBaseExecService<T> {
 
 	/**
+	 * getMesType
+	 *
+	 * @return String
+	 */
+	public String getMesType();
+
+	/**
 	 * 转换 json 为实体类
 	 *
-	 * @param idocContent json idoc
+	 * @return T
 	 */
 	public T execTemplate(String idocContent);
 
-
+	/**
+	 * 转换 idocContentConvert
+	 *
+	 * @return String
+	 */
 	public String idocContentConvert(String idocContent);
 
 	/**
 	 * 对实体类进行操作
 	 *
 	 * @param t 操作实体类
+	 * @return T
 	 */
 	public T exec(T t);
 
 	/**
 	 * 缓存实体类
 	 *
+	 * @param t 操作实体类
 	 * @return Serializable
 	 */
 	public Serializable cacheObject(T t);
 
+	/**
+	 * supportSendMessage
+	 *
+	 * @return boolean
+	 */
 	public boolean supportSendMessage();
 
+	/**
+	 * sendMessage
+	 *
+	 * @param t 操作实体类
+	 * @return String
+	 */
 	public String sendMessage(T t);
-
-	public String getMesType();
 }
