@@ -39,10 +39,8 @@ public class MetaTest {
 				.filter(new Predicate<Entry<String, IBaseExecService>>() {
 					@Override
 					public boolean test(Entry<String, IBaseExecService> stringIBaseExecServiceEntry) {
-						if (org.apache.commons.lang3.StringUtils.equals(stringIBaseExecServiceEntry.getValue().getMesType(), "IDOC:ORDNTF:ORDINT01")) {
-							return true;
-						}
-						return false;
+						return org.apache.commons.lang3.StringUtils.equals(stringIBaseExecServiceEntry.getValue().getMesType(), "IDOC:ORDNTF"
+								+ ":ORDINT01");
 					}
 				}).map(Map.Entry::getValue).findFirst();
 		System.out.println(optionalIBaseExecService.get());

@@ -13,7 +13,7 @@ import org.springframework.messaging.support.MessageBuilder;
 /**
  * @author david
  * @create 2022-11-27 15:06
- * @Description:
+ * @Description: IdocSinkAutoConfiguration config
  **/
 @Slf4j
 @AutoConfigureAfter({IdocStreamAutoConfiguration.class})
