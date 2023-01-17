@@ -24,10 +24,10 @@ public class IdocExecFactory {
 		this.handlerContext = handlerContext;
 	}
 
-	public IBaseExecService createBaseExec(String mestyp) {
+	public IBaseExecService createBaseExec(String mesTyp) {
 		if (handlerContext == null) {
 			return null;
 		}
-		return handlerContext.getInstance(mestyp);
+		return handlerContext.getInstance(mesTyp);
 	}
 }
