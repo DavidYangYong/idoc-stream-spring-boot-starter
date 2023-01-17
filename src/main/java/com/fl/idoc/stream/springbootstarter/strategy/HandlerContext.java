@@ -26,9 +26,6 @@ public class HandlerContext {
 					}
 				}).map(Map.Entry::getValue).findFirst();
 
-		if (!optionalIBaseExecService.isPresent()) {
-			throw new IllegalArgumentException("not found handler for type:" + mestyp);
-		}
-		return optionalIBaseExecService.get();
+		return optionalIBaseExecService.orElse(null);
 	}
 }
