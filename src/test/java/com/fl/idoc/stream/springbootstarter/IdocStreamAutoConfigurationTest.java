@@ -27,7 +27,8 @@ public class IdocStreamAutoConfigurationTest {
 	public void testFooCreatePropertyNull() {
 		context.register(IdocStreamAutoConfiguration.class);
 		context.refresh();
-		context.getBean(IdocListener.class);
+		IdocListener idocListener = context.getBean(IdocListener.class);
+		Assert.assertNotNull(context.getBean(IdocListener.class));
 	}
 
 	@Test

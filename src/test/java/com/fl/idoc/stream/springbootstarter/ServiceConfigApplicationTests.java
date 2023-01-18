@@ -9,13 +9,14 @@ import com.fl.idoc.stream.springbootstarter.listener.IdocListenerSupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {IdocStreamAutoConfiguration.class, IdocSinkAutoConfiguration.class})
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {IdocStreamAutoConfiguration.class, IdocSinkAutoConfiguration.class, JacksonAutoConfiguration.class})
 @ActiveProfiles("test")
 public class ServiceConfigApplicationTests {
 

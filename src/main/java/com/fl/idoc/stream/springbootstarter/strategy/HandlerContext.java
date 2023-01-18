@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  **/
 public class HandlerContext {
 
-	@Autowired
+	@Autowired(required = false)
 	private Map<String, IBaseExecService> handlerMap;
 
 	public IBaseExecService getInstance(String mesTyp) {
