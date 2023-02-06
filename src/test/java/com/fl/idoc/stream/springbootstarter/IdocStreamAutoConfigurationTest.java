@@ -2,6 +2,7 @@ package com.fl.idoc.stream.springbootstarter;
 
 import com.fl.idoc.stream.springbootstarter.autoconfigure.IdocStreamAutoConfiguration;
 import com.fl.idoc.stream.springbootstarter.listener.IdocListener;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @ContextConfiguration
 @ActiveProfiles("test")
+@Slf4j
 public class IdocStreamAutoConfigurationTest {
 
 	private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
@@ -38,6 +40,7 @@ public class IdocStreamAutoConfigurationTest {
 
 	@Test(expected = NoSuchBeanDefinitionException.class)
 	public void testFooCreatePropertyFalse() {
+		log.debug("testFooCreatePropertyFalse");
 		Assert.assertNull(context.getBean(IdocListener.class));
 	}
 }
