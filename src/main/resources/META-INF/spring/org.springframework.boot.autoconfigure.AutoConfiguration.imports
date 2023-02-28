@@ -1,0 +1,2 @@
+com.fl.idoc.stream.springbootstarter.autoconfigure.IdocStreamAutoConfiguration
+com.fl.idoc.stream.springbootstarter.autoconfigure.IdocSinkAutoConfiguration
