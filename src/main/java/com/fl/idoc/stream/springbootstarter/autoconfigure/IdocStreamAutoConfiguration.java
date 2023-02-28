@@ -9,6 +9,7 @@ import com.fl.idoc.stream.springbootstarter.service.base.IBaseTaskService;
 import com.fl.idoc.stream.springbootstarter.strategy.HandlerContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -20,6 +21,7 @@ import org.springframework.context.annotation.Bean;
  *
  * @author david
  */
+@AutoConfiguration
 @ConditionalOnClass({ObjectMapper.class})
 @EnableConfigurationProperties({RuleProperties.class})
 @ConditionalOnProperty(prefix = "fl.cloud.idoc.stream", name = "enabled", havingValue = "true")
