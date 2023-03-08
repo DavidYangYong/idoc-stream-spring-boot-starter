@@ -46,7 +46,7 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 
 	@Override
 	public String sendMessage(T t) {
-		return "";
+		return null;
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 	}
 
 	public String objectConvertJson(T t) {
-		String json = "";
+		String json = null;
 		try {
 			json = objectMapper.writeValueAsString(t);
 			log.info("构建后的对象（json格式）=={}", json);
