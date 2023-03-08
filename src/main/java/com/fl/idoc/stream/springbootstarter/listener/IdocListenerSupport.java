@@ -74,7 +74,7 @@ public class IdocListenerSupport {
 						}
 					}
 				} else {
-					log.error("mesTyp is not find process class ");
+					log.warn("mesTyp is not find process class ");
 				}
 			} catch (RuntimeException e) {
 				log.error("IdocListenerSupport process fail:", e);
