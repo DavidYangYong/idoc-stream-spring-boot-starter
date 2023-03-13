@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -89,7 +90,10 @@ public class IdocListener {
 	 **/
 	public List<String> getValueByFind(JsonNode node, String path) {
 		List<String> values = new ArrayList<>();
-		node.findValuesAsText(path, values);
+		List<JsonNode> jsonNodeList = new ArrayList<>();
+		node.findValues(path, jsonNodeList);
+		Optional<JsonNode> optionalJsonNode = jsonNodeList.stream().findFirst();
+		optionalJsonNode.ifPresent(jsonNode -> values.add(jsonNode.asText()));
 		return values;
 	}
 }
