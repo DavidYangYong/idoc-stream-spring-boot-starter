@@ -1,13 +1,14 @@
 package com.fl.idoc.stream.springbootstarter.listener;
 
-import java.util.List;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.util.List;
 
 /**
  * @author david
  * @date 2021-01-08 10:10
  **/
-@ConfigurationProperties(prefix = "fl.cloud.idoc.stream")
+@ConfigurationProperties(prefix = "com.fl.cloud.idoc.stream")
 public class RuleProperties {
 
 	private Boolean idocContentNotConvert;

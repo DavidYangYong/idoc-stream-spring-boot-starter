@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Bean;
 @AutoConfiguration
 @ConditionalOnClass({ObjectMapper.class})
 @EnableConfigurationProperties({RuleProperties.class})
-@ConditionalOnProperty(prefix = "fl.cloud.idoc.stream", name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "com.fl.cloud.idoc.stream", name = "enabled", havingValue = "true")
 @Slf4j
 public class IdocStreamAutoConfiguration {
 
