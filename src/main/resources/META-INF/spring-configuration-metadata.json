@@ -1,19 +1,19 @@
 {
 	"properties": [
 		{
-			"name": "fl.cloud.idoc.stream.enabled",
+			"name": "com.fl.cloud.idoc.stream.enabled",
 			"type": "java.lang.Boolean",
 			"description": "Whether to enable idoc stream.",
 			"defaultValue": false
 		},
 		{
-			"name": "fl.cloud.idoc.stream.idocContentNotConvert",
+			"name": "com.fl.cloud.idoc.stream.idocContentNotConvert",
 			"type": "java.lang.Boolean",
 			"description": "Whether to enable idoc stream content not convert",
 			"defaultValue": false
 		},
 		{
-			"name": "fl.cloud.idoc.stream.idocRules",
+			"name": "com.fl.cloud.idoc.stream.idocRules",
 			"type": "java.util.List",
 			"description": "idoc stream idocRules"
 		}
