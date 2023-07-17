@@ -44,10 +44,10 @@ public class IdocListener {
 					log.info("queryProcessMsgType---> {}", type);
 					sendMessage = idocListenerSupport.process(content, type);
 				} else {
-					log.error("MESTYP is Empty in json content");
+					log.warn("MESTYP is Empty in json content");
 				}
 			} else {
-				log.error("MESTYP is not found in json content");
+				log.warn("MESTYP is not found in json content");
 			}
 		} catch (Exception e) {
 			log.error("idoc exec fail:", e);
