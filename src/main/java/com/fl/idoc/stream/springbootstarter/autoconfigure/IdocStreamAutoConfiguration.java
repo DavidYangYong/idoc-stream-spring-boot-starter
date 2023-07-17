@@ -38,6 +38,9 @@ public class IdocStreamAutoConfiguration {
 	}
 
 	@Autowired(required = false)
+	public void setBaseTaskService(IBaseTaskService baseTaskService) {
+		this.baseTaskService = baseTaskService;
+	}
 	private IBaseTaskService baseTaskService;
 
 	@Bean
