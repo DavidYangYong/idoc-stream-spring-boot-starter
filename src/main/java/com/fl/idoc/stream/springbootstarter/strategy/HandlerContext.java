@@ -13,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class HandlerContext {
 
 	@Autowired(required = false)
+	public void setHandlerMap(Map<String, IBaseExecService> handlerMap) {
+		this.handlerMap = handlerMap;
+	}
+
 	private Map<String, IBaseExecService> handlerMap;
 
 	public IBaseExecService getInstance(String mesTyp) {
