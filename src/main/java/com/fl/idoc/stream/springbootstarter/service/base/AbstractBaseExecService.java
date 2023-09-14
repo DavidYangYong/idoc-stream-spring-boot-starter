@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Slf4j
 public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> {
 
-	private Class<T> clazz;
+	private final Class<T> clazz;
 
 	public AbstractBaseExecService(Class<T> clazz) {
 		this.clazz = clazz;
@@ -53,12 +53,15 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 	public String idocContentConvert(String idocContent) {
 		return idocContent;
 	}
-
 	@Autowired
+	public void setObjectMapper(ObjectMapper objectMapper) {
+		this.objectMapper = objectMapper;
+	}
+
 	private ObjectMapper objectMapper;
 
 	public T jsonConvert(String idocContent) {
-		T tBase = null;
+		T tBase;
 		try {
 			tBase = objectMapper.readValue(idocContent, clazz);
 			log.info("jsonConvert success");
