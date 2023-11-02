@@ -54,9 +54,9 @@ public class IdocListener {
 			throw new RuntimeException(e);
 		}
 		if (StringUtils.isNotEmpty(sendMessage)) {
-			log.info("idoc Listener send message length------- {}", sendMessage.length());
+			log.info("idoc Listener send message String length------- {}", sendMessage.length());
 		} else {
-			log.info("idoc Listener send message length------- is zero");
+			log.info("idoc Listener send message String length------- is zero");
 		}
 
 		return sendMessage;
