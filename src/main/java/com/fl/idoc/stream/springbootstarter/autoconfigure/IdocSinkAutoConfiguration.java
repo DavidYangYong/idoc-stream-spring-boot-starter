@@ -4,7 +4,6 @@ import com.fl.idoc.stream.springbootstarter.listener.IdocListener;
 import java.util.function.Function;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.Message;
@@ -19,12 +18,13 @@ import org.springframework.messaging.support.MessageBuilder;
 @AutoConfigureAfter({IdocStreamAutoConfiguration.class})
 public class IdocSinkAutoConfiguration {
 
-	@Autowired
-	private IdocListener idocListener;
+	private final IdocListener idocListener;
 
-	public IdocSinkAutoConfiguration() {
+
+	public IdocSinkAutoConfiguration(IdocListener idocListener) {
 
 		init();
+		this.idocListener = idocListener;
 	}
 
 	public void init() {
