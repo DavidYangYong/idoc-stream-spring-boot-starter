@@ -25,10 +25,6 @@ public class IdocListenerSupport {
 
 	private final RuleProperties ruleProperties;
 
-	public IBaseTaskService getBaseTaskService() {
-		return baseTaskService;
-	}
-
 	public void setBaseTaskService(IBaseTaskService baseTaskService) {
 		this.baseTaskService = baseTaskService;
 	}
@@ -50,12 +46,12 @@ public class IdocListenerSupport {
 		return b;
 	}
 
-	public String process(String idocContent, String mesTyp) {
+	public String process(String idocContent, String mesType) {
 		log.info("idoc Listener process start------- ");
-		boolean b = validationExecMesType(mesTyp);
+		boolean b = validationExecMesType(mesType);
 		String sendMessage = null;
 		if (b) {
-			IBaseExecService baseExecService = idocExecFactory.createBaseExec(mesTyp);
+			IBaseExecService baseExecService = idocExecFactory.createBaseExec(mesType);
 			try {
 				if (baseExecService != null) {
 					if (ruleProperties.getIdocContentNotConvert()) {
@@ -64,8 +60,8 @@ public class IdocListenerSupport {
 					Object t = baseExecService.execTemplate(idocContent);
 					Object temp = baseExecService.exec(t);
 					baseExecService.cacheObject(temp);
-					boolean isSend = baseExecService.supportSendMessage();
-					if (isSend) {
+					boolean supportSendMessage = baseExecService.supportSendMessage();
+					if (supportSendMessage) {
 						sendMessage = baseExecService.sendMessage(temp);
 						if (StringUtils.isNotEmpty(sendMessage) && baseTaskService != null) {
 							baseTaskService.sendMessage(sendMessage);
@@ -81,7 +77,7 @@ public class IdocListenerSupport {
 				throw new RuntimeException("IdocListenerSupport process fail:", e);
 			}
 		} else {
-			log.warn("mesTyp {} is not find in idoc rules ", mesTyp);
+			log.warn("mesTyp {} is not find in idoc rules ", mesType);
 		}
 		log.info("idoc Listener process end------- ");
 		return sendMessage;
