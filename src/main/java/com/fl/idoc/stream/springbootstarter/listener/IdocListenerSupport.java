@@ -19,7 +19,7 @@ import org.springframework.util.Assert;
 @Slf4j
 public class IdocListenerSupport {
 
-	private IdocExecFactory idocExecFactory;
+	private final IdocExecFactory idocExecFactory;
 
 	private IBaseTaskService baseTaskService;
 

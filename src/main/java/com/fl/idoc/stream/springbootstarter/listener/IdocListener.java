@@ -8,6 +8,8 @@ import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.util.Assert;
 
 /**
  * 消费者
@@ -16,7 +18,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 
 @Slf4j
-public class IdocListener {
+public class IdocListener implements InitializingBean {
 
 	private IdocListenerSupport idocListenerSupport;
 
@@ -31,8 +33,10 @@ public class IdocListener {
 	private ObjectMapper objectMapper;
 
 	public String process(String content) {
-		log.info("Receiver-queue:si.idoc.queue--> : {}", content);
+
 		String sendMessage = null;
+		log.info("Receiver-queue:si.idoc.queue--> : {}", content);
+
 		try {
 			JsonNode jsonNode = objectMapper.readTree(content);
 
@@ -95,5 +99,11 @@ public class IdocListener {
 		Optional<JsonNode> optionalJsonNode = jsonNodeList.stream().findFirst();
 		optionalJsonNode.ifPresent(jsonNode -> values.add(jsonNode.asText()));
 		return values;
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		Assert.notNull(idocListenerSupport, "idocListenerSupport must be not null");
+		Assert.notNull(objectMapper, "objectMapper must be not null");
 	}
 }
