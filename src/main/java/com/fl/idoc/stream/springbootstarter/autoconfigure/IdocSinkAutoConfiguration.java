@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 
 /**
@@ -35,12 +36,13 @@ public class IdocSinkAutoConfiguration {
 	public Function<Message<String>, Message<String>> idocSink() {
 		return msg -> {
 			String payload = msg.getPayload();
-			log.info("idocSink Received: {}", payload);
+			log.info("idocSink Received payload: {}", payload);
+			MessageHeaders messageHeaders = msg.getHeaders();
+			log.info("idocSink Received messageHeaders: {}", messageHeaders);
 			String payloadTemp = null;
 			payloadTemp = idocListener.process(payload);
 			if (StringUtils.isNotEmpty(payloadTemp)) {
-				return MessageBuilder.withPayload(payloadTemp)
-						.build();
+				return MessageBuilder.createMessage(payloadTemp, messageHeaders);
 			} else {
 				return null;
 			}
