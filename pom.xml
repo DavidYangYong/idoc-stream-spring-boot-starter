@@ -5,12 +5,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.17</version><!-- use 2.7.6 -->
+        <version>2.7.6</version><!-- use 2.7.6 -->
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.fl</groupId>
     <artifactId>idoc-stream-spring-boot-starter</artifactId>
-    <version>3.2.0</version>
+    <version>3.2.1</version>
     <name>idoc-stream-spring-boot-starter</name>
     <description>idoc-stream-spring-boot-starter</description>
     <properties>
