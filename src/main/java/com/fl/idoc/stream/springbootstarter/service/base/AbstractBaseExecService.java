@@ -1,11 +1,11 @@
 package com.fl.idoc.stream.springbootstarter.service.base;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fl.idoc.stream.springbootstarter.annotation.HandlerType;
 import java.io.Serializable;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author david
@@ -16,8 +16,11 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 
 	private final Class<T> clazz;
 
+	private ObjectMapper objectMapper;
 	public AbstractBaseExecService(Class<T> clazz) {
 		this.clazz = clazz;
+		objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
 
 	@Override
@@ -53,12 +56,6 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 	public String idocContentConvert(String idocContent) {
 		return idocContent;
 	}
-	@Autowired
-	public void setObjectMapper(ObjectMapper objectMapper) {
-		this.objectMapper = objectMapper;
-	}
-
-	private ObjectMapper objectMapper;
 
 	public T jsonConvert(String idocContent) {
 		T tBase;
