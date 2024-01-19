@@ -5,7 +5,9 @@ import com.fl.idoc.stream.springbootstarter.factory.IdocExecFactory;
 import com.fl.idoc.stream.springbootstarter.listener.IdocListener;
 import com.fl.idoc.stream.springbootstarter.listener.IdocListenerSupport;
 import com.fl.idoc.stream.springbootstarter.listener.RuleProperties;
+import com.fl.idoc.stream.springbootstarter.service.base.DefaultIdocMessageConverter;
 import com.fl.idoc.stream.springbootstarter.service.base.IBaseTaskService;
+import com.fl.idoc.stream.springbootstarter.service.base.IdocMessageConverter;
 import com.fl.idoc.stream.springbootstarter.strategy.HandlerContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,13 @@ public class IdocStreamAutoConfiguration {
 		init();
 	}
 
+	private ObjectMapper objectMapper;
+
+	@Autowired
+	public void setObjectMapper(ObjectMapper objectMapper) {
+		this.objectMapper = objectMapper;
+	}
+
 	@Autowired(required = false)
 	public void setBaseTaskService(IBaseTaskService baseTaskService) {
 		this.baseTaskService = baseTaskService;
@@ -57,18 +66,27 @@ public class IdocStreamAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public IdocListenerSupport idocListenerSupport(IdocExecFactory idocExecFactory, RuleProperties ruleProperties) {
+	public IdocListenerSupport idocListenerSupport(IdocExecFactory idocExecFactory, RuleProperties ruleProperties,
+			IdocMessageConverter idocMessageConverter) {
 		IdocListenerSupport idocListenerSupport = new IdocListenerSupport(idocExecFactory, ruleProperties);
 		idocListenerSupport.setBaseTaskService(baseTaskService);
+		idocListenerSupport.setIdocMessageConverter(idocMessageConverter);
 		return idocListenerSupport;
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
-	public IdocListener idocListener(IdocListenerSupport idocListenerSupport, ObjectMapper objectMapper) {
+	public IdocListener idocListener(IdocListenerSupport idocListenerSupport) {
 		IdocListener idocListener = new IdocListener();
 		idocListener.setIdocListenerSupport(idocListenerSupport);
 		idocListener.setObjectMapper(objectMapper);
 		return idocListener;
 	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public IdocMessageConverter idocMessageConverter() {
+		return new DefaultIdocMessageConverter(objectMapper);
+	}
+
 }

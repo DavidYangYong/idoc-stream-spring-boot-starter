@@ -3,6 +3,7 @@ package com.fl.idoc.stream.springbootstarter.listener;
 import com.fl.idoc.stream.springbootstarter.factory.IdocExecFactory;
 import com.fl.idoc.stream.springbootstarter.service.base.IBaseExecService;
 import com.fl.idoc.stream.springbootstarter.service.base.IBaseTaskService;
+import com.fl.idoc.stream.springbootstarter.service.base.IdocMessageConverter;
 import java.util.Collection;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +47,12 @@ public class IdocListenerSupport {
 		return b;
 	}
 
+	private IdocMessageConverter idocMessageConverter;
+
+	public void setIdocMessageConverter(IdocMessageConverter idocMessageConverter) {
+		this.idocMessageConverter = idocMessageConverter;
+	}
+
 	public String process(String idocContent, String mesType) {
 		log.info("idoc Listener process start------- ");
 		boolean b = validationExecMesType(mesType);
@@ -57,6 +64,7 @@ public class IdocListenerSupport {
 					if (ruleProperties.getIdocContentNotConvert()) {
 						return baseExecService.idocContentConvert(idocContent);
 					}
+					baseExecService.setIdocMessageConverter(idocMessageConverter);
 					Object t = baseExecService.execTemplate(idocContent);
 					Object temp = baseExecService.exec(t);
 					baseExecService.cacheObject(temp);

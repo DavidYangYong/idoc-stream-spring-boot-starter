@@ -22,6 +22,6 @@ public abstract class AbstractBaseExecSendToService<T> extends AbstractBaseExecS
 	}
 
 	public String sendMessage(T t) {
-		return objectConvertJson(t);
+		return getIdocMessageConverter().objectConvertJson(t);
 	}
 }
