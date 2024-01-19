@@ -1,7 +1,7 @@
 package com.fl.idoc.stream.springbootstarter.strategy;
 
 import com.fl.idoc.stream.springbootstarter.service.base.IBaseExecService;
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
  **/
 public class HandlerContext {
 
+	private List<IBaseExecService> baseExecServiceList;
+
 	@Autowired(required = false)
-	public void setHandlerMap(Map<String, IBaseExecService> handlerMap) {
-		this.handlerMap = handlerMap;
+	public void setHandlerMap(List<IBaseExecService> baseExecServiceList) {
+		this.baseExecServiceList = baseExecServiceList;
 	}
 
-	private Map<String, IBaseExecService> handlerMap;
-
 	public IBaseExecService getInstance(String mesTyp) {
-		if (handlerMap == null) {
+		if (baseExecServiceList == null) {
 			return null;
 		}
-		Optional<IBaseExecService> baseExecServiceOptional = handlerMap.values().stream()
+		Optional<IBaseExecService> baseExecServiceOptional = baseExecServiceList.stream()
 				.filter(iBaseExecService -> StringUtils.equals(iBaseExecService.getMesType(), mesTyp)).findFirst();
 
 		return baseExecServiceOptional.orElse(null);

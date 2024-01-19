@@ -81,9 +81,9 @@ public class IdocListener implements InitializingBean {
 		}
 		List<String> cimTypes = getValueByFind(jsonNode, "CIMTYP");
 		if (CollectionUtils.isNotEmpty(cimTypes)) {
-			String temp = cimTypes.get(0);
-			if (StringUtils.isNotEmpty(temp)) {
-				type = String.format("IDOC:%s:%s:%s", msgTypeTemp, idocTypeTemp, temp);
+			String cimTypeTemp = cimTypes.get(0);
+			if (StringUtils.isNotEmpty(cimTypeTemp)) {
+				type = String.format("IDOC:%s:%s:%s", msgTypeTemp, idocTypeTemp, cimTypeTemp);
 			}
 		}
 		return type;

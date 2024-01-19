@@ -85,7 +85,7 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 	@Override
 	public String getMesType() {
 		HandlerType[] handlerTypes = this.getClass().getAnnotationsByType(HandlerType.class);
-		if (handlerTypes.length > 0) {
+		if (handlerTypes != null && handlerTypes.length > 0) {
 			return handlerTypes[0].value();
 		}
 		return "";
