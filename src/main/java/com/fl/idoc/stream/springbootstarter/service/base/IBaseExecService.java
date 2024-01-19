@@ -22,6 +22,8 @@ public interface IBaseExecService<T> {
 	 */
 	public T execTemplate(String idocContent);
 
+	public void setIdocMessageConverter(IdocMessageConverter idocMessageConverter);
+
 	/**
 	 * 转换 idocContentConvert
 	 *

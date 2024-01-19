@@ -1,8 +1,5 @@
 package com.fl.idoc.stream.springbootstarter.service.base;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fl.idoc.stream.springbootstarter.annotation.HandlerType;
 import java.io.Serializable;
 import lombok.extern.slf4j.Slf4j;
@@ -16,16 +13,24 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 
 	private final Class<T> clazz;
 
-	private ObjectMapper objectMapper;
+
 	public AbstractBaseExecService(Class<T> clazz) {
 		this.clazz = clazz;
-		objectMapper = new ObjectMapper();
-		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	}
+
+	private IdocMessageConverter idocMessageConverter;
+
+	public IdocMessageConverter getIdocMessageConverter() {
+		return idocMessageConverter;
+	}
+
+	public void setIdocMessageConverter(IdocMessageConverter idocMessageConverter) {
+		this.idocMessageConverter = idocMessageConverter;
 	}
 
 	@Override
 	public T execTemplate(String idocContent) {
-		return jsonConvert(idocContent);
+		return (T) getIdocMessageConverter().fromMessage(idocContent, clazz);
 	}
 
 	/**
@@ -57,27 +62,6 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 		return idocContent;
 	}
 
-	public T jsonConvert(String idocContent) {
-		T tBase;
-		try {
-			tBase = objectMapper.readValue(idocContent, clazz);
-			log.info("jsonConvert success");
-		} catch (Exception e) {
-			throw new RuntimeException("jsonConvert fail", e);
-		}
-		return tBase;
-	}
-
-	public String objectConvertJson(T t) {
-		String json = null;
-		try {
-			json = objectMapper.writeValueAsString(t);
-			log.info("构建后的对象（json格式）=={}", json);
-		} catch (JsonProcessingException e) {
-			log.error("构建后的对象（json格式) error ", e);
-		}
-		return json;
-	}
 
 	@Override
 	public String getMesType() {
