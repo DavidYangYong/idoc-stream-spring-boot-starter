@@ -15,7 +15,7 @@ public class HandlerContext {
 	private List<IBaseExecService> baseExecServiceList;
 
 	@Autowired(required = false)
-	public void setHandlerMap(List<IBaseExecService> baseExecServiceList) {
+	public void setBaseExecServiceList(List<IBaseExecService> baseExecServiceList) {
 		this.baseExecServiceList = baseExecServiceList;
 	}
 
