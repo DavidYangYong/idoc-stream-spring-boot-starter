@@ -1,8 +1,7 @@
 package com.fl.idoc.stream.springbootstarter.listener;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import java.util.List;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author david
@@ -11,13 +10,13 @@ import java.util.List;
 @ConfigurationProperties(prefix = "com.fl.cloud.idoc.stream")
 public class RuleProperties {
 
-	private Boolean idocContentNotConvert;
+	private boolean idocContentNotConvert;
 
-	public Boolean getIdocContentNotConvert() {
+	public boolean getIdocContentNotConvert() {
 		return idocContentNotConvert;
 	}
 
-	public void setIdocContentNotConvert(Boolean idocContentNotConvert) {
+	public void setIdocContentNotConvert(boolean idocContentNotConvert) {
 		this.idocContentNotConvert = idocContentNotConvert;
 	}
 
