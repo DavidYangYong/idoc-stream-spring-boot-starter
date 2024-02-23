@@ -10,6 +10,7 @@ import com.moss.idoc.stream.springbootstarter.service.base.IBaseTaskService;
 import com.moss.idoc.stream.springbootstarter.service.base.IdocMessageConverter;
 import com.moss.idoc.stream.springbootstarter.strategy.HandlerContext;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -46,12 +47,6 @@ public class IdocStreamAutoConfiguration {
 		this.objectMapper = objectMapper;
 	}
 
-	@Autowired(required = false)
-	public void setBaseTaskService(IBaseTaskService baseTaskService) {
-		this.baseTaskService = baseTaskService;
-	}
-	private IBaseTaskService baseTaskService;
-
 	@Bean
 	@ConditionalOnMissingBean
 	public HandlerContext handlerContext() {
@@ -67,9 +62,12 @@ public class IdocStreamAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public IdocListenerSupport idocListenerSupport(IdocExecFactory idocExecFactory, RuleProperties ruleProperties,
-			IdocMessageConverter idocMessageConverter) {
+			IdocMessageConverter idocMessageConverter, ObjectProvider<IBaseTaskService> baseTaskServices) {
 		IdocListenerSupport idocListenerSupport = new IdocListenerSupport(idocExecFactory, ruleProperties);
-		idocListenerSupport.setBaseTaskService(baseTaskService);
+		IBaseTaskService baseTaskService = baseTaskServices.getIfAvailable();
+		if (baseTaskService != null) {
+			idocListenerSupport.setBaseTaskService(baseTaskService);
+		}
 		idocListenerSupport.setIdocMessageConverter(idocMessageConverter);
 		return idocListenerSupport;
 	}
