@@ -3,8 +3,8 @@ package com.moss.idoc.stream.springbootstarter.strategy;
 import com.moss.idoc.stream.springbootstarter.service.base.IBaseExecService;
 import java.util.List;
 import java.util.Optional;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author david
@@ -12,15 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
  **/
 public class HandlerContext {
 
-	private List<IBaseExecService> baseExecServiceList;
-
-	@Autowired(required = false)
-	public void setBaseExecServiceList(List<IBaseExecService> baseExecServiceList) {
+	public HandlerContext(List<IBaseExecService> baseExecServiceList) {
 		this.baseExecServiceList = baseExecServiceList;
 	}
 
+	private List<IBaseExecService> baseExecServiceList;
+
 	public IBaseExecService getInstance(String mesTyp) {
-		if (baseExecServiceList == null) {
+		if (CollectionUtils.isEmpty(baseExecServiceList)) {
 			return null;
 		}
 		Optional<IBaseExecService> baseExecServiceOptional = baseExecServiceList.stream()

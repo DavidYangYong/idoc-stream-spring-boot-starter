@@ -6,9 +6,12 @@ import com.moss.idoc.stream.springbootstarter.listener.IdocListener;
 import com.moss.idoc.stream.springbootstarter.listener.IdocListenerSupport;
 import com.moss.idoc.stream.springbootstarter.listener.RuleProperties;
 import com.moss.idoc.stream.springbootstarter.service.base.DefaultIdocMessageConverter;
+import com.moss.idoc.stream.springbootstarter.service.base.IBaseExecService;
 import com.moss.idoc.stream.springbootstarter.service.base.IBaseTaskService;
 import com.moss.idoc.stream.springbootstarter.service.base.IdocMessageConverter;
 import com.moss.idoc.stream.springbootstarter.strategy.HandlerContext;
+import java.util.Collections;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +30,7 @@ import org.springframework.context.annotation.Bean;
 @AutoConfiguration
 @ConditionalOnClass({ObjectMapper.class})
 @EnableConfigurationProperties({RuleProperties.class})
-@ConditionalOnProperty(prefix = "com.fl.cloud.idoc.stream", name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "com.moss.cloud.idoc.stream", name = "enabled", havingValue = "true")
 @Slf4j
 public class IdocStreamAutoConfiguration {
 
@@ -49,8 +52,9 @@ public class IdocStreamAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public HandlerContext handlerContext() {
-		return new HandlerContext();
+	public HandlerContext handlerContext(ObjectProvider<List<IBaseExecService>> baseExecServiceList) {
+		List<IBaseExecService> execServiceList = baseExecServiceList.getIfAvailable(Collections::emptyList);
+		return new HandlerContext(execServiceList);
 	}
 
 	@Bean
