@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author david
  * @date 2021-01-08 10:10
  **/
-@ConfigurationProperties(prefix = "com.fl.cloud.idoc.stream")
+@ConfigurationProperties(prefix = "com.moss.cloud.idoc.stream")
 public class RuleProperties {
 
 	private boolean idocContentNotConvert;
