@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.moss</groupId>
     <artifactId>idoc-stream-spring-boot-starter</artifactId>
-    <version>3.3.2</version>
+    <version>3.3.4</version>
     <name>idoc-stream-spring-boot-starter</name>
     <description>idoc-stream-spring-boot-starter</description>
     <properties>
