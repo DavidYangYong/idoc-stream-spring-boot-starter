@@ -10,6 +10,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "com.moss.cloud.idoc.stream")
 public class RuleProperties {
 
+	private boolean enabled;
+
+	public boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	private boolean idocContentNotConvert;
 
 	public boolean getIdocContentNotConvert() {
