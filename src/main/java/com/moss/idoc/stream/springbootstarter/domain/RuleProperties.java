@@ -1,4 +1,4 @@
-package com.moss.idoc.stream.springbootstarter.listener;
+package com.moss.idoc.stream.springbootstarter.domain;
 
 import java.util.List;
 import org.springframework.boot.context.properties.ConfigurationProperties;

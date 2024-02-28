@@ -1,10 +1,10 @@
 package com.moss.idoc.stream.springbootstarter.autoconfigure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.moss.idoc.stream.springbootstarter.domain.RuleProperties;
 import com.moss.idoc.stream.springbootstarter.factory.IdocExecFactory;
 import com.moss.idoc.stream.springbootstarter.listener.IdocListener;
 import com.moss.idoc.stream.springbootstarter.listener.IdocListenerSupport;
-import com.moss.idoc.stream.springbootstarter.listener.RuleProperties;
 import com.moss.idoc.stream.springbootstarter.service.base.DefaultIdocMessageConverter;
 import com.moss.idoc.stream.springbootstarter.service.base.IBaseExecService;
 import com.moss.idoc.stream.springbootstarter.service.base.IBaseTaskService;
