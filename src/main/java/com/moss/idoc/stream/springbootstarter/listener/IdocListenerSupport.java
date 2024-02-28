@@ -1,5 +1,6 @@
 package com.moss.idoc.stream.springbootstarter.listener;
 
+import com.moss.idoc.stream.springbootstarter.domain.RuleProperties;
 import com.moss.idoc.stream.springbootstarter.factory.IdocExecFactory;
 import com.moss.idoc.stream.springbootstarter.service.base.IBaseExecService;
 import com.moss.idoc.stream.springbootstarter.service.base.IBaseTaskService;
