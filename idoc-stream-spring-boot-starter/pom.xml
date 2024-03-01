@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.moss.spring.boot</groupId>
         <artifactId>idoc-stream-spring-boot</artifactId>
-        <version>3.3.4</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>idoc-stream-spring-boot-starter</artifactId>
