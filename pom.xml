@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.moss.spring.boot</groupId>
     <artifactId>idoc-stream-spring-boot</artifactId>
-    <version>3.3.4</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
     <name>idoc-stream-spring-boot</name>
     <description>idoc-stream-spring-boot</description>
@@ -14,9 +14,11 @@
     </modules>
     <properties>
         <!-- Maven compiler options -->
+        <revision>3.3.4</revision>
         <java.version>8</java.version>
         <java.release.version>8</java.release.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.7.18</spring-boot.version>
         <spring-cloud.version>2021.0.8</spring-cloud.version>
     </properties>
