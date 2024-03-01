@@ -1,0 +1,21 @@
+{
+	"properties": [
+		{
+			"name": "com.moss.cloud.idoc.stream.enabled",
+			"type": "java.lang.Boolean",
+			"description": "Whether to enable idoc stream.",
+			"defaultValue": false
+		},
+		{
+			"name": "com.moss.cloud.idoc.stream.idocContentNotConvert",
+			"type": "java.lang.Boolean",
+			"description": "Whether to enable idoc stream content not convert",
+			"defaultValue": false
+		},
+		{
+			"name": "com.moss.cloud.idoc.stream.idocRules",
+			"type": "java.util.List",
+			"description": "idoc stream idocRules"
+		}
+	]
+}
