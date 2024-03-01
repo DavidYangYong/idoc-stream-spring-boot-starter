@@ -1,0 +1,13 @@
+logging:
+  level:
+    root: debug
+com:
+  moss:
+    cloud:
+      idoc:
+        stream:
+          idoc-content-not-convert: true
+          idoc-rules:
+            - IDOC:MATMAS:MATMAS05
+            - IDOC:COND_A:COND_A04
+          enabled: true

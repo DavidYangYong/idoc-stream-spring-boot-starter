@@ -2,86 +2,43 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.18</version><!-- use 2.7.6 -->
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-    <groupId>com.moss</groupId>
-    <artifactId>idoc-stream-spring-boot-starter</artifactId>
+    <groupId>com.moss.spring.boot</groupId>
+    <artifactId>idoc-stream-spring-boot</artifactId>
     <version>3.3.4</version>
-    <name>idoc-stream-spring-boot-starter</name>
-    <description>idoc-stream-spring-boot-starter</description>
+    <packaging>pom</packaging>
+    <name>idoc-stream-spring-boot</name>
+    <description>idoc-stream-spring-boot</description>
+    <modules>
+        <module>idoc-stream-spring-boot-starter</module>
+        <module>idoc-stream-spring-boot-autoconfigure</module>
+    </modules>
     <properties>
-        <java.version>1.8</java.version>
+        <!-- Maven compiler options -->
+        <java.version>8</java.version>
+        <java.release.version>8</java.release.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-boot.version>2.7.18</spring-boot.version>
         <spring-cloud.version>2021.0.8</spring-cloud.version>
     </properties>
+    <dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+            <groupId>com.moss.spring.boot</groupId>
+            <artifactId>idoc-stream-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.moss.spring.boot</groupId>
+            <artifactId>idoc-stream-spring-boot-autoconfigure</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
+            <artifactId>spring-boot-dependencies</artifactId>
+            <version>${spring-boot.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <artifactId>commons-collections4</artifactId>
-            <groupId>org.apache.commons</groupId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-test-autoconfigure</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.amqp</groupId>
-            <artifactId>spring-rabbit-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-    <dependencyManagement>
-        <dependencies>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -97,11 +54,11 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                    </configuration>
+                    <!--                    <configuration>-->
+                    <!--                        <source>${java.version}</source>-->
+                    <!--                        <target>${java.version}</target>-->
+                    <!--                        <encoding>${project.build.sourceEncoding}</encoding>-->
+                    <!--                    </configuration>-->
                 </plugin>
                 <plugin>
                     <groupId>org.springframework.boot</groupId>

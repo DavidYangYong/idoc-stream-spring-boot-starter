@@ -1,0 +1,2 @@
+com.moss.springboot.stream.idoc.autoconfigure.IdocStreamAutoConfiguration
+com.moss.springboot.stream.idoc.autoconfigure.IdocSinkAutoConfiguration
