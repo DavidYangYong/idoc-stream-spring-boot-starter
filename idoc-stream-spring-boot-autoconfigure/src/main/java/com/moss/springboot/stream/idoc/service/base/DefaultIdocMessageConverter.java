@@ -26,7 +26,7 @@ public class DefaultIdocMessageConverter implements IdocMessageConverter {
 			if (objectMapper != null) {
 				tBase = objectMapper.readValue(idocMessage, clazz);
 			}
-			log.info("jsonConvert success");
+			log.debug("jsonConvert success");
 		} catch (Exception e) {
 			throw new RuntimeException("jsonConvert fail", e);
 		}
