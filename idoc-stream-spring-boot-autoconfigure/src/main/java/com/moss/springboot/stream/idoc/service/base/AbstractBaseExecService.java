@@ -66,6 +66,6 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 
 	@Override
 	public T execTemplate(String idocContent) {
-		return (T) getIdocMessageConverter().fromMessage(idocContent, clazz);
+		return getIdocMessageConverter().fromMessage(idocContent, clazz);
 	}
 }
