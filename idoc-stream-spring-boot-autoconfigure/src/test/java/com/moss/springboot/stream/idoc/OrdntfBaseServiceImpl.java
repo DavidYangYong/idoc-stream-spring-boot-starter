@@ -3,6 +3,7 @@ package com.moss.springboot.stream.idoc;
 import com.moss.springboot.stream.idoc.annotation.HandlerType;
 import com.moss.springboot.stream.idoc.service.base.AbstractBaseExecService;
 import com.moss.springboot.stream.idoc.service.base.IBaseExecService;
+import com.moss.springboot.stream.idoc.service.base.IBaseTaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,18 @@ public class OrdntfBaseServiceImpl extends AbstractBaseExecService<Object> imple
 
 	@Override
 	public Object exec(Object o) {
+		return null;
+	}
+
+
+	public Object execTask(Object o) {
+
+		return this.execTask2(sendMessage -> {
+		});
+	}
+
+	public Object execTask2(IBaseTaskService o) {
+
 		return null;
 	}
 }
