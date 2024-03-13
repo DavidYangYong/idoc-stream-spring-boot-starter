@@ -20,8 +20,8 @@ public class DefaultIdocMessageConverter implements IdocMessageConverter {
 	}
 
 	@Override
-	public Object fromMessage(String idocMessage, Class clazz) throws RuntimeException {
-		Object tBase = null;
+	public <T> T fromMessage(String idocMessage, Class<T> clazz) throws RuntimeException {
+		T tBase = null;
 		try {
 			if (objectMapper != null) {
 				tBase = objectMapper.readValue(idocMessage, clazz);
@@ -34,7 +34,7 @@ public class DefaultIdocMessageConverter implements IdocMessageConverter {
 	}
 
 
-	public String objectConvertJson(Object t) {
+	public <T> String objectConvertJson(T t) {
 		String json = null;
 		try {
 			if (objectMapper != null) {

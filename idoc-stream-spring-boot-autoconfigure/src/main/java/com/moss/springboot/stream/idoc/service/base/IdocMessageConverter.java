@@ -7,7 +7,7 @@ package com.moss.springboot.stream.idoc.service.base;
  **/
 public interface IdocMessageConverter {
 
-	Object fromMessage(String idocMessage, Class clazz) throws RuntimeException;
+	<T> T fromMessage(String idocMessage, Class<T> clazz) throws RuntimeException;
 
-	public String objectConvertJson(Object t);
+	public <T> String objectConvertJson(T t);
 }
