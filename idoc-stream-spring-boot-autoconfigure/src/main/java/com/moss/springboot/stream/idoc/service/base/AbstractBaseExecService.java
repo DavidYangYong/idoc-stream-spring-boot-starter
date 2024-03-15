@@ -1,7 +1,6 @@
 package com.moss.springboot.stream.idoc.service.base;
 
 import com.moss.springboot.stream.idoc.annotation.HandlerType;
-import java.io.Serializable;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -41,21 +40,6 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 	public abstract T exec(T t);
 
 	@Override
-	public Serializable cacheObject(T t) {
-		return null;
-	}
-
-	@Override
-	public boolean supportSendMessage() {
-		return false;
-	}
-
-	@Override
-	public String sendMessage(T t) {
-		return null;
-	}
-
-	@Override
 	public String getMesType() {
 		HandlerType[] handlerTypes = this.getClass().getAnnotationsByType(HandlerType.class);
 		if (handlerTypes != null && handlerTypes.length > 0) {
@@ -63,7 +47,6 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 		}
 		return "";
 	}
-
 	@Override
 	public T execTemplate(String idocContent) {
 		return getIdocMessageConverter().fromMessage(idocContent, clazz);

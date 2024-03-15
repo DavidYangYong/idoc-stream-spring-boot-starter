@@ -45,20 +45,15 @@ public interface IBaseExecService<T> {
 	 * @param t 操作实体类
 	 * @return Serializable
 	 */
-	public Serializable cacheObject(T t);
+	default Serializable cacheObject(T t) {
+		return null;
+	}
 
-	/**
-	 * supportSendMessage
-	 *
-	 * @return boolean
-	 */
-	public boolean supportSendMessage();
+	default boolean supportSendMessage() {
+		return false;
+	}
 
-	/**
-	 * sendMessage
-	 *
-	 * @param t 操作实体类
-	 * @return String
-	 */
-	public String sendMessage(T t);
+	default String sendMessage(T t) {
+		return null;
+	}
 }
