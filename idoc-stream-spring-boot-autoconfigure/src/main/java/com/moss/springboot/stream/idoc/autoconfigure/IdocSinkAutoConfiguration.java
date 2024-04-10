@@ -27,13 +27,7 @@ public class IdocSinkAutoConfiguration {
 
 
 	public IdocSinkAutoConfiguration(IdocListener idocListener) {
-
-		init();
 		this.idocListener = idocListener;
-	}
-
-	public void init() {
-		log.debug("IdocSinkAutoConfiguration start");
 	}
 
 	@Bean
