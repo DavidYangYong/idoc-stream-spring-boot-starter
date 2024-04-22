@@ -36,19 +36,11 @@ public class IdocStreamAutoConfiguration {
 
 	private ObjectMapper objectMapper;
 
-	public IdocStreamAutoConfiguration() {
-
-		init();
-	}
-
 	@Autowired
 	public void setObjectMapper(ObjectMapper objectMapper) {
 		this.objectMapper = objectMapper;
 	}
 
-	public void init() {
-		log.debug("IdocStreamAutoConfiguration start");
-	}
 
 	@Bean
 	@ConditionalOnMissingBean
