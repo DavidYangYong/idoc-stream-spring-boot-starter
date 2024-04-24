@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.ClassMetadata;
 import org.springframework.core.type.StandardAnnotationMetadata;
@@ -38,7 +37,7 @@ public class MetaTest {
 		String mesType = handlerMap.get("ordntfBaseServiceImpl").getMesType();
 		log.info(mesType);
 		Optional<IBaseExecService> optionalIBaseExecService = handlerMap.entrySet().stream()
-				.filter(new Predicate<Entry<String, IBaseExecService>>() {
+				.filter(new Predicate<>() {
 					@Override
 					public boolean test(Entry<String, IBaseExecService> stringIBaseExecServiceEntry) {
 						return org.apache.commons.lang3.StringUtils.equals(stringIBaseExecServiceEntry.getValue().getMesType(), "IDOC"
@@ -48,45 +47,42 @@ public class MetaTest {
 				}).map(Map.Entry::getValue).findFirst();
 		log.info("{}", optionalIBaseExecService.get());
 		log.info("==============ClassMetadata==============");
-		ClassMetadata classMetadata = metadata;
-		log.info(classMetadata.getClassName());
-		log.info(classMetadata.getEnclosingClassName());
-		log.info(StringUtils.arrayToCommaDelimitedString(classMetadata.getMemberClassNames()));
-		log.info(StringUtils.arrayToCommaDelimitedString(classMetadata.getInterfaceNames()));
-		log.info("{}", classMetadata.hasSuperClass());
-		log.info(classMetadata.getSuperClassName());
+		log.info(((ClassMetadata) metadata).getClassName());
+		log.info(((ClassMetadata) metadata).getEnclosingClassName());
+		log.info(StringUtils.arrayToCommaDelimitedString(((ClassMetadata) metadata).getMemberClassNames()));
+		log.info(StringUtils.arrayToCommaDelimitedString(((ClassMetadata) metadata).getInterfaceNames()));
+		log.info("{}", metadata.hasSuperClass());
+		log.info(((ClassMetadata) metadata).getSuperClassName());
 
-		log.info("{}", classMetadata.isAnnotation());
-		log.info("{}", classMetadata.isFinal());
-		log.info("{}", classMetadata.isIndependent());
+		log.info("{}", ((ClassMetadata) metadata).isAnnotation());
+		log.info("{}", ((ClassMetadata) metadata).isFinal());
+		log.info("{}", ((ClassMetadata) metadata).isIndependent());
 
 		log.info("==============AnnotatedTypeMetadata==============");
-		AnnotatedTypeMetadata annotatedTypeMetadata = metadata;
-		log.info("{}", annotatedTypeMetadata.isAnnotated(HandlerType.class.getName()));
-		log.info("{}", annotatedTypeMetadata.isAnnotated(Component.class.getName()));
+		log.info("{}", metadata.isAnnotated(HandlerType.class.getName()));
+		log.info("{}", metadata.isAnnotated(Component.class.getName()));
 
-		log.info("{}", annotatedTypeMetadata.getAnnotationAttributes(HandlerType.class.getName()));
-		log.info("{}", annotatedTypeMetadata.getAnnotationAttributes(Component.class.getName()));
-		log.info("{}", annotatedTypeMetadata.getAnnotationAttributes(EnableAsync.class.getName()));
+		log.info("{}", metadata.getAnnotationAttributes(HandlerType.class.getName()));
+		log.info("{}", metadata.getAnnotationAttributes(Component.class.getName()));
+		log.info("{}", metadata.getAnnotationAttributes(EnableAsync.class.getName()));
 
-		log.info("{}", annotatedTypeMetadata.getAllAnnotationAttributes(HandlerType.class.getName()));
-		log.info("{}", annotatedTypeMetadata.getAllAnnotationAttributes(Component.class.getName()));
-		log.info("{}", annotatedTypeMetadata.getAllAnnotationAttributes(EnableAsync.class.getName()));
+		log.info("{}", metadata.getAllAnnotationAttributes(HandlerType.class.getName()));
+		log.info("{}", metadata.getAllAnnotationAttributes(Component.class.getName()));
+		log.info("{}", metadata.getAllAnnotationAttributes(EnableAsync.class.getName()));
 
 		log.info("==============AnnotationMetadata==============");
-		AnnotationMetadata annotationMetadata = metadata;
-		log.info("{}", annotationMetadata.getAnnotationTypes());
-		log.info("{}", annotationMetadata.getMetaAnnotationTypes(HandlerType.class.getName()));
-		log.info("{}", annotationMetadata.getMetaAnnotationTypes(Component.class.getName()));
+		log.info("{}", ((AnnotationMetadata) metadata).getAnnotationTypes());
+		log.info("{}", metadata.getMetaAnnotationTypes(HandlerType.class.getName()));
+		log.info("{}", metadata.getMetaAnnotationTypes(Component.class.getName()));
 
-		log.info("{}", annotationMetadata.hasAnnotation(HandlerType.class.getName()));
-		log.info("{}", annotationMetadata.hasAnnotation(Component.class.getName()));
+		log.info("{}", metadata.hasAnnotation(HandlerType.class.getName()));
+		log.info("{}", metadata.hasAnnotation(Component.class.getName()));
 
-		log.info("{}", annotationMetadata.hasMetaAnnotation(HandlerType.class.getName()));
-		log.info("{}", annotationMetadata.hasMetaAnnotation(Component.class.getName()));
+		log.info("{}", metadata.hasMetaAnnotation(HandlerType.class.getName()));
+		log.info("{}", metadata.hasMetaAnnotation(Component.class.getName()));
 
-		log.info("{}", annotationMetadata.hasAnnotatedMethods(Autowired.class.getName()));
-		annotationMetadata.getAnnotatedMethods(Autowired.class.getName()).forEach(methodMetadata -> {
+		log.info("{}", ((AnnotationMetadata) metadata).hasAnnotatedMethods(Autowired.class.getName()));
+		((AnnotationMetadata) metadata).getAnnotatedMethods(Autowired.class.getName()).forEach(methodMetadata -> {
 			log.info("{}", methodMetadata.getClass());
 			log.info(methodMetadata.getMethodName());
 			log.info(methodMetadata.getReturnTypeName());

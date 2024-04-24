@@ -27,13 +27,7 @@ public class IdocSinkAutoConfiguration {
 
 
 	public IdocSinkAutoConfiguration(IdocListener idocListener) {
-
-		init();
 		this.idocListener = idocListener;
-	}
-
-	public void init() {
-		log.debug("IdocSinkAutoConfiguration start");
 	}
 
 	@Bean
@@ -43,7 +37,7 @@ public class IdocSinkAutoConfiguration {
 			log.info("idocSink Received payload: {}", payload);
 			MessageHeaders messageHeaders = msg.getHeaders();
 			log.info("idocSink Received messageHeaders: {}", messageHeaders);
-			String payloadTemp = null;
+			String payloadTemp;
 			payloadTemp = idocListener.process(payload);
 			if (StringUtils.isNotEmpty(payloadTemp)) {
 				return MessageBuilder.createMessage(payloadTemp, messageHeaders);

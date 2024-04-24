@@ -15,6 +15,6 @@ public class JsonMessageConverterTest {
 	public static void main(String[] args) {
 		MessageConverter messageConverter = new Jackson2JsonMessageConverter();
 		Message message = null;
-		messageConverter.fromMessage(message);
+		//	messageConverter.fromMessage(message);
 	}
 }
