@@ -34,7 +34,7 @@ idoc-stream-spring-boot-starter is an powerful enhanced toolkit of MyBatis for s
 ## Getting started
 
 -   Add MyBatis-Plus dependency
-    - Latest Version: [![Maven Central](https://img.shields.io/maven-central/v/com.baomidou/mybatis-plus.svg)](https://search.maven.org/search?q=g:com.baomidou%20a:mybatis-*)
+    - Latest Version: 3.3.5
     - Maven:
       ```xml
       <dependency>
