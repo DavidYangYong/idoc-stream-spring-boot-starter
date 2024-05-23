@@ -1,7 +1,7 @@
 # idoc-stream-spring-boot-starter
 <p align="center">
   <a href="https://github.com/DavidYangYong/idoc-stream-spring-boot-starter">
-   <img alt="idoc-stream-spring-boot-starter-Logo" src="https://raw.githubusercontent.com/baomidou/logo/master/mybatis-plus-logo-new-mini.png">
+   <img alt="idoc-stream-spring-boot-starter-Logo" src="https://raw.githubusercontent.com/DavidYangYong/idoc-stream-spring-boot-starter/blob/develop/mini.png">
   </a>
 </p>
 
