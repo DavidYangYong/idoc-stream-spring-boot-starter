@@ -16,7 +16,8 @@
 </p>
 ## What is idoc-stream-spring-boot-starter?
 
-idoc-stream-spring-boot-starter is an powerful enhanced toolkit of MyBatis for simplify development. This toolkit provides some efficient, useful, out-of-the-box features for MyBatis, use it can effectively save your development time.
+idoc-stream-spring-boot-starter is an powerful enhanced toolkit of MyBatis for simplify development. This toolkit provides some efficient,
+useful, out-of-the-box features for Idoc, use it can effectively save your development time.
 
 ## Features
 
