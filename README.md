@@ -20,15 +20,13 @@ idoc-stream-spring-boot-starter is an powerful enhanced toolkit of MyBatis for s
 
 ## Features
 
--   Fully compatible with MyBatis
+- Fully compatible with Stream
 -   Auto configuration on startup
--   Out-of-the-box interfaces for operate database
--   Powerful and flexible where condition wrapper
--   Multiple strategy to generate primary key
+- Out-of-the-box interfaces for operate Idoc
 -   Lambda-style API
 -   Almighty and highly customizable code generator
--   Automatic paging operation
--   SQL Inject defense
+- Automatic cache operation
+- Jackson convert Inject defense
 -   Support active record
 -   Support pluggable custom interface
 -   Build-in many useful extensions
@@ -40,35 +38,30 @@ idoc-stream-spring-boot-starter is an powerful enhanced toolkit of MyBatis for s
     - Maven:
       ```xml
       <dependency>
-          <groupId>com.fl</groupId>
+          <groupId>com.moss.spring.boot</groupId>
           <artifactId>idoc-stream-spring-boot-starter</artifactId>
           <version>Latest Version</version>
       </dependency>
       ```
     - Gradle
       ```groovy
-      compile group: 'com.fl', name: 'idoc-stream-spring-boot-starter', version: 'Latest Version'
+      compile group: 'com.moss.spring.boot', name: 'idoc-stream-spring-boot-starter', version: 'Latest Version'
       ```
 -   Modify mapper file extends BaseMapper interface
 
     ```java
-    public interface UserMapper extends BaseMapper<User> {
-
+    public class MoreBaseServiceImpl extends AbstractBaseExecService<T> implements IBaseExecService<T> {
+    
     }
     ```
 
-- Use it
+- Use exec logic
   ``` java
-  List<User> userList = userMapper.selectList(
-          new QueryWrapper<User>()
-                  .lambda()
-                  .ge(User::getAge, 18)
-  );
+  	@Override
+	public T exec(T t) {
+		return t;
+	}
   ```
-    MyBatis-Plus will execute the following SQL
-    ```sql
-    SELECT * FROM user WHERE age >= 18
-    ```
 ## License
 
 MyBatis-Plus is under the Apache 2.0 license. See the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0) file for details.
