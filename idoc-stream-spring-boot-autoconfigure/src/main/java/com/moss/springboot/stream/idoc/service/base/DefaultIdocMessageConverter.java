@@ -3,6 +3,7 @@ package com.moss.springboot.stream.idoc.service.base;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.NonNull;
 
 /**
  * @author david
@@ -14,7 +15,7 @@ public class DefaultIdocMessageConverter implements IdocMessageConverter {
 
 	private ObjectMapper objectMapper;
 
-	public DefaultIdocMessageConverter(ObjectMapper objectMapper) {
+	public DefaultIdocMessageConverter(@NonNull ObjectMapper objectMapper) {
 
 		this.objectMapper = objectMapper;
 	}
