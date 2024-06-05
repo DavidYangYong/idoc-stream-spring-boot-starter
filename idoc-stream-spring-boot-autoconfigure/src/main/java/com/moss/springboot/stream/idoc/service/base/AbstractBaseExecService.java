@@ -2,6 +2,7 @@ package com.moss.springboot.stream.idoc.service.base;
 
 import com.moss.springboot.stream.idoc.annotation.HandlerType;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.AnnotationUtils;
 
 /**
  * @author david
@@ -41,9 +42,9 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 
 	@Override
 	public String getMesType() {
-		HandlerType[] handlerTypes = this.getClass().getAnnotationsByType(HandlerType.class);
-		if (handlerTypes != null && handlerTypes.length > 0) {
-			return handlerTypes[0].value();
+		HandlerType handlerType = AnnotationUtils.findAnnotation(this.getClass(), HandlerType.class);
+		if (handlerType != null) {
+			return handlerType.value();
 		}
 		return "";
 	}
