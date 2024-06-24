@@ -60,10 +60,7 @@ public class IdocStreamAutoConfiguration {
 	public IdocListenerSupport idocListenerSupport(IdocExecFactory idocExecFactory, RuleProperties ruleProperties,
 			IdocMessageConverter idocMessageConverter, ObjectProvider<IBaseTaskService> baseTaskServices) {
 		IdocListenerSupport idocListenerSupport = new IdocListenerSupport(idocExecFactory, ruleProperties);
-		IBaseTaskService baseTaskService = baseTaskServices.getIfAvailable();
-		if (baseTaskService != null) {
-			idocListenerSupport.setBaseTaskService(baseTaskService);
-		}
+		baseTaskServices.ifAvailable(idocListenerSupport::setBaseTaskService);
 		idocListenerSupport.setIdocMessageConverter(idocMessageConverter);
 		return idocListenerSupport;
 	}
