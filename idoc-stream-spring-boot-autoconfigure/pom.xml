@@ -23,7 +23,6 @@
             <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
             <optional>true</optional>
         </dependency>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
