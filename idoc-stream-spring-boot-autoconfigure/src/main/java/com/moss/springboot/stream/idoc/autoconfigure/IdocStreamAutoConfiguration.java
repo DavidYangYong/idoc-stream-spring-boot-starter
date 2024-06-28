@@ -44,9 +44,12 @@ public class IdocStreamAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public HandlerContext handlerContext(ObjectProvider<List<IBaseExecService>> baseExecServiceList) {
+	public HandlerContext handlerContext(ObjectProvider<List<IBaseExecService>> baseExecServiceList,
+			ObjectProvider<List<IBaseTaskService>> baseTaskServiceList) {
 		List<IBaseExecService> execServiceList = baseExecServiceList.getIfAvailable(Collections::emptyList);
-		return new HandlerContext(execServiceList);
+		List<IBaseTaskService> baseTaskServices = baseTaskServiceList.getIfAvailable(
+				Collections::emptyList);
+		return new HandlerContext(execServiceList, baseTaskServices);
 	}
 
 	@Bean
@@ -58,9 +61,8 @@ public class IdocStreamAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public IdocListenerSupport idocListenerSupport(IdocExecFactory idocExecFactory, RuleProperties ruleProperties,
-			IdocMessageConverter idocMessageConverter, ObjectProvider<IBaseTaskService> baseTaskServices) {
+			IdocMessageConverter idocMessageConverter) {
 		IdocListenerSupport idocListenerSupport = new IdocListenerSupport(idocExecFactory, ruleProperties);
-		baseTaskServices.ifAvailable(idocListenerSupport::setBaseTaskService);
 		idocListenerSupport.setIdocMessageConverter(idocMessageConverter);
 		return idocListenerSupport;
 	}
