@@ -23,6 +23,7 @@ public class IdocListenerSupport {
 
   private final IdocExecFactory idocExecFactory;
   private final RuleProperties ruleProperties;
+  private IBaseTaskService baseTaskService;
   private IdocMessageConverter idocMessageConverter;
 
   public IdocListenerSupport(IdocExecFactory idocExecFactory, RuleProperties ruleProperties) {
@@ -32,6 +33,9 @@ public class IdocListenerSupport {
     Assert.notNull(idocExecFactory, "idocExecFactory must be not null");
   }
 
+  public void setBaseTaskService(IBaseTaskService baseTaskService) {
+    this.baseTaskService = baseTaskService;
+  }
 
   public void setIdocMessageConverter(IdocMessageConverter idocMessageConverter) {
     this.idocMessageConverter = idocMessageConverter;
@@ -67,11 +71,8 @@ public class IdocListenerSupport {
           boolean supportSendMessage = baseExecService.supportSendMessage();
           if (supportSendMessage) {
             sendMessage = baseExecService.sendMessage(temp);
-            if (StringUtils.isNotEmpty(sendMessage)) {
-              IBaseTaskService baseTaskService = idocExecFactory.createBaseTask(mesType);
-              if (baseTaskService != null) {
-                baseTaskService.sendMessage(sendMessage);
-              }
+            if (StringUtils.isNotEmpty(sendMessage) && baseTaskService != null) {
+              baseTaskService.sendMessage(sendMessage);
             } else {
               log.warn("baseTaskService is null or sendMessage is empty!");
             }
