@@ -60,7 +60,8 @@ public class IdocListenerSupport {
 			IBaseExecService baseExecService = idocExecFactory.createBaseExec(mesType);
 			try {
 				if (baseExecService != null) {
-					if (ruleProperties.getIdocContentNotConvert()) {
+					if (ruleProperties.getIdocContentNotConvert()
+							&& baseExecService.idocContentNotConvert()) {
 						return baseExecService.idocContentConvert(idocContent);
 					}
 					baseExecService.setIdocMessageConverter(idocMessageConverter);

@@ -2,6 +2,7 @@ package com.moss.springboot.stream.idoc.service.base;
 
 import com.moss.springboot.stream.idoc.annotation.HandlerType;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 
 /**
@@ -40,13 +41,20 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 	@Override
 	public abstract T exec(T t);
 
+
+	private HandlerType getHandlerType() {
+		return AnnotationUtils.findAnnotation(this.getClass(), HandlerType.class);
+	}
 	@Override
 	public String getMesType() {
-		HandlerType handlerType = AnnotationUtils.findAnnotation(this.getClass(), HandlerType.class);
-		if (handlerType != null) {
-			return handlerType.value();
-		}
-		return "";
+		HandlerType handlerType = getHandlerType();
+		return handlerType != null ? handlerType.value() : StringUtils.EMPTY;
+	}
+
+	public boolean idocContentNotConvert() {
+		HandlerType handlerType = getHandlerType();
+
+		return handlerType == null || handlerType.idocContentNotConvert();
 	}
 	@Override
 	public T execTemplate(String idocContent) {
