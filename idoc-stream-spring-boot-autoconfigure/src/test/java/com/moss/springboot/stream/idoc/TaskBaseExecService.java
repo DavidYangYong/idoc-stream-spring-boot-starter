@@ -15,6 +15,11 @@ public class TaskBaseExecService implements IBaseTaskService {
 
 
 	@Override
+	public String getMesType() {
+		return "";
+	}
+
+	@Override
 	public void sendMessage(String sendMessage) {
 		log.info("外发Message to MQ：{}", sendMessage);
 		if (StringUtils.isNotEmpty(sendMessage)) {//判断移动类型是否在枚举范围内
