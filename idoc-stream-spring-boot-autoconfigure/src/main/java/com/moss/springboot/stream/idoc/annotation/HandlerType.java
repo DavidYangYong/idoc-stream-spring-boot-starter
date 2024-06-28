@@ -18,4 +18,6 @@ import java.lang.annotation.Target;
 public @interface HandlerType {
 
 	String value();
+
+	boolean idocContentNotConvert() default true;
 }

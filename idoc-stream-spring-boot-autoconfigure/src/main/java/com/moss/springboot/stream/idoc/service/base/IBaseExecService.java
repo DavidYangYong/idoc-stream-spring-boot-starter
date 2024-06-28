@@ -56,4 +56,6 @@ public interface IBaseExecService<T> {
 	default String sendMessage(T t) {
 		return null;
 	}
+
+	public boolean idocContentNotConvert();
 }
