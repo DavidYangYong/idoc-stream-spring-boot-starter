@@ -28,18 +28,20 @@ public class IdocSinkAutoConfiguration {
 
   private final IdocListener idocListener;
 
-  private IBaseTaskService baseTaskService;
-
-  public IdocSinkAutoConfiguration(IdocListener idocListener,
-      ObjectProvider<IBaseTaskService> baseTaskService) {
+  public IdocSinkAutoConfiguration(IdocListener idocListener) {
     this.idocListener = idocListener;
-    this.baseTaskService = baseTaskService.getIfAvailable();
   }
 
 
   @Bean
-  public Supplier<String> idocSupplier() {
-    return () -> baseTaskService.getMessage();
+  public Supplier<String> idocSupplier(ObjectProvider<IBaseTaskService> baseTaskService) {
+    return () -> {
+      IBaseTaskService baseTask = baseTaskService.getIfAvailable();
+      if (baseTask == null) {
+        return null;
+      }
+      return baseTask.getMessage();
+    };
   }
 
   @Bean
