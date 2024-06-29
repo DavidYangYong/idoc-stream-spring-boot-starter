@@ -58,9 +58,9 @@ public class IdocStreamAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public IdocListenerSupport idocListenerSupport(IdocExecFactory idocExecFactory, RuleProperties ruleProperties,
-			IdocMessageConverter idocMessageConverter, ObjectProvider<IBaseTaskService> baseTaskServices) {
+			IdocMessageConverter idocMessageConverter, ObjectProvider<IBaseTaskService> baseTaskService) {
 		IdocListenerSupport idocListenerSupport = new IdocListenerSupport(idocExecFactory, ruleProperties);
-		baseTaskServices.ifAvailable(idocListenerSupport::setBaseTaskService);
+		baseTaskService.ifAvailable(idocListenerSupport::setBaseTaskService);
 		idocListenerSupport.setIdocMessageConverter(idocMessageConverter);
 		return idocListenerSupport;
 	}
