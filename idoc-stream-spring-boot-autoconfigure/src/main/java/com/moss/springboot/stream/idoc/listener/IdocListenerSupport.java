@@ -99,7 +99,7 @@ public class IdocListenerSupport {
           if (supportSendMessage) {
             sendMessage = baseExecService.sendMessage(temp);
             if (StringUtils.isNotEmpty(sendMessage) && baseTaskService != null) {
-              baseTaskService.sendMessage(mesType, sendMessage);
+              sendMessage = baseTaskService.sendMessage(mesType, sendMessage);
             } else {
               log.warn("baseTaskService is null or sendMessage is empty!");
             }
