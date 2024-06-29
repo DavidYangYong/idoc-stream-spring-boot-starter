@@ -15,18 +15,12 @@ public class TaskBaseExecService implements IBaseTaskService {
 
 
 	@Override
-	public String sendMessage(String messageType, String sendMessage) {
+	public void sendMessage(String messageType, String sendMessage) {
 		log.info("外发Message to MQ：{}", sendMessage);
 		if (StringUtils.isNotEmpty(sendMessage)) {//判断移动类型是否在枚举范围内
 			//source.output().send(MessageBuilder.withPayload(sendMessage).build());
 		} else {
 			log.info("外发Message {}不在外发范围内，不做任何操作！", sendMessage);
 		}
-		return null;
-	}
-
-	@Override
-	public String getMessage() {
-		return "";
 	}
 }
