@@ -1,12 +1,9 @@
 package com.moss.springboot.stream.idoc.autoconfigure;
 
 import com.moss.springboot.stream.idoc.listener.IdocListener;
-import com.moss.springboot.stream.idoc.service.base.IBaseTaskService;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -30,18 +27,6 @@ public class IdocSinkAutoConfiguration {
 
   public IdocSinkAutoConfiguration(IdocListener idocListener) {
     this.idocListener = idocListener;
-  }
-
-
-  @Bean
-  public Supplier<String> idocSupplier(ObjectProvider<IBaseTaskService> baseTaskService) {
-    return () -> {
-      IBaseTaskService baseTask = baseTaskService.getIfAvailable();
-      if (baseTask == null) {
-        return null;
-      }
-      return baseTask.getMessage();
-    };
   }
 
   @Bean
