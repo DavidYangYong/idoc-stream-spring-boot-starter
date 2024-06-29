@@ -6,7 +6,5 @@ package com.moss.springboot.stream.idoc.service.base;
  **/
 public interface IBaseTaskService {
 
-	public String sendMessage(String messageType, String sendMessage);
-
-	public String getMessage();
+	public void sendMessage(String messageType, String sendMessage);
 }
