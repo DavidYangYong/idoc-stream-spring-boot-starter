@@ -38,7 +38,6 @@ public class MetaTest {
 		log.info(mesType);
 		Optional<IBaseExecService> optionalIBaseExecService = handlerMap.entrySet().stream()
 				.filter(new Predicate<Entry<String, IBaseExecService>>() {
-					@Override
 					public boolean test(Entry<String, IBaseExecService> stringIBaseExecServiceEntry) {
 						return org.apache.commons.lang3.StringUtils.equals(stringIBaseExecServiceEntry.getValue().getMesType(), "IDOC"
 								+ ":ORDNTF"

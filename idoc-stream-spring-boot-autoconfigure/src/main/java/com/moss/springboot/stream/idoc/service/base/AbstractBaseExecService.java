@@ -10,7 +10,7 @@ import org.springframework.core.annotation.AnnotationUtils;
  * @date 2019-10-19 09:14
  **/
 @Slf4j
-public abstract class AbstractBaseExecService<T, R> implements IBaseExecService<T, R> {
+public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> {
 
 	private final Class<T> clazz;
 	private IdocMessageConverter idocMessageConverter;
@@ -39,7 +39,7 @@ public abstract class AbstractBaseExecService<T, R> implements IBaseExecService<
 	 * @return T idoc 对应 java 的转换类
 	 */
 	@Override
-	public abstract R exec(T t);
+	public abstract T exec(T t);
 
 
 	private HandlerType getHandlerType() {
