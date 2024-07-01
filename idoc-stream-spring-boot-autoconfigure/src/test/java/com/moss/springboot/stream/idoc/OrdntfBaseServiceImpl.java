@@ -16,8 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = RuntimeException.class)
 @Slf4j
 @HandlerType(value = "IDOC:ORDNTF:ORDINT01")
-public class OrdntfBaseServiceImpl extends AbstractBaseExecService<Object, Object> implements
-		IBaseExecService<Object, Object> {
+public class OrdntfBaseServiceImpl extends AbstractBaseExecService<Object> implements IBaseExecService<Object> {
 
 
 	public OrdntfBaseServiceImpl() {

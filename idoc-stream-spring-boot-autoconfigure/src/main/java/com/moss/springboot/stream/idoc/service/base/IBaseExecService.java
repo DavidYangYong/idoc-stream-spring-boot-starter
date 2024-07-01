@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author david
  * @date 2019-10-19 08:35
  **/
-public interface IBaseExecService<T, R> {
+public interface IBaseExecService<T> {
 
 	/**
 	 * getMesType
@@ -35,9 +35,9 @@ public interface IBaseExecService<T, R> {
 	 * 对实体类进行操作
 	 *
 	 * @param t 操作实体类
-   * @return R 返回实体类
+	 * @return T
 	 */
-  public R exec(T t);
+	public T exec(T t);
 
 	/**
 	 * 缓存实体类
