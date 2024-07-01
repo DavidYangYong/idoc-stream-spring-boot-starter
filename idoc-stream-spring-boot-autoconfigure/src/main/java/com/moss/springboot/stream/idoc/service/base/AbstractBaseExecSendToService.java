@@ -5,14 +5,14 @@ package com.moss.springboot.stream.idoc.service.base;
  * @create 2022-11-11 11:50
  * @Description:
  **/
-public abstract class AbstractBaseExecSendToService<T> extends AbstractBaseExecService<T> {
+public abstract class AbstractBaseExecSendToService<T, R> extends AbstractBaseExecService<T, R> {
 
 	public AbstractBaseExecSendToService(Class<T> clazz) {
 		super(clazz);
 	}
 
 	@Override
-	public T exec(T t) {
+	public R exec(T t) {
 		return null;
 	}
 
