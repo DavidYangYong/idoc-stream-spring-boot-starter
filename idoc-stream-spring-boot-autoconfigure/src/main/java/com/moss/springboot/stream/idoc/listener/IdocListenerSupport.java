@@ -1,6 +1,5 @@
 package com.moss.springboot.stream.idoc.listener;
 
-import com.moss.springboot.stream.idoc.domain.IdocRuleConfig;
 import com.moss.springboot.stream.idoc.domain.RuleProperties;
 import com.moss.springboot.stream.idoc.factory.IdocExecFactory;
 import com.moss.springboot.stream.idoc.service.base.IBaseExecService;
@@ -8,7 +7,6 @@ import com.moss.springboot.stream.idoc.service.base.IBaseTaskService;
 import com.moss.springboot.stream.idoc.service.base.IdocMessageConverter;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -44,32 +42,14 @@ public class IdocListenerSupport {
 
   private boolean validationExecMesType(String mesTyp) {
     boolean b = false;
-    List<IdocRuleConfig> idocRules = ruleProperties.getIdocRules();
+    List<String> idocRules = ruleProperties.getIdocRules();
     if (CollectionUtils.isNotEmpty(idocRules)) {
-      Collection<IdocRuleConfig> selectList = idocRules.stream().filter(
-              idocRuleConfig -> StringUtils.equals(idocRuleConfig.getIdocRule(), mesTyp))
+      Collection<String> selectList = idocRules.stream().filter(
+              s -> StringUtils.equals(s, mesTyp))
           .collect(Collectors.toList());
       b = CollectionUtils.isNotEmpty(selectList);
     }
     return b;
-  }
-
-  private boolean findIdocContentNotConvert(String mesTyp) {
-    boolean b = false;
-    List<IdocRuleConfig> idocRules = ruleProperties.getIdocRules();
-    if (CollectionUtils.isNotEmpty(idocRules)) {
-      Collection<IdocRuleConfig> selectList = idocRules.stream().filter(
-              idocRuleConfig -> StringUtils.equals(idocRuleConfig.getIdocRule(), mesTyp))
-          .collect(Collectors.toList());
-      b = CollectionUtils.isNotEmpty(selectList);
-      if (b) {
-        Optional<IdocRuleConfig> optional = selectList.stream().findFirst();
-        if (optional.isPresent()) {
-          return optional.get().isIdocContentNotConvert();
-        }
-      }
-    }
-    return false;
   }
 
 
@@ -82,14 +62,9 @@ public class IdocListenerSupport {
       IBaseExecService baseExecService = idocExecFactory.createBaseExec(mesType);
       try {
         if (baseExecService != null) {
-          if (ruleProperties.getIdocContentNotConvert()) {
-            boolean idocContentNotConvert = findIdocContentNotConvert(mesType);
-            if (!idocContentNotConvert) {
+          if (ruleProperties.getIdocContentNotConvert()
+              && baseExecService.idocContentNotConvert()) {
               return baseExecService.idocContentConvert(idocContent);
-            }
-            if (baseExecService.idocContentNotConvert()) {
-              return baseExecService.idocContentConvert(idocContent);
-            }
           }
           baseExecService.setIdocMessageConverter(idocMessageConverter);
           Object t = baseExecService.execTemplate(idocContent);

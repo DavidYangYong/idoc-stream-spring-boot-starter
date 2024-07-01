@@ -13,7 +13,7 @@ public class RuleProperties {
 	public static final String STREAMIDOC_PREFIX = "com.moss.cloud.stream.idoc";
 	private boolean enabled;
 	private boolean idocContentNotConvert;
-	private List<IdocRuleConfig> idocRules;
+	private List<String> idocRules;
 
 	public boolean getEnabled() {
 		return enabled;
@@ -31,11 +31,11 @@ public class RuleProperties {
 		this.idocContentNotConvert = idocContentNotConvert;
 	}
 
-	public List<IdocRuleConfig> getIdocRules() {
+	public List<String> getIdocRules() {
 		return idocRules;
 	}
 
-	public void setIdocRules(List<IdocRuleConfig> idocRules) {
+	public void setIdocRules(List<String> idocRules) {
 		this.idocRules = idocRules;
 	}
 }
