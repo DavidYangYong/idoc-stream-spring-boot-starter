@@ -2,20 +2,13 @@ package com.moss.springboot.stream.idoc.domain;
 
 /**
  * @version V0.1
- * @项目名称：jnc-codecenter
+ * @项目名称：
  * @类名称：EdiDc40Bean
  * @类描述：
- * @author：justin
- * @创建时间：2019-10-19 10:40
+ * @author：david
+ * @创建时间：2024-07-01 10:40
  */
 public class EdiDc40Bean {
-
-  /**
-   * serial : 20190419103217 rcvprn : wlm segment : 1 docrel : 700 sndprt : ls sndpor : sapdev
-   * mestyp : wmmbxy rcvprt : ls rcvpor : tmsport01 docnum : 0000000000769744 rcvpfc : ls sndprn :
-   * devclnt200 tabnam : edi_dc40 outmod : 2 mandt : 200 status : 30 idoctyp : wmmbid02 credat :
-   * 20190419 cretim : 103217 direct : 1
-   */
 
   private String serial;
   private String rcvprn;
@@ -196,5 +189,31 @@ public class EdiDc40Bean {
 
   public void setDirect(String direct) {
     this.direct = direct;
+  }
+
+  @Override
+  public String toString() {
+    return "EdiDc40Bean{" +
+        "serial='" + serial + '\'' +
+        ", rcvprn='" + rcvprn + '\'' +
+        ", segment='" + segment + '\'' +
+        ", docrel='" + docrel + '\'' +
+        ", sndprt='" + sndprt + '\'' +
+        ", sndpor='" + sndpor + '\'' +
+        ", mestyp='" + mestyp + '\'' +
+        ", rcvprt='" + rcvprt + '\'' +
+        ", rcvpor='" + rcvpor + '\'' +
+        ", docnum='" + docnum + '\'' +
+        ", rcvpfc='" + rcvpfc + '\'' +
+        ", sndprn='" + sndprn + '\'' +
+        ", tabnam='" + tabnam + '\'' +
+        ", outmod='" + outmod + '\'' +
+        ", mandt='" + mandt + '\'' +
+        ", status='" + status + '\'' +
+        ", idoctyp='" + idoctyp + '\'' +
+        ", credat='" + credat + '\'' +
+        ", cretim='" + cretim + '\'' +
+        ", direct='" + direct + '\'' +
+        '}';
   }
 }
