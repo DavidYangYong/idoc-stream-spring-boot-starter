@@ -53,7 +53,6 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 
 	public boolean idocContentNotConvert() {
 		HandlerType handlerType = getHandlerType();
-
 		return handlerType == null || handlerType.idocContentNotConvert();
 	}
 	@Override
