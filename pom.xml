@@ -14,7 +14,7 @@
     </modules>
     <properties>
         <!-- Maven compiler options -->
-        <revision>3.4.0</revision>
+        <revision>3.5.0</revision>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
