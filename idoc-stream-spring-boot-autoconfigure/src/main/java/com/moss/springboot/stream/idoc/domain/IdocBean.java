@@ -1,5 +1,7 @@
 package com.moss.springboot.stream.idoc.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @version V0.1
  * @项目名称：
@@ -10,7 +12,9 @@ package com.moss.springboot.stream.idoc.domain;
  */
 public class IdocBean {
 
+  @JsonProperty("EDI_DC40")
   private EdiDc40Bean edi_dc40;
+  @JsonProperty("BEGIN")
   private String begin;
 
   public EdiDc40Bean getEdi_dc40() {

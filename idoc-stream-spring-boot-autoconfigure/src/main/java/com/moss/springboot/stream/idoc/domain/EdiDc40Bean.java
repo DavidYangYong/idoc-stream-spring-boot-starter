@@ -1,5 +1,7 @@
 package com.moss.springboot.stream.idoc.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @version V0.1
  * @项目名称：
@@ -10,26 +12,56 @@ package com.moss.springboot.stream.idoc.domain;
  */
 public class EdiDc40Bean {
 
+  @JsonProperty("SERIAL")
   private String serial;
+  @JsonProperty("RCVPRN")
   private String rcvprn;
+  @JsonProperty("SEGMENT")
   private String segment;
+  @JsonProperty("DOCREL")
   private String docrel;
+  @JsonProperty("SNDPRT")
   private String sndprt;
+  @JsonProperty("SNDPOR")
   private String sndpor;
+  @JsonProperty("MESTYP")
   private String mestyp;
+  @JsonProperty("RCVPRT")
   private String rcvprt;
+  @JsonProperty("RCVPOR")
   private String rcvpor;
+  @JsonProperty("DOCNUM")
   private String docnum;
+  @JsonProperty("RCVPFC")
   private String rcvpfc;
+  @JsonProperty("SNDPRN")
   private String sndprn;
+  @JsonProperty("TABNAM")
   private String tabnam;
+  @JsonProperty("OUTMOD")
   private String outmod;
+  @JsonProperty("MANDT")
   private String mandt;
+  @JsonProperty("STATUS")
   private String status;
+  @JsonProperty("IDOCTYP")
   private String idoctyp;
+  @JsonProperty("CREDAT")
   private String credat;
+  @JsonProperty("CRETIM")
   private String cretim;
+  @JsonProperty("DIRECT")
   private String direct;
+  @JsonProperty("CIMTYP")
+  private String cimtyp;
+
+  public String getCimtyp() {
+    return cimtyp;
+  }
+
+  public void setCimtyp(String cimtyp) {
+    this.cimtyp = cimtyp;
+  }
 
   public String getSerial() {
     return serial;
