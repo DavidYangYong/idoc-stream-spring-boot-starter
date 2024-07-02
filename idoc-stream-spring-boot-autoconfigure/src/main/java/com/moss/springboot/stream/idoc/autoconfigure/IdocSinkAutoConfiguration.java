@@ -37,7 +37,7 @@ public class IdocSinkAutoConfiguration {
       MessageHeaders messageHeaders = msg.getHeaders();
       log.info("idocSink Received messageHeaders: {}", messageHeaders);
       String payloadTemp;
-      payloadTemp = idocListener.process(payload);
+      payloadTemp = idocListener.process(messageHeaders, payload);
       if (StringUtils.isNotEmpty(payloadTemp)) {
         return MessageBuilder.createMessage(payloadTemp, messageHeaders);
       } else {
