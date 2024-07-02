@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.messaging.MessageHeaders;
 import org.springframework.util.Assert;
 
 /**
@@ -53,8 +54,7 @@ public class IdocListenerSupport {
   }
 
 
-
-  public String process(String idocContent, String mesType) {
+  public String process(MessageHeaders messageHeaders, String idocContent, String mesType) {
     log.info("idoc Listener process start------- ");
     boolean b = validationExecMesType(mesType);
     String sendMessage = null;
@@ -62,16 +62,17 @@ public class IdocListenerSupport {
       IBaseExecService baseExecService = idocExecFactory.createBaseExec(mesType);
       try {
         if (baseExecService != null) {
+          baseExecService.setIdocMessageConverter(idocMessageConverter);
           if (ruleProperties.getIdocContentNotConvert()
               && baseExecService.idocContentNotConvert()) {
               return baseExecService.idocContentConvert(idocContent);
           }
-          baseExecService.setIdocMessageConverter(idocMessageConverter);
           Object t = baseExecService.execTemplate(idocContent);
           Object temp = baseExecService.exec(t);
           baseExecService.cacheObject(temp);
           boolean supportSendMessage = baseExecService.supportSendMessage();
           if (supportSendMessage) {
+            baseExecService.setMessageHeaders(messageHeaders);
             sendMessage = baseExecService.sendMessage(temp);
             if (StringUtils.isNotEmpty(sendMessage) && baseTaskService != null) {
               baseTaskService.sendMessage(mesType, sendMessage);

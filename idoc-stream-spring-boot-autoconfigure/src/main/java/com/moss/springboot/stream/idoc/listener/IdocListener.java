@@ -45,7 +45,7 @@ public class IdocListener implements InitializingBean {
 				String type = queryProcessMsgType(messageHeaders);
 				if (StringUtils.isNotEmpty(type)) {
 					log.info("queryProcessMsgType---> {}", type);
-					sendMessage = idocListenerSupport.process(content, type);
+					sendMessage = idocListenerSupport.process(messageHeaders, content, type);
 				} else {
 					log.warn("MESTYP is Empty in json content");
 				}
