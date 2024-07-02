@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.messaging.MessageHeaders;
 import org.springframework.util.Assert;
 
 /**
@@ -31,26 +32,23 @@ public class IdocListener implements InitializingBean {
 		this.objectMapper = objectMapper;
 	}
 
-	public String process(String content) {
+	public String process(MessageHeaders messageHeaders, String content) {
 
 		String sendMessage = null;
 		log.info("Receiver-queue:si.idoc.queue--> : {}", content);
 
 		try {
-			JsonNode jsonNode = objectMapper.readTree(content);
+			String mesType = messageHeaders.get("message_type", String.class);
 
-			List<String> mesTypes = getValueByFind(jsonNode, "MESTYP");
-			if (CollectionUtils.isNotEmpty(mesTypes)) {
-				log.info("MESTYP---> {}", mesTypes.get(0));
-				String type = queryProcessMsgType(jsonNode);
+			if (StringUtils.isNotEmpty(mesType)) {
+				log.info("MESTYP---> {}", mesType);
+				String type = queryProcessMsgType(messageHeaders);
 				if (StringUtils.isNotEmpty(type)) {
 					log.info("queryProcessMsgType---> {}", type);
 					sendMessage = idocListenerSupport.process(content, type);
 				} else {
 					log.warn("MESTYP is Empty in json content");
 				}
-			} else {
-				log.warn("MESTYP is not found in json content");
 			}
 		} catch (Exception e) {
 			log.error("idoc exec fail:", e);
@@ -65,6 +63,30 @@ public class IdocListener implements InitializingBean {
 		return sendMessage;
 	}
 
+	private String queryProcessMsgType(MessageHeaders messageHeaders) {
+		String type = "";
+		String mestyp = getValueByFind(messageHeaders, "message_type");
+		String msgTypeTemp = "";
+		if (StringUtils.isNotEmpty(mestyp)) {
+			msgTypeTemp = mestyp;
+		}
+		String idocTypeTemp = "";
+		String idocType = getValueByFind(messageHeaders, "idoc_type");
+		if (StringUtils.isNotEmpty(idocType)) {
+			idocTypeTemp = idocType;
+			type = String.format("IDOC:%s:%s", msgTypeTemp, idocTypeTemp);
+		}
+		String cimType = getValueByFind(messageHeaders, "cim_type");
+		if (StringUtils.isNotEmpty(cimType)) {
+			String cimTypeTemp = cimType;
+			if (StringUtils.isNotEmpty(cimTypeTemp)) {
+				type = String.format("IDOC:%s:%s:%s", msgTypeTemp, idocTypeTemp, cimTypeTemp);
+			}
+		}
+		return type;
+	}
+
+	@Deprecated
 	private String queryProcessMsgType(JsonNode jsonNode) {
 		String type = "";
 		List<String> mesTypes = getValueByFind(jsonNode, "MESTYP");
@@ -88,6 +110,7 @@ public class IdocListener implements InitializingBean {
 		return type;
 	}
 
+	@Deprecated
 	/**
 	 * 使用find的方法从实体中取出所有匹配的值
 	 **/
@@ -98,6 +121,10 @@ public class IdocListener implements InitializingBean {
 		Optional<JsonNode> optionalJsonNode = jsonNodeList.stream().findFirst();
 		optionalJsonNode.ifPresent(jsonNode -> values.add(jsonNode.asText()));
 		return values;
+	}
+
+	public String getValueByFind(MessageHeaders messageHeaders, String path) {
+		return messageHeaders.get(path, String.class);
 	}
 
 	@Override
