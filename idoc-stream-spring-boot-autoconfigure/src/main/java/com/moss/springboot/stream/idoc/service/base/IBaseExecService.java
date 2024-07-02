@@ -1,6 +1,7 @@
 package com.moss.springboot.stream.idoc.service.base;
 
 import java.io.Serializable;
+import org.springframework.messaging.MessageHeaders;
 
 /**
  * @author david
@@ -14,6 +15,10 @@ public interface IBaseExecService<T> {
 	 * @return String
 	 */
 	public String getMesType();
+
+	public MessageHeaders getMessageHeaders();
+
+	public void setMessageHeaders(MessageHeaders messageHeaders);
 
 	public void setIdocMessageConverter(IdocMessageConverter idocMessageConverter);
 

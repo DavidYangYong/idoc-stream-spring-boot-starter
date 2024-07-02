@@ -4,6 +4,7 @@ import com.moss.springboot.stream.idoc.annotation.HandlerType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.messaging.MessageHeaders;
 
 /**
  * @author david
@@ -14,6 +15,17 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
 
 	private final Class<T> clazz;
 	private IdocMessageConverter idocMessageConverter;
+
+	private MessageHeaders messageHeaders;
+
+	@Override
+	public MessageHeaders getMessageHeaders() {
+		return messageHeaders;
+	}
+
+	public void setMessageHeaders(MessageHeaders messageHeaders) {
+		this.messageHeaders = messageHeaders;
+	}
 
 	public AbstractBaseExecService(Class<T> clazz) {
 		this.clazz = clazz;
