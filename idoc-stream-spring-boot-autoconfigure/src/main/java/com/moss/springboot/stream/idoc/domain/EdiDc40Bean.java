@@ -1,5 +1,6 @@
 package com.moss.springboot.stream.idoc.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author：david
  * @创建时间：2024-07-01 10:40
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EdiDc40Bean {
 
   @JsonProperty("SERIAL")
