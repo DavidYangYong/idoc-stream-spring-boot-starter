@@ -14,7 +14,6 @@ import java.util.Collections;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -33,14 +32,6 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnProperty(prefix = RuleProperties.STREAMIDOC_PREFIX, name = "enabled", havingValue = "true")
 @Slf4j
 public class IdocStreamAutoConfiguration {
-
-	private ObjectMapper objectMapper;
-
-	@Autowired
-	public void setObjectMapper(ObjectMapper objectMapper) {
-		this.objectMapper = objectMapper;
-	}
-
 
 	@Bean
 	@ConditionalOnMissingBean
@@ -70,13 +61,12 @@ public class IdocStreamAutoConfiguration {
 	public IdocListener idocListener(IdocListenerSupport idocListenerSupport) {
 		IdocListener idocListener = new IdocListener();
 		idocListener.setIdocListenerSupport(idocListenerSupport);
-		idocListener.setObjectMapper(objectMapper);
 		return idocListener;
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
-	public IdocMessageConverter idocMessageConverter() {
+	public IdocMessageConverter idocMessageConverter(ObjectMapper objectMapper) {
 		return new DefaultIdocMessageConverter(objectMapper);
 	}
 }
