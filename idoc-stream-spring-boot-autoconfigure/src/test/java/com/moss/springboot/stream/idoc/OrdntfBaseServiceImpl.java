@@ -26,4 +26,6 @@ public class OrdntfBaseServiceImpl extends AbstractBaseExecService<Object> imple
 	public Object exec(Object o) {
 		return null;
 	}
+
+
 }

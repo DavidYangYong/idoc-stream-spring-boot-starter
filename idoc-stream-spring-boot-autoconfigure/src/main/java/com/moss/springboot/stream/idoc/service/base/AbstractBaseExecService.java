@@ -1,6 +1,7 @@
 package com.moss.springboot.stream.idoc.service.base;
 
 import com.moss.springboot.stream.idoc.annotation.HandlerType;
+import com.moss.springboot.stream.idoc.core.support.DefaultBaseExecServiceMetadata;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -13,62 +14,69 @@ import org.springframework.messaging.MessageHeaders;
 @Slf4j
 public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> {
 
-	private final Class<T> clazz;
-	private IdocMessageConverter idocMessageConverter;
+  private final Class<T> clazz;
+  private IdocMessageConverter idocMessageConverter;
 
-	private MessageHeaders messageHeaders;
+  private MessageHeaders messageHeaders;
+  private  DefaultBaseExecServiceMetadata defaultBaseExecServiceMetadata = new DefaultBaseExecServiceMetadata(
+      getClass());
+  public AbstractBaseExecService() {
+    this.clazz = defaultBaseExecServiceMetadata.getDomainType();
+  }
 
-	@Override
-	public MessageHeaders getMessageHeaders() {
-		return messageHeaders;
-	}
+  public AbstractBaseExecService(Class<T> clazz) {
+    this.clazz = clazz;
+  }
 
-	public void setMessageHeaders(MessageHeaders messageHeaders) {
-		this.messageHeaders = messageHeaders;
-	}
+  @Override
+  public MessageHeaders getMessageHeaders() {
+    return messageHeaders;
+  }
 
-	public AbstractBaseExecService(Class<T> clazz) {
-		this.clazz = clazz;
-	}
+  public void setMessageHeaders(MessageHeaders messageHeaders) {
+    this.messageHeaders = messageHeaders;
+  }
 
-	public IdocMessageConverter getIdocMessageConverter() {
-		return idocMessageConverter;
-	}
+  public IdocMessageConverter getIdocMessageConverter() {
+    return idocMessageConverter;
+  }
 
-	public void setIdocMessageConverter(IdocMessageConverter idocMessageConverter) {
-		this.idocMessageConverter = idocMessageConverter;
-	}
+  public void setIdocMessageConverter(IdocMessageConverter idocMessageConverter) {
+    this.idocMessageConverter = idocMessageConverter;
+  }
 
-	@Override
-	public String idocContentConvert(String idocContent) {
-		return idocContent;
-	}
+  @Override
+  public String idocContentConvert(String idocContent) {
+    return idocContent;
+  }
 
-	/**
-	 * idoc处理核心方法
-	 *
-	 * @param t idoc 对应 java 的转换类
-	 * @return T idoc 对应 java 的转换类
-	 */
-	@Override
-	public abstract T exec(T t);
+  /**
+   * idoc处理核心方法
+   *
+   * @param t idoc 对应 java 的转换类
+   * @return T idoc 对应 java 的转换类
+   */
+  @Override
+  public abstract T exec(T t);
 
 
-	private HandlerType getHandlerType() {
-		return AnnotationUtils.findAnnotation(this.getClass(), HandlerType.class);
-	}
-	@Override
-	public String getMesType() {
-		HandlerType handlerType = getHandlerType();
-		return handlerType != null ? handlerType.value() : StringUtils.EMPTY;
-	}
+  private HandlerType getHandlerType() {
+    return AnnotationUtils.findAnnotation(this.getClass(), HandlerType.class);
+  }
 
-	public boolean idocContentNotConvert() {
-		HandlerType handlerType = getHandlerType();
-		return handlerType == null || handlerType.idocContentNotConvert();
-	}
-	@Override
-	public T execTemplate(String idocContent) {
-		return getIdocMessageConverter().fromMessage(idocContent, clazz);
-	}
+  @Override
+  public String getMesType() {
+    HandlerType handlerType = getHandlerType();
+    return handlerType != null ? handlerType.value() : StringUtils.EMPTY;
+  }
+
+  public boolean idocContentNotConvert() {
+    HandlerType handlerType = getHandlerType();
+    return handlerType == null || handlerType.idocContentNotConvert();
+  }
+
+  @Override
+  public T execTemplate(String idocContent) {
+    return getIdocMessageConverter().fromMessage(idocContent, clazz);
+  }
 }
