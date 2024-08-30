@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.util.Assert;
 
@@ -27,10 +28,10 @@ public class IdocListenerSupport {
   private IdocMessageConverter idocMessageConverter;
 
   public IdocListenerSupport(IdocExecFactory idocExecFactory, RuleProperties ruleProperties) {
-    this.ruleProperties = ruleProperties;
-    this.idocExecFactory = idocExecFactory;
     Assert.notNull(ruleProperties, "ruleProperties must be not null");
     Assert.notNull(idocExecFactory, "idocExecFactory must be not null");
+    this.ruleProperties = ruleProperties;
+    this.idocExecFactory = idocExecFactory;
   }
 
   public void setBaseTaskService(IBaseTaskService baseTaskService) {
@@ -56,39 +57,55 @@ public class IdocListenerSupport {
 
   public String process(MessageHeaders messageHeaders, String idocContent, String mesType) {
     log.info("idoc Listener process start------- ");
-    boolean b = validationExecMesType(mesType);
     String sendMessage = null;
-    if (b) {
-      IBaseExecService baseExecService = idocExecFactory.createBaseExec(mesType);
-      try {
-        if (baseExecService != null) {
-          baseExecService.setIdocMessageConverter(idocMessageConverter);
-          if (ruleProperties.getIdocContentNotConvert()
-              && baseExecService.idocContentNotConvert()) {
-              return baseExecService.idocContentConvert(idocContent);
+    IBaseExecService baseExecService = getiBaseExecService(
+        mesType);
+    if (baseExecService == null) {
+      return null;
+    }
+    try {
+      if (idocConvertVal(baseExecService)) {
+        return baseExecService.idocContentConvert(idocContent);
+      } else {
+        Object t = baseExecService.execTemplate(idocContent);
+        Object temp = baseExecService.exec(t);
+        baseExecService.cacheObject(temp);
+        boolean supportSendMessage = baseExecService.supportSendMessage();
+        if (supportSendMessage) {
+          baseExecService.setMessageHeaders(messageHeaders);
+          sendMessage = baseExecService.sendMessage(temp);
+          if (StringUtils.isNotEmpty(sendMessage) && baseTaskService != null) {
+            baseTaskService.sendMessage(mesType, sendMessage);
           }
-          Object t = baseExecService.execTemplate(idocContent);
-          Object temp = baseExecService.exec(t);
-          baseExecService.cacheObject(temp);
-          boolean supportSendMessage = baseExecService.supportSendMessage();
-          if (supportSendMessage) {
-            baseExecService.setMessageHeaders(messageHeaders);
-            sendMessage = baseExecService.sendMessage(temp);
-            if (StringUtils.isNotEmpty(sendMessage) && baseTaskService != null) {
-              baseTaskService.sendMessage(mesType, sendMessage);
-            }
-          }
-        } else {
-          log.warn("mesTyp is not find process class ");
         }
-      } catch (RuntimeException e) {
-        log.error("IdocListenerSupport process fail:", e);
-        throw new RuntimeException("IdocListenerSupport process fail:", e);
       }
-    } else {
-      log.warn("mesTyp {} is not find in idoc rules ", mesType);
+    } catch (RuntimeException e) {
+      log.error("IdocListenerSupport process fail:", e);
+      throw new RuntimeException("IdocListenerSupport process fail:", e);
     }
     log.info("idoc Listener process end------- ");
     return sendMessage;
+  }
+
+  @Nullable
+  private IBaseExecService getiBaseExecService(String mesType) {
+    boolean validationExecMesType = validationExecMesType(mesType);
+
+    if (!validationExecMesType) {
+      log.warn("mesTyp {} is not find in idoc rules ", mesType);
+      return null;
+    }
+    IBaseExecService baseExecService = idocExecFactory.createBaseExec(mesType);
+    if (baseExecService == null) {
+      log.warn("mesTyp is not find process class ");
+      return null;
+    }
+    baseExecService.setIdocMessageConverter(idocMessageConverter);
+    return baseExecService;
+  }
+
+  private boolean idocConvertVal(IBaseExecService<?> baseExecService) {
+    return ruleProperties.getIdocContentNotConvert()
+        && baseExecService.idocContentNotConvert();
   }
 }

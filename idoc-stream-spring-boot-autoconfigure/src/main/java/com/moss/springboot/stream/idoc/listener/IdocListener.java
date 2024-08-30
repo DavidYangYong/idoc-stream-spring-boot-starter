@@ -63,14 +63,12 @@ public class IdocListener implements InitializingBean {
     String idocTypeTemp = "";
     String idocType = getValueByFind(messageHeaders, "idoc_type");
     if (StringUtils.isNotEmpty(idocType)) {
-      idocTypeTemp = idocType;
-      type = String.format("IDOC:%s:%s", msgTypeTemp, idocTypeTemp);
+      type = String.format("IDOC:%s:%s", msgTypeTemp, idocType);
     }
     String cimType = getValueByFind(messageHeaders, "cim_type");
     if (StringUtils.isNotEmpty(cimType)) {
-      String cimTypeTemp = cimType;
-      if (StringUtils.isNotEmpty(cimTypeTemp)) {
-        type = String.format("IDOC:%s:%s:%s", msgTypeTemp, idocTypeTemp, cimTypeTemp);
+      if (StringUtils.isNotEmpty(cimType)) {
+        type = String.format("IDOC:%s:%s:%s", msgTypeTemp, idocTypeTemp, cimType);
       }
     }
     return type;
