@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moss.springboot.stream.idoc.domain.RuleProperties;
 import com.moss.springboot.stream.idoc.factory.IdocExecFactory;
 import com.moss.springboot.stream.idoc.listener.IdocListener;
+import com.moss.springboot.stream.idoc.listener.IdocListenerCustomizer;
 import com.moss.springboot.stream.idoc.listener.IdocListenerSupport;
 import com.moss.springboot.stream.idoc.service.base.DefaultIdocMessageConverter;
 import com.moss.springboot.stream.idoc.service.base.IBaseExecService;
@@ -33,40 +34,49 @@ import org.springframework.context.annotation.Bean;
 @Slf4j
 public class IdocStreamAutoConfiguration {
 
-	@Bean
-	@ConditionalOnMissingBean
-	public HandlerContext handlerContext(ObjectProvider<List<IBaseExecService>> baseExecServiceList) {
-		List<IBaseExecService> execServiceList = baseExecServiceList.getIfAvailable(Collections::emptyList);
-		return new HandlerContext(execServiceList);
-	}
+  @Bean
+  @ConditionalOnMissingBean
+  public HandlerContext handlerContext(ObjectProvider<List<IBaseExecService>> baseExecServiceList) {
+    List<IBaseExecService> execServiceList = baseExecServiceList.getIfAvailable(
+        Collections::emptyList);
+    return new HandlerContext(execServiceList);
+  }
 
-	@Bean
-	@ConditionalOnMissingBean
-	public IdocExecFactory idocExecFactory(HandlerContext handlerContext) {
-		return new IdocExecFactory(handlerContext);
-	}
+  @Bean
+  @ConditionalOnMissingBean
+  public IdocExecFactory idocExecFactory(HandlerContext handlerContext) {
+    return new IdocExecFactory(handlerContext);
+  }
 
-	@Bean
-	@ConditionalOnMissingBean
-	public IdocListenerSupport idocListenerSupport(IdocExecFactory idocExecFactory, RuleProperties ruleProperties,
-			IdocMessageConverter idocMessageConverter, ObjectProvider<IBaseTaskService> baseTaskService) {
-		IdocListenerSupport idocListenerSupport = new IdocListenerSupport(idocExecFactory, ruleProperties);
-		baseTaskService.ifAvailable(idocListenerSupport::setBaseTaskService);
-		idocListenerSupport.setIdocMessageConverter(idocMessageConverter);
-		return idocListenerSupport;
-	}
+  @Bean
+  @ConditionalOnMissingBean
+  public IdocListenerSupport idocListenerSupport(IdocExecFactory idocExecFactory,
+      RuleProperties ruleProperties,
+      IdocMessageConverter idocMessageConverter, ObjectProvider<IBaseTaskService> baseTaskService) {
+    IdocListenerSupport idocListenerSupport = new IdocListenerSupport(idocExecFactory,
+        ruleProperties);
+    baseTaskService.ifAvailable(idocListenerSupport::setBaseTaskService);
+    idocListenerSupport.setIdocMessageConverter(idocMessageConverter);
+    return idocListenerSupport;
+  }
 
-	@Bean
-	@ConditionalOnMissingBean
-	public IdocListener idocListener(IdocListenerSupport idocListenerSupport) {
-		IdocListener idocListener = new IdocListener();
-		idocListener.setIdocListenerSupport(idocListenerSupport);
-		return idocListener;
-	}
+  @Bean
+  @ConditionalOnMissingBean
+  public IdocListener idocListener(IdocListenerSupport idocListenerSupport,
+      ObjectProvider<List<IdocListenerCustomizer>> listObjectProvider) {
+    IdocListener idocListener = new IdocListener();
+    idocListener.setIdocListenerSupport(idocListenerSupport);
+    listObjectProvider.ifAvailable(list -> {
+      list.forEach(c -> {
+        c.customize(idocListener);
+      });
+    });
+    return idocListener;
+  }
 
-	@Bean
-	@ConditionalOnMissingBean
-	public IdocMessageConverter idocMessageConverter(ObjectMapper objectMapper) {
-		return new DefaultIdocMessageConverter(objectMapper);
-	}
+  @Bean
+  @ConditionalOnMissingBean
+  public IdocMessageConverter idocMessageConverter(ObjectMapper objectMapper) {
+    return new DefaultIdocMessageConverter(objectMapper);
+  }
 }
