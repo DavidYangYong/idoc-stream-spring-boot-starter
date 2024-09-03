@@ -19,12 +19,12 @@ public class OrdntfBaseServiceImpl extends AbstractBaseExecService<Object> imple
 
 
 	public OrdntfBaseServiceImpl() {
-		super(null);
+		super(Object.class);
 	}
 
 	@Override
 	public Object exec(Object o) {
-		return null;
+		return o;
 	}
 
 
