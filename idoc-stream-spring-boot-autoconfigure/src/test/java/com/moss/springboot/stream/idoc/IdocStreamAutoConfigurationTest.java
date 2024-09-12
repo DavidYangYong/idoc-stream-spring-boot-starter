@@ -2,8 +2,8 @@ package com.moss.springboot.stream.idoc;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.moss.spring.boot.autoconfigure.stream.idoc.IdocStreamAutoConfiguration;
-import com.moss.spring.boot.stream.idoc.listener.IdocListener;
+import com.moss.cloud.stream.idoc.config.IdocStreamAutoConfiguration;
+import com.moss.cloud.stream.idoc.listener.IdocListener;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;

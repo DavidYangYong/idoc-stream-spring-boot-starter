@@ -1,6 +1,6 @@
 package com.moss.springboot.stream.idoc;
 
-import com.moss.spring.boot.stream.idoc.service.base.IBaseTaskService;
+import com.moss.cloud.stream.idoc.service.base.IBaseTaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

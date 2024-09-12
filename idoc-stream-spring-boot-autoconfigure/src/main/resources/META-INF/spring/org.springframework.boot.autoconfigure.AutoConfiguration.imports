@@ -1,2 +1,2 @@
-com.moss.spring.boot.autoconfigure.stream.idoc.IdocStreamAutoConfiguration
-com.moss.spring.boot.autoconfigure.stream.idoc.IdocSinkAutoConfiguration
+com.moss.cloud.stream.idoc.config.IdocStreamAutoConfiguration
+com.moss.cloud.stream.idoc.config.IdocSinkAutoConfiguration
