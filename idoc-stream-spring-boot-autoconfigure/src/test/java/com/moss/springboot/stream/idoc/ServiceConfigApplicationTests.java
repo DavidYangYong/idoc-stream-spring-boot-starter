@@ -1,11 +1,12 @@
 package com.moss.springboot.stream.idoc;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import com.moss.springboot.stream.idoc.autoconfigure.IdocSinkAutoConfiguration;
-import com.moss.springboot.stream.idoc.autoconfigure.IdocStreamAutoConfiguration;
-import com.moss.springboot.stream.idoc.factory.IdocExecFactory;
-import com.moss.springboot.stream.idoc.listener.IdocListener;
-import com.moss.springboot.stream.idoc.listener.IdocListenerSupport;
+
+import com.moss.spring.boot.autoconfigure.stream.idoc.IdocSinkAutoConfiguration;
+import com.moss.spring.boot.autoconfigure.stream.idoc.IdocStreamAutoConfiguration;
+import com.moss.spring.boot.stream.idoc.factory.IdocExecFactory;
+import com.moss.spring.boot.stream.idoc.listener.IdocListener;
+import com.moss.spring.boot.stream.idoc.listener.IdocListenerSupport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
