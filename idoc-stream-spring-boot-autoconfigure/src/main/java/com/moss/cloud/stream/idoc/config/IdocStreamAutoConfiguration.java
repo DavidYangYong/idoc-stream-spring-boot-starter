@@ -2,7 +2,6 @@ package com.moss.cloud.stream.idoc.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moss.cloud.stream.idoc.domain.RuleProperties;
-import com.moss.cloud.stream.idoc.factory.IdocExecFactory;
 import com.moss.cloud.stream.idoc.listener.IdocListener;
 import com.moss.cloud.stream.idoc.listener.IdocListenerCustomizer;
 import com.moss.cloud.stream.idoc.listener.IdocListenerSupport;
@@ -11,6 +10,7 @@ import com.moss.cloud.stream.idoc.service.base.IBaseExecService;
 import com.moss.cloud.stream.idoc.service.base.IBaseTaskService;
 import com.moss.cloud.stream.idoc.service.base.IdocMessageConverter;
 import com.moss.cloud.stream.idoc.strategy.HandlerContext;
+import com.moss.cloud.stream.idoc.strategy.IdocExecFactory;
 import java.util.Collections;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

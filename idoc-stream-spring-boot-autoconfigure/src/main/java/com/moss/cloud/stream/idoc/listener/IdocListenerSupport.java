@@ -1,10 +1,10 @@
 package com.moss.cloud.stream.idoc.listener;
 
 import com.moss.cloud.stream.idoc.domain.RuleProperties;
-import com.moss.cloud.stream.idoc.factory.IdocExecFactory;
 import com.moss.cloud.stream.idoc.service.base.IBaseExecService;
 import com.moss.cloud.stream.idoc.service.base.IBaseTaskService;
 import com.moss.cloud.stream.idoc.service.base.IdocMessageConverter;
+import com.moss.cloud.stream.idoc.strategy.IdocExecFactory;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;

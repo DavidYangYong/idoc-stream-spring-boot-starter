@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.moss.cloud.stream.idoc.config.IdocSinkAutoConfiguration;
 import com.moss.cloud.stream.idoc.config.IdocStreamAutoConfiguration;
-import com.moss.cloud.stream.idoc.factory.IdocExecFactory;
 import com.moss.cloud.stream.idoc.listener.IdocListener;
 import com.moss.cloud.stream.idoc.listener.IdocListenerSupport;
+import com.moss.cloud.stream.idoc.strategy.IdocExecFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
