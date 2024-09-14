@@ -35,7 +35,6 @@ import org.springframework.context.annotation.Bean;
 public class IdocStreamAutoConfiguration {
 
   @Bean
-  @ConditionalOnMissingBean
   public HandlerContext handlerContext(ObjectProvider<List<IBaseExecService>> baseExecServiceList) {
     List<IBaseExecService> execServiceList = baseExecServiceList.getIfAvailable(
         Collections::emptyList);
@@ -43,13 +42,11 @@ public class IdocStreamAutoConfiguration {
   }
 
   @Bean
-  @ConditionalOnMissingBean
   public IdocExecFactory idocExecFactory(HandlerContext handlerContext) {
     return new IdocExecFactory(handlerContext);
   }
 
   @Bean
-  @ConditionalOnMissingBean
   public IdocListenerSupport idocListenerSupport(IdocExecFactory idocExecFactory,
       RuleProperties ruleProperties,
       IdocMessageConverter idocMessageConverter, ObjectProvider<IBaseTaskService> baseTaskService) {
