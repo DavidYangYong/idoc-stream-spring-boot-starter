@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
@@ -30,6 +31,7 @@ public class IdocSinkAutoConfiguration {
   }
 
   @Bean
+  @ConditionalOnMissingBean
   public Function<Message<String>, Message<String>> idocSink() {
     return msg -> {
       String payload = msg.getPayload();
