@@ -55,7 +55,7 @@ public class IdocListenerSupport {
   }
 
 
-  public String process(MessageHeaders messageHeaders, String idocContent, String mesType) {
+  String process(MessageHeaders messageHeaders, String idocContent, String mesType) {
     log.info("idoc Listener process start------- ");
     String sendMessage = null;
     IBaseExecService baseExecService = getiBaseExecService(

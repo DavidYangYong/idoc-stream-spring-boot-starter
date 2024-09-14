@@ -19,6 +19,11 @@ public class IdocUserPrincipal implements Principal, Serializable {
     this.username = username;
   }
 
+  private  final  static String USER_NAME="IDOC";
+  public IdocUserPrincipal() {
+    this.username = USER_NAME;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
