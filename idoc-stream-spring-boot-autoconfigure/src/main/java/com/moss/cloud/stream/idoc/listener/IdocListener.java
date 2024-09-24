@@ -21,6 +21,9 @@ public class IdocListener implements InitializingBean {
     this.idocListenerSupport = idocListenerSupport;
   }
 
+  private static final String mesTypeKey="message_type";
+  private static final String idocTypeKey="idoc_type";
+  private static final String cimTypeKey="cim_type";
 
   public String process(MessageHeaders messageHeaders, String content) {
 
@@ -28,7 +31,7 @@ public class IdocListener implements InitializingBean {
     log.info("Receiver-queue:si.idoc.queue--> : {}", content);
 
     try {
-      String mesType = messageHeaders.get("message_type", String.class);
+      String mesType = getValueByFind(messageHeaders,mesTypeKey);
 
       if (StringUtils.isNotEmpty(mesType)) {
         log.info("MESTYP---> {}", mesType);
@@ -55,17 +58,17 @@ public class IdocListener implements InitializingBean {
 
   private String queryProcessMsgType(MessageHeaders messageHeaders) {
     String type = "";
-    String mestyp = getValueByFind(messageHeaders, "message_type");
+    String mestyp = getValueByFind(messageHeaders, mesTypeKey);
     String msgTypeTemp = "";
     if (StringUtils.isNotEmpty(mestyp)) {
       msgTypeTemp = mestyp;
     }
     String idocTypeTemp = "";
-    String idocType = getValueByFind(messageHeaders, "idoc_type");
+    String idocType = getValueByFind(messageHeaders, idocTypeKey);
     if (StringUtils.isNotEmpty(idocType)) {
       type = String.format("IDOC:%s:%s", msgTypeTemp, idocType);
     }
-    String cimType = getValueByFind(messageHeaders, "cim_type");
+    String cimType = getValueByFind(messageHeaders, cimTypeKey);
     if (StringUtils.isNotEmpty(cimType)) {
       if (StringUtils.isNotEmpty(cimType)) {
         type = String.format("IDOC:%s:%s:%s", msgTypeTemp, idocTypeTemp, cimType);
