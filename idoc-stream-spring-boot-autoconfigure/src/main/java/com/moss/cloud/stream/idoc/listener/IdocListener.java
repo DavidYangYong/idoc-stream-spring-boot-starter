@@ -15,15 +15,14 @@ import org.springframework.util.Assert;
 @Slf4j
 public class IdocListener implements InitializingBean {
 
+  private static final String mesTypeKey = "message_type";
+  private static final String idocTypeKey = "idoc_type";
+  private static final String cimTypeKey = "cim_type";
   private IdocListenerSupport idocListenerSupport;
 
   public void setIdocListenerSupport(IdocListenerSupport idocListenerSupport) {
     this.idocListenerSupport = idocListenerSupport;
   }
-
-  private static final String mesTypeKey="message_type";
-  private static final String idocTypeKey="idoc_type";
-  private static final String cimTypeKey="cim_type";
 
   public String process(MessageHeaders messageHeaders, String content) {
 
@@ -31,7 +30,7 @@ public class IdocListener implements InitializingBean {
     log.info("Receiver-queue:si.idoc.queue--> : {}", content);
 
     try {
-      String mesType = getValueByFind(messageHeaders,mesTypeKey);
+      String mesType = getValueByFind(messageHeaders, mesTypeKey);
 
       if (StringUtils.isNotEmpty(mesType)) {
         log.info("MESTYP---> {}", mesType);
