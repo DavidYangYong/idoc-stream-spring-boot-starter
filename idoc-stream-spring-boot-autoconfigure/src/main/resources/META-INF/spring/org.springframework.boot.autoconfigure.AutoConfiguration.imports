@@ -1,2 +1,2 @@
 com.moss.cloud.stream.idoc.config.IdocStreamAutoConfiguration
-com.moss.cloud.stream.idoc.config.IdocSinkAutoConfiguration
+com.moss.cloud.stream.idoc.config.IdocFunctionAutoConfiguration

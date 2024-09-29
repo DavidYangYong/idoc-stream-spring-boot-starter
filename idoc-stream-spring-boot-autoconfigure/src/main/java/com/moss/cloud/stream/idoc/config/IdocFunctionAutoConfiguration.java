@@ -1,6 +1,7 @@
 package com.moss.cloud.stream.idoc.config;
 
 import com.moss.cloud.stream.idoc.listener.IdocListener;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -16,17 +17,17 @@ import org.springframework.messaging.support.MessageBuilder;
 /**
  * @author david
  * @create 2022-11-27 15:06
- * @Description: IdocSinkAutoConfiguration config
+ * @Description: IdocFunctionAutoConfiguration config
  **/
 @Slf4j
 @ConditionalOnClass({Message.class})
 @AutoConfigureAfter({IdocStreamAutoConfiguration.class})
 @ConditionalOnBean({IdocListener.class})
-public class IdocSinkAutoConfiguration {
+public class IdocFunctionAutoConfiguration {
 
   private final IdocListener idocListener;
 
-  public IdocSinkAutoConfiguration(IdocListener idocListener) {
+  public IdocFunctionAutoConfiguration(IdocListener idocListener) {
     this.idocListener = idocListener;
   }
 
@@ -35,12 +36,22 @@ public class IdocSinkAutoConfiguration {
   public Function<Message<String>, Message<String>> idocSink() {
     return msg -> {
       String payload = msg.getPayload();
-      log.info("idocSink Received payload: {}", payload);
       MessageHeaders messageHeaders = msg.getHeaders();
-      log.info("idocSink Received messageHeaders: {}", messageHeaders);
+      log.info("idocSink Received payload {} and messageHeaders: {}", payload, messageHeaders);
       String processed = idocListener.process(messageHeaders, payload);
       return StringUtils.isNotEmpty(processed) ? MessageBuilder.createMessage(processed,
           messageHeaders) : null;
+    };
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public Consumer<Message<String>> idocConsumer() {
+    return msg -> {
+      String payload = msg.getPayload();
+      MessageHeaders messageHeaders = msg.getHeaders();
+      log.info("idocSink Received payload {} and messageHeaders: {}", payload, messageHeaders);
+      idocListener.process(messageHeaders, payload);
     };
   }
 }

@@ -2,7 +2,7 @@ package com.moss.springboot.stream.idoc;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.moss.cloud.stream.idoc.config.IdocSinkAutoConfiguration;
+import com.moss.cloud.stream.idoc.config.IdocFunctionAutoConfiguration;
 import com.moss.cloud.stream.idoc.config.IdocStreamAutoConfiguration;
 import com.moss.cloud.stream.idoc.listener.IdocListener;
 import com.moss.cloud.stream.idoc.listener.IdocListenerSupport;
@@ -16,14 +16,15 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {IdocStreamAutoConfiguration.class, IdocSinkAutoConfiguration.class, JacksonAutoConfiguration.class})
+@SpringBootTest(classes = {IdocStreamAutoConfiguration.class, IdocFunctionAutoConfiguration.class,
+		JacksonAutoConfiguration.class})
 @ActiveProfiles("test")
 public class ServiceConfigApplicationTests {
 
 	@MockBean
 	private IdocStreamAutoConfiguration idocStreamAutoConfiguration;
 	@MockBean
-	private IdocSinkAutoConfiguration idocSinkAutoConfiguration;
+	private IdocFunctionAutoConfiguration idocSinkAutoConfiguration;
 
 	@MockBean
 	private IdocExecFactory idocExecFactory;
