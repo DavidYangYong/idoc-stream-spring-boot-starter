@@ -50,7 +50,7 @@ public class IdocFunctionAutoConfiguration {
     return msg -> {
       String payload = msg.getPayload();
       MessageHeaders messageHeaders = msg.getHeaders();
-      log.info("idocSink Received payload {} and messageHeaders: {}", payload, messageHeaders);
+      log.info("idocConsumer Received payload {} and messageHeaders: {}", payload, messageHeaders);
       idocListener.process(messageHeaders, payload);
     };
   }

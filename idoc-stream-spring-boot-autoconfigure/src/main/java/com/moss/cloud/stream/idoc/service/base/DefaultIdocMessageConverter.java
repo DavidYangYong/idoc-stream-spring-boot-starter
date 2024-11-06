@@ -33,11 +33,12 @@ public class DefaultIdocMessageConverter implements IdocMessageConverter {
 	}
 
 
+	@Override
 	public <T> String objectConvertJson(T t) {
 		String json = null;
 		try {
 			json = objectMapper.writeValueAsString(t);
-			log.info("构建后的对象（json格式）=={}", json);
+			log.info("构建后的对象（json格式）==  {}", json);
 		} catch (JsonProcessingException e) {
 			log.error("构建后的对象（json格式) error ", e);
 		}
