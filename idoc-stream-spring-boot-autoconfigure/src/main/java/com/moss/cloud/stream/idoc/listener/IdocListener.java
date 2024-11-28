@@ -57,10 +57,10 @@ public class IdocListener implements InitializingBean {
 
   private String queryProcessMsgType(MessageHeaders messageHeaders) {
     String type = "";
-    String mestyp = getValueByFind(messageHeaders, mesTypeKey);
+    String mesTyp = getValueByFind(messageHeaders, mesTypeKey);
     String msgTypeTemp = "";
-    if (StringUtils.isNotEmpty(mestyp)) {
-      msgTypeTemp = mestyp;
+    if (StringUtils.isNotEmpty(mesTyp)) {
+      msgTypeTemp = mesTyp;
     }
     String idocTypeTemp = "";
     String idocType = getValueByFind(messageHeaders, idocTypeKey);
