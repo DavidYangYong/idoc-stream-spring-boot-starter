@@ -71,7 +71,6 @@ public class IdocListenerSupport {
         baseExecService.cacheObject(temp);
         boolean supportSendMessage = baseExecService.supportSendMessage();
         if (supportSendMessage) {
-          messageHeaders.put("routingKeyExpression", mesType);
           baseExecService.setMessageHeaders(messageHeaders);
           sendMessage = baseExecService.sendMessage(temp);
           if (StringUtils.isNotEmpty(sendMessage) && baseTaskService != null) {
