@@ -1,4 +1,4 @@
-package com.moss.springboot.stream.idoc.service.base;
+package com.moss.cloud.stream.idoc.service.base;
 
 import java.io.Serializable;
 import org.springframework.messaging.MessageHeaders;

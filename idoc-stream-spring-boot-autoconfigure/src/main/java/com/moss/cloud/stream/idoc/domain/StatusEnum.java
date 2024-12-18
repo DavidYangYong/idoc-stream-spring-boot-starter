@@ -1,4 +1,4 @@
-package com.moss.springboot.stream.idoc.domain;
+package com.moss.cloud.stream.idoc.domain;
 
 /**
  * @author david

@@ -1,4 +1,4 @@
-package com.moss.springboot.stream.idoc.domain;
+package com.moss.cloud.stream.idoc.domain;
 
 import java.util.List;
 import org.springframework.boot.context.properties.ConfigurationProperties;

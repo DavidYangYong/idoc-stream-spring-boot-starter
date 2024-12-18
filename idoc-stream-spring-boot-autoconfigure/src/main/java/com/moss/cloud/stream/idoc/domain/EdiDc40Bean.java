@@ -1,4 +1,4 @@
-package com.moss.springboot.stream.idoc.domain;
+package com.moss.cloud.stream.idoc.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

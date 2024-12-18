@@ -1,7 +1,7 @@
 package com.moss.springboot.stream.idoc;
 
-import com.moss.springboot.stream.idoc.annotation.HandlerType;
-import com.moss.springboot.stream.idoc.service.base.IBaseExecService;
+import com.moss.cloud.stream.idoc.annotation.HandlerType;
+import com.moss.cloud.stream.idoc.service.base.IBaseExecService;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;

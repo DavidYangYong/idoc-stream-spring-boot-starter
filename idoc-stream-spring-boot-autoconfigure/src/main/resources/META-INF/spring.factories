@@ -1,4 +1,4 @@
 ##Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.moss.springboot.stream.idoc.autoconfigure.IdocStreamAutoConfiguration,\
-com.moss.springboot.stream.idoc.autoconfigure.IdocSinkAutoConfiguration
+com.moss.cloud.stream.idoc.config.IdocStreamAutoConfiguration,\
+com.moss.cloud.stream.idoc.config.IdocFunctionAutoConfiguration

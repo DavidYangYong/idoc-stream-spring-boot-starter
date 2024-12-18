@@ -1,6 +1,6 @@
-package com.moss.springboot.stream.idoc.strategy;
+package com.moss.cloud.stream.idoc.strategy;
 
-import com.moss.springboot.stream.idoc.service.base.IBaseExecService;
+import com.moss.cloud.stream.idoc.service.base.IBaseExecService;
 import java.util.List;
 import java.util.Optional;
 import org.apache.commons.collections4.CollectionUtils;
