@@ -38,9 +38,17 @@ public class IdocFunctionAutoConfiguration {
       String payload = msg.getPayload();
       MessageHeaders messageHeaders = msg.getHeaders();
       log.info("idocSink Received payload {} and messageHeaders: {}", payload, messageHeaders);
+
       String processed = idocListener.process(messageHeaders, payload);
-      return StringUtils.isNotEmpty(processed) ? MessageBuilder.createMessage(processed,
-          messageHeaders) : null;
+      if (StringUtils.isNotEmpty(processed)) {
+        Message<String> message = MessageBuilder.createMessage(processed,
+            messageHeaders);
+        String type = idocListener.queryProcessMsgType(messageHeaders);
+        message = MessageBuilder.withPayload(processed).copyHeaders(messageHeaders).setHeader("routingKeyExpression",
+            type).build();
+        return message;
+      }
+      return null;
     };
   }
 
