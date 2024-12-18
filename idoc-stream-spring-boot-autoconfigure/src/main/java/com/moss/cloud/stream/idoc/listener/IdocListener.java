@@ -37,7 +37,6 @@ public class IdocListener implements InitializingBean {
         String type = queryProcessMsgType(messageHeaders);
         if (StringUtils.isNotEmpty(type)) {
           log.info("queryProcessMsgType---> {}", type);
-          messageHeaders.put("routingKeyExpression", type);
           sendMessage = idocListenerSupport.process(messageHeaders, content, type);
         } else {
           log.warn("MESTYP is Empty in json content");
@@ -56,7 +55,7 @@ public class IdocListener implements InitializingBean {
     return sendMessage;
   }
 
-  private String queryProcessMsgType(MessageHeaders messageHeaders) {
+  public String queryProcessMsgType(MessageHeaders messageHeaders) {
     String type = "";
     String mesTyp = getValueByFind(messageHeaders, mesTypeKey);
     String msgTypeTemp = "";
