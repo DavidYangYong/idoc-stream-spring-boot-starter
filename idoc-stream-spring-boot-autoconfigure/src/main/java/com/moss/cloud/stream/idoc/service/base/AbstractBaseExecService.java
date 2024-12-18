@@ -21,7 +21,7 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
   private  DefaultBaseExecServiceMetadata defaultBaseExecServiceMetadata = new DefaultBaseExecServiceMetadata(
       getClass());
   public AbstractBaseExecService() {
-    this.clazz = defaultBaseExecServiceMetadata.getDomainType();
+    clazz = defaultBaseExecServiceMetadata.getDomainType();
   }
 
   public AbstractBaseExecService(Class<T> clazz) {
@@ -33,6 +33,7 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
     return messageHeaders;
   }
 
+  @Override
   public void setMessageHeaders(MessageHeaders messageHeaders) {
     this.messageHeaders = messageHeaders;
   }
@@ -41,6 +42,7 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
     return idocMessageConverter;
   }
 
+  @Override
   public void setIdocMessageConverter(IdocMessageConverter idocMessageConverter) {
     this.idocMessageConverter = idocMessageConverter;
   }
@@ -57,11 +59,11 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
    * @return T idoc 对应 java 的转换类
    */
   @Override
-  public abstract T exec(T t);
+  public abstract <R> R exec(T t);
 
 
   private HandlerType getHandlerType() {
-    return AnnotationUtils.findAnnotation(this.getClass(), HandlerType.class);
+    return AnnotationUtils.findAnnotation(getClass(), HandlerType.class);
   }
 
   @Override
@@ -70,6 +72,7 @@ public abstract class AbstractBaseExecService<T> implements IBaseExecService<T> 
     return handlerType != null ? handlerType.value() : StringUtils.EMPTY;
   }
 
+  @Override
   public boolean idocContentNotConvert() {
     HandlerType handlerType = getHandlerType();
     return handlerType == null || handlerType.idocContentNotConvert();
