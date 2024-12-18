@@ -1,4 +1,4 @@
-package com.moss.springboot.stream.idoc.annotation;
+package com.moss.cloud.stream.idoc.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -6,6 +6,7 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.springframework.core.annotation.AliasFor;
 
 /**
  * @author david
@@ -17,7 +18,11 @@ import java.lang.annotation.Target;
 @Inherited
 public @interface HandlerType {
 
-	String value();
+	@AliasFor("name")
+	String value() default "";
+
+	@AliasFor("value")
+	String name() default "";
 
 	boolean idocContentNotConvert() default true;
 }

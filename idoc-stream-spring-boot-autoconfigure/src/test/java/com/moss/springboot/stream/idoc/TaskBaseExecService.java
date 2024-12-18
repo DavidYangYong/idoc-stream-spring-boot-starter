@@ -1,6 +1,6 @@
 package com.moss.springboot.stream.idoc;
 
-import com.moss.springboot.stream.idoc.service.base.IBaseTaskService;
+import com.moss.cloud.stream.idoc.service.base.IBaseTaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -13,9 +13,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class TaskBaseExecService implements IBaseTaskService {
 
-
+	/**
+	 * @Author david
+	 * @Description
+	 * @Date 2024-07-25
+	 * @Param messageType
+	 * @Param sendMessage
+	 * @return: void
+	 **/
 	@Override
 	public void sendMessage(String messageType, String sendMessage) {
+
 		log.info("外发Message to MQ：{}", sendMessage);
 		if (StringUtils.isNotEmpty(sendMessage)) {//判断移动类型是否在枚举范围内
 			//source.output().send(MessageBuilder.withPayload(sendMessage).build());

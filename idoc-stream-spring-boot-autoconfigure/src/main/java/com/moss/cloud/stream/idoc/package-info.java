@@ -16,4 +16,4 @@
 /**
  * Spring Boot Stater
  */
-package com.moss.springboot.stream.idoc;
+package com.moss.cloud.stream.idoc;
