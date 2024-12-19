@@ -12,7 +12,7 @@ public abstract class AbstractBaseExecSendToService<T> extends AbstractBaseExecS
 	}
 
 	@Override
-	public <R> R exec(T t) {
+	public T exec(T t) {
 		return null;
 	}
 
@@ -21,7 +21,6 @@ public abstract class AbstractBaseExecSendToService<T> extends AbstractBaseExecS
 		return true;
 	}
 
-	@Override
 	public String sendMessage(T t) {
 		return getIdocMessageConverter().objectConvertJson(t);
 	}
