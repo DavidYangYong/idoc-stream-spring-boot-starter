@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import com.moss.cloud.stream.idoc.config.IdocFunctionAutoConfiguration;
 import com.moss.cloud.stream.idoc.config.IdocStreamAutoConfiguration;
 import com.moss.cloud.stream.idoc.listener.IdocListener;
-import com.moss.cloud.stream.idoc.listener.IdocListenerSupport;
+import com.moss.cloud.stream.idoc.listener.IdocListenerTemplate;
 import com.moss.cloud.stream.idoc.strategy.IdocExecFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +30,7 @@ public class ServiceConfigApplicationTests {
 	private IdocExecFactory idocExecFactory;
 
 	@MockBean
-	private IdocListenerSupport idocListenerSupport;
+	private IdocListenerTemplate idocListenerTemplate;
 
 	@MockBean
 	private IdocListener idocListener;
@@ -42,28 +42,28 @@ public class ServiceConfigApplicationTests {
 
 	@Test
 	public void idocStreamAutoConfiguration() {
-		assertNotNull(idocStreamAutoConfiguration);
+		assertNotNull(this.idocStreamAutoConfiguration);
 	}
 
 
 	@Test
 	public void idocSinkAutoConfiguration() {
-		assertNotNull(idocSinkAutoConfiguration);
+		assertNotNull(this.idocSinkAutoConfiguration);
 	}
 
 
 	@Test
 	public void idocExecFactory() {
-		assertNotNull(idocExecFactory);
+		assertNotNull(this.idocExecFactory);
 	}
 
 	@Test
-	public void idocListenerSupport() {
-		assertNotNull(idocListenerSupport);
+	public void idocListenerTemplate() {
+		assertNotNull(this.idocListenerTemplate);
 	}
 
 	@Test
 	public void idocListener() {
-		assertNotNull(idocListener);
+		assertNotNull(this.idocListener);
 	}
 }

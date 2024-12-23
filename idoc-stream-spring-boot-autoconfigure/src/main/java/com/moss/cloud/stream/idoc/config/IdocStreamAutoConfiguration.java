@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moss.cloud.stream.idoc.domain.RuleProperties;
 import com.moss.cloud.stream.idoc.listener.IdocListener;
 import com.moss.cloud.stream.idoc.listener.IdocListenerCustomizer;
-import com.moss.cloud.stream.idoc.listener.IdocListenerSupport;
+import com.moss.cloud.stream.idoc.listener.IdocListenerTemplate;
 import com.moss.cloud.stream.idoc.service.base.DefaultIdocMessageConverter;
 import com.moss.cloud.stream.idoc.service.base.IBaseExecService;
 import com.moss.cloud.stream.idoc.service.base.IBaseTaskService;
@@ -47,22 +47,22 @@ public class IdocStreamAutoConfiguration {
   }
 
   @Bean
-  public IdocListenerSupport idocListenerSupport(IdocExecFactory idocExecFactory,
+  public IdocListenerTemplate idocListenerTemplate(IdocExecFactory idocExecFactory,
       RuleProperties ruleProperties,
       IdocMessageConverter idocMessageConverter, ObjectProvider<IBaseTaskService> baseTaskService) {
-    IdocListenerSupport idocListenerSupport = new IdocListenerSupport(idocExecFactory,
+    IdocListenerTemplate idocListenerTemplate = new IdocListenerTemplate(idocExecFactory,
         ruleProperties);
-    baseTaskService.ifAvailable(idocListenerSupport::setBaseTaskService);
-    idocListenerSupport.setIdocMessageConverter(idocMessageConverter);
-    return idocListenerSupport;
+    baseTaskService.ifAvailable(idocListenerTemplate::setBaseTaskService);
+    idocListenerTemplate.setIdocMessageConverter(idocMessageConverter);
+    return idocListenerTemplate;
   }
 
   @Bean
   @ConditionalOnMissingBean
-  public IdocListener idocListener(IdocListenerSupport idocListenerSupport,
+  public IdocListener idocListener(IdocListenerTemplate idocListenerTemplate,
       ObjectProvider<List<IdocListenerCustomizer>> listObjectProvider) {
     IdocListener idocListener = new IdocListener();
-    idocListener.setIdocListenerSupport(idocListenerSupport);
+    idocListener.setIdocListenerTemplate(idocListenerTemplate);
     listObjectProvider.ifAvailable(list -> {
       list.forEach(c -> {
         c.customize(idocListener);

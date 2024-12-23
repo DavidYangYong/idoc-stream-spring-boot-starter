@@ -19,14 +19,14 @@ import org.springframework.util.Assert;
  * @date 2019-10-19 08:20
  **/
 @Slf4j
-public class IdocListenerSupport {
+public class IdocListenerTemplate {
 
   private final IdocExecFactory idocExecFactory;
   private final RuleProperties ruleProperties;
   private IBaseTaskService baseTaskService;
   private IdocMessageConverter idocMessageConverter;
 
-  public IdocListenerSupport(IdocExecFactory idocExecFactory, RuleProperties ruleProperties) {
+  public IdocListenerTemplate(IdocExecFactory idocExecFactory, RuleProperties ruleProperties) {
     Assert.notNull(ruleProperties, "ruleProperties must be not null");
     Assert.notNull(idocExecFactory, "idocExecFactory must be not null");
     this.ruleProperties = ruleProperties;
@@ -43,7 +43,7 @@ public class IdocListenerSupport {
 
   private boolean validationExecMesType(String mesTyp) {
     boolean b = false;
-    List<String> idocRules = ruleProperties.getIdocRules();
+    List<String> idocRules = this.ruleProperties.getIdocRules();
     if (CollectionUtils.isNotEmpty(idocRules)) {
       Collection<String> selectList = idocRules.stream().filter(
               s -> StringUtils.equals(s, mesTyp))
@@ -57,13 +57,13 @@ public class IdocListenerSupport {
   String process(MessageHeaders messageHeaders, String idocContent, String mesType) {
     log.info("idoc Listener process start------- ");
     String sendMessage = null;
-    IBaseExecService baseExecService = getiBaseExecService(
+    IBaseExecService baseExecService = this.getiBaseExecService(
         mesType);
     if (baseExecService == null) {
       return null;
     }
     try {
-      if (idocConvertVal(baseExecService)) {
+      if (this.idocConvertVal(baseExecService)) {
         return baseExecService.idocContentConvert(idocContent);
       } else {
         Object t = baseExecService.execTemplate(idocContent);
@@ -73,37 +73,37 @@ public class IdocListenerSupport {
         if (supportSendMessage) {
           baseExecService.setMessageHeaders(messageHeaders);
           sendMessage = baseExecService.sendMessage(temp);
-          if (StringUtils.isNotEmpty(sendMessage) && baseTaskService != null) {
-            baseTaskService.sendMessage(mesType, sendMessage);
+          if (StringUtils.isNotEmpty(sendMessage) && this.baseTaskService != null) {
+            this.baseTaskService.sendMessage(mesType, sendMessage);
           }
         }
       }
     } catch (RuntimeException e) {
-      log.error("IdocListenerSupport process fail:", e);
-      throw new RuntimeException("IdocListenerSupport process fail:", e);
+      log.error("IdocListenerTemplate process fail:", e);
+      throw new RuntimeException("IdocListenerTemplate process fail:", e);
     }
     log.info("idoc Listener process end------- ");
     return sendMessage;
   }
 
   private IBaseExecService getiBaseExecService(String mesType) {
-    boolean validationExecMesType = validationExecMesType(mesType);
+    boolean validationExecMesType = this.validationExecMesType(mesType);
 
     if (!validationExecMesType) {
       log.warn("mesTyp {} is not find in idoc rules ", mesType);
       return null;
     }
-    IBaseExecService baseExecService = idocExecFactory.createBaseExec(mesType);
+    IBaseExecService baseExecService = this.idocExecFactory.createBaseExec(mesType);
     if (baseExecService == null) {
       log.warn("mesTyp is not find process class ");
       return null;
     }
-    baseExecService.setIdocMessageConverter(idocMessageConverter);
+    baseExecService.setIdocMessageConverter(this.idocMessageConverter);
     return baseExecService;
   }
 
   private boolean idocConvertVal(IBaseExecService<?> baseExecService) {
-    return ruleProperties.getIdocContentNotConvert()
+    return this.ruleProperties.getIdocContentNotConvert()
         && baseExecService.idocContentNotConvert();
   }
 }
