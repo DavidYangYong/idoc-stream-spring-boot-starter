@@ -1,5 +1,6 @@
-package com.moss.cloud.stream.idoc.service.principal;
+package com.moss.cloud.stream.idoc.domain.principal;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.Objects;
@@ -12,14 +13,15 @@ import org.springframework.util.Assert;
  **/
 public class IdocUserPrincipal implements Principal, Serializable {
 
+  @Serial
+  private static final long serialVersionUID = 1798884586633958825L;
+  private  final  static String USER_NAME="IDOC";
   private final String username;
 
   public IdocUserPrincipal(String username) {
     Assert.notNull(username, "User name");
     this.username = username;
   }
-
-  private  final  static String USER_NAME="IDOC";
   public IdocUserPrincipal() {
     this.username = USER_NAME;
   }
@@ -32,23 +34,23 @@ public class IdocUserPrincipal implements Principal, Serializable {
     if (!(o instanceof IdocUserPrincipal that)) {
       return false;
     }
-    return Objects.equals(username, that.username);
+    return Objects.equals(this.username, that.username);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(username);
+    return Objects.hashCode(this.username);
   }
 
   @Override
   public String getName() {
-    return username;
+    return this.username;
   }
 
   @Override
   public String toString() {
     return "IdocUserPrincipal{" +
-        "username='" + username + '\'' +
+        "username='" + this.username + '\'' +
         '}';
   }
 }
