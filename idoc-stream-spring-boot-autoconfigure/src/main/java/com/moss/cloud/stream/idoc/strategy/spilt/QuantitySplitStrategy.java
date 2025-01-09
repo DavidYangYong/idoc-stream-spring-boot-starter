@@ -10,18 +10,37 @@ import java.util.List;
  **/
 public class QuantitySplitStrategy<T> implements SplitStrategy {
 
+  private final int maxQuantity;
+  private int totalQuantity;
+
+  public QuantitySplitStrategy(int totalQuantity, int maxQuantity) {
+    this.totalQuantity = totalQuantity;
+    this.maxQuantity = maxQuantity;
+  }
+
   @Override
-  public List<SpiltData> splitData(int totalQuantity, int maxQuantity, List<SpiltData> spiltDataList) {
+  public List<SpiltData> splitData() {
     List<SpiltData> spiltDataListTemp = new ArrayList<>();
-    if (spiltDataList != null || spiltDataList.size() != 0) {
-      if (totalQuantity > 0 && maxQuantity > 0 && totalQuantity >= maxQuantity) {
-        for (SpiltData spiltData : spiltDataList) {
-          spiltData.setMaxQuantity(Math.min(maxQuantity, totalQuantity));
-          totalQuantity -= maxQuantity;
-          spiltDataListTemp.add(spiltData);
-        }
-      }
+    int index = 0;
+    while (this.totalQuantity > 0) {
+
+      SpiltData spiltData = new SpiltData();
+
+      spiltData.setSpiltKey(String.valueOf(index));
+      spiltData.setMaxQuantity(Math.min(this.maxQuantity, this.totalQuantity));
+      spiltData.setSplitQuantity(this.isSplitQuantity());
+      spiltDataListTemp.add(spiltData);
+
+      this.totalQuantity -= this.maxQuantity;
+
+      index++;
+
     }
     return spiltDataListTemp;
+  }
+
+  @Override
+  public boolean isSplitQuantity() {
+    return true;
   }
 }

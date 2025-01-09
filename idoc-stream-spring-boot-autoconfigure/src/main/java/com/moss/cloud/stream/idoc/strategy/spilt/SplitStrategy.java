@@ -9,5 +9,13 @@ import java.util.List;
  **/
 public interface SplitStrategy {
 
-  public List<SpiltData> splitData(int totalQuantity, int maxQuantity, List<SpiltData> spiltDataList);
+  public List<SpiltData> splitData();
+
+  default boolean isSplitQuantity() {
+    return false;
+  }
+
+  default boolean isSplitAmount() {
+    return false;
+  }
 }

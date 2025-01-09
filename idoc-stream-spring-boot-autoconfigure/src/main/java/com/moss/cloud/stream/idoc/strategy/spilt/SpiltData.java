@@ -1,5 +1,6 @@
 package com.moss.cloud.stream.idoc.strategy.spilt;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -11,9 +12,36 @@ public class SpiltData {
 
   private String spiltKey;
   private int maxQuantity;
+  private BigDecimal maxAmount;
 
-  public SpiltData(String spiltKey) {
-    this.spiltKey = spiltKey;
+  private boolean isSplitQuantity;
+  private boolean isSplitAmount;
+
+  public SpiltData() {
+  }
+
+  public boolean isSplitQuantity() {
+    return this.isSplitQuantity;
+  }
+
+  public void setSplitQuantity(boolean splitQuantity) {
+    this.isSplitQuantity = splitQuantity;
+  }
+
+  public boolean isSplitAmount() {
+    return this.isSplitAmount;
+  }
+
+  public void setSplitAmount(boolean splitAmount) {
+    this.isSplitAmount = splitAmount;
+  }
+
+  public BigDecimal getMaxAmount() {
+    return this.maxAmount;
+  }
+
+  public void setMaxAmount(BigDecimal maxAmount) {
+    this.maxAmount = maxAmount;
   }
 
   @Override
