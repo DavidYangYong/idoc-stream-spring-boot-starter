@@ -18,10 +18,14 @@ public class IdocListener implements InitializingBean {
   private static final String mesTypeKey = "message_type";
   private static final String idocTypeKey = "idoc_type";
   private static final String cimTypeKey = "cim_type";
-  private IdocListenerSupport idocListenerSupport;
+  private IdocListenerTemplate idocListenerTemplate;
 
-  public void setIdocListenerSupport(IdocListenerSupport idocListenerSupport) {
-    this.idocListenerSupport = idocListenerSupport;
+  public IdocListenerTemplate getIdocListenerTemplate() {
+    return this.idocListenerTemplate;
+  }
+
+  public void setIdocListenerTemplate(IdocListenerTemplate idocListenerTemplate) {
+    this.idocListenerTemplate = idocListenerTemplate;
   }
 
   public String process(MessageHeaders messageHeaders, String content) {
@@ -30,14 +34,14 @@ public class IdocListener implements InitializingBean {
     log.info("Receiver-queue:si.idoc.queue--> : {}", content);
 
     try {
-      String mesType = getValueByFind(messageHeaders, mesTypeKey);
+      String mesType = this.getValueByFind(messageHeaders, mesTypeKey);
 
       if (StringUtils.isNotEmpty(mesType)) {
         log.info("MESTYP---> {}", mesType);
-        String type = queryProcessMsgType(messageHeaders);
+        String type = this.queryProcessMsgType(messageHeaders);
         if (StringUtils.isNotEmpty(type)) {
           log.info("queryProcessMsgType---> {}", type);
-          sendMessage = idocListenerSupport.process(messageHeaders, content, type);
+          sendMessage = this.idocListenerTemplate.process(messageHeaders, content, type);
         } else {
           log.warn("MESTYP is Empty in json content");
         }
@@ -57,17 +61,17 @@ public class IdocListener implements InitializingBean {
 
   public String queryProcessMsgType(MessageHeaders messageHeaders) {
     String type = "";
-    String mesTyp = getValueByFind(messageHeaders, mesTypeKey);
+    String mesTyp = this.getValueByFind(messageHeaders, mesTypeKey);
     String msgTypeTemp = "";
     if (StringUtils.isNotEmpty(mesTyp)) {
       msgTypeTemp = mesTyp;
     }
     String idocTypeTemp = "";
-    String idocType = getValueByFind(messageHeaders, idocTypeKey);
+    String idocType = this.getValueByFind(messageHeaders, idocTypeKey);
     if (StringUtils.isNotEmpty(idocType)) {
       type = String.format("IDOC:%s:%s", msgTypeTemp, idocType);
     }
-    String cimType = getValueByFind(messageHeaders, cimTypeKey);
+    String cimType = this.getValueByFind(messageHeaders, cimTypeKey);
     if (StringUtils.isNotEmpty(cimType)) {
       if (StringUtils.isNotEmpty(cimType)) {
         type = String.format("IDOC:%s:%s:%s", msgTypeTemp, idocTypeTemp, cimType);
@@ -82,6 +86,6 @@ public class IdocListener implements InitializingBean {
 
   @Override
   public void afterPropertiesSet() throws Exception {
-    Assert.notNull(idocListenerSupport, "idocListenerSupport must be not null");
+    Assert.notNull(this.idocListenerTemplate, "idocListenerTemplate must be not null");
   }
 }

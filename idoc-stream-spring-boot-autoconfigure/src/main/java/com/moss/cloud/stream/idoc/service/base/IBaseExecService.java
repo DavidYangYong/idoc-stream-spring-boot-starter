@@ -42,7 +42,7 @@ public interface IBaseExecService<T> {
 	 * @param t 操作实体类
 	 * @return T
 	 */
-	public <R> R exec(T t);
+	public T exec(T t);
 
 	/**
 	 * 缓存实体类
