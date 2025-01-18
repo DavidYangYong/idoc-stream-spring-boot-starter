@@ -22,16 +22,16 @@ public class QuantitySplitStrategy<T> implements SplitStrategy {
   public List<SpiltData> splitData() {
     List<SpiltData> spiltDataListTemp = new ArrayList<>();
     int index = 0;
-    while (this.totalQuantity > 0) {
+    while (totalQuantity > 0) {
 
       SpiltData spiltData = new SpiltData();
 
       spiltData.setSpiltKey(String.valueOf(index));
-      spiltData.setMaxQuantity(Math.min(this.maxQuantity, this.totalQuantity));
+      spiltData.setMaxQuantity(Math.min(maxQuantity, totalQuantity));
       spiltData.setSplitQuantity(this.isSplitQuantity());
       spiltDataListTemp.add(spiltData);
 
-      this.totalQuantity -= this.maxQuantity;
+      totalQuantity -= maxQuantity;
 
       index++;
 

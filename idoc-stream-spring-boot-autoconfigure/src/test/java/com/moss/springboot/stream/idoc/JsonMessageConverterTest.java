@@ -1,6 +1,7 @@
 package com.moss.springboot.stream.idoc;
 
 
+import org.junit.Test;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
@@ -12,7 +13,8 @@ import org.springframework.amqp.support.converter.MessageConverter;
  **/
 public class JsonMessageConverterTest {
 
-	public static void main(String[] args) {
+	@Test
+	public void messageConverter() {
 		MessageConverter messageConverter = new Jackson2JsonMessageConverter();
 		Message message = null;
 		Object o = messageConverter.fromMessage(message);
